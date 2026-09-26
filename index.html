@@ -5,174 +5,155 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Wisata Amal Zone</title>
   <style>
-    /* DESAIN WALLET & PASPOR DIGITAL MODERN */
+    /* WARNA TEMA ALA APLIKASI PENERBANGAN / APPETISER APPS */
     :root {
-      --primary: #2a9d8f; 
-      --primary-dark: #1f7066;
-      --primary-soft: #eaf6f5; 
-      --accent-gold: #e9c46a;
-      --bg-color: #f4f6f9;
-      --text-main: #2d3436;
-      --text-muted: #8395a7;
-      --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      --pocket-shadow: 0 12px 28px rgba(42, 157, 143, 0.25);
+      --navy-dark: #102136;
+      --navy-main: #193354;
+      --teal-main: #58b4ba;
+      --teal-dark: #46969b;
+      --bg-light: #f0f4f8;
+      --text-main: #2c3e50;
+      --text-muted: #7f8c8d;
+      --card-radius: 36px;
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 12px 12px 90px 12px; } 
+    
+    body { background: var(--bg-light); color: var(--text-main); min-height: 100vh; padding-bottom: 90px; overflow-x: hidden; } 
 
-    /* ANIMASI KARTU & PASPOR */
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* BACKGROUND BIRU DONGKER MELENGKUNG DI ATAS */
+    .top-bg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 280px;
+      background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-main) 100%);
+      z-index: -1;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
     }
-    @keyframes passportSlideOut {
-      0% { opacity: 0; transform: translateY(40px) scale(0.92) rotateX(-10deg); }
-      60% { transform: translateY(-8px) scale(1.02) rotateX(0deg); }
-      100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
-    }
 
-    .app-header { text-align: center; margin-bottom: 20px; margin-top: 8px; }
-    .app-header img { height: 48px; object-fit: contain; margin-bottom: 6px; }
-    .app-header p { font-size: 11px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px;}
+    /* HEADER & LOGO */
+    .app-header { padding: 30px 24px 0 24px; color: #ffffff; display: flex; align-items: center; justify-content: flex-start; gap: 12px; max-width: 500px; margin: 0 auto; }
+    .app-header img { height: 45px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+    .app-header-text h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .app-header-text p { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600; }
 
-    .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 24px; padding: 20px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.02); margin-bottom: 14px; animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
-    .card-title { font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 16px; text-align: center; }
+    /* KARTU KONTEN UTAMA - OVERLAP KE ATAS */
+    .card-container { width: 100%; padding: 0 16px; margin-top: 30px; display: flex; justify-content: center; }
+    .card { background: #ffffff; width: 100%; max-width: 420px; border-radius: var(--card-radius); padding: 28px 24px; box-shadow: 0 12px 35px rgba(25, 51, 84, 0.08); animation: fadeSlideUp 0.4s ease-out; }
+    .card-title { font-size: 18px; font-weight: 800; color: var(--navy-main); margin-bottom: 20px; text-align: center; }
 
-    /* KONSTRUKSI WALLET POCKET ALA GAMBAR REFERENSI */
-    .wallet-container {
-      position: relative;
-      background: linear-gradient(145deg, var(--primary), var(--primary-dark));
-      border-radius: 24px;
-      padding: 22px 20px 20px 20px;
-      color: #ffffff;
-      box-shadow: var(--pocket-shadow);
-      overflow: hidden;
-    }
-    .wallet-card-stacked {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 88%;
-      height: 35px;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(8px);
-      border-radius: 16px 16px 0 0;
-      z-index: 0;
-    }
-    .wallet-content { position: relative; z-index: 1; }
-    .wallet-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: rgba(255,255,255,0.75); letter-spacing: 0.8px; }
-    .wallet-balance { font-size: 28px; font-weight: 800; color: #ffffff; margin-top: 4px; letter-spacing: -0.5px; }
-    .wallet-sub { display: flex; justify-content: space-between; margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 11px; }
-
-    /* ANIMASI DOKUMEN PASPOR DIGITAL */
-    .passport-card-3d {
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #ffffff;
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: 0 12px 30px rgba(30, 60, 114, 0.3);
-      position: relative;
-      overflow: hidden;
-      animation: passportSlideOut 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    .passport-chip { width: 32px; height: 24px; background: linear-gradient(135deg, #f6d365, #fda085); border-radius: 6px; margin-bottom: 12px; opacity: 0.9; }
-    .passport-header-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-gold); }
-    .passport-owner-name { font-size: 18px; font-weight: 800; margin-top: 2px; }
-    .passport-id-code { font-size: 12px; opacity: 0.85; font-family: monospace; letter-spacing: 1px; margin-top: 2px; }
-
-    /* BUTTON STYLES */
-    .btn { width: 100%; padding: 14px; border-radius: 16px; font-size: 14px; font-weight: 600; border: none; cursor: pointer; text-align: center; margin-bottom: 10px; transition: all 0.2s ease; }
+    /* TOMBOL PILL (BULAT PANJANG) */
+    .btn { width: 100%; padding: 16px; border-radius: 50px; font-size: 14px; font-weight: 700; border: none; cursor: pointer; text-align: center; margin-bottom: 12px; transition: all 0.2s ease; letter-spacing: 0.5px; }
     .btn:active { transform: scale(0.97); }
-    .btn-main { background: var(--primary); color: #ffffff; box-shadow: 0 4px 14px rgba(42, 157, 143, 0.25); }
-    .btn-menu { background: var(--primary-soft); color: var(--primary-dark); border: 1px solid rgba(42, 157, 143, 0.12); display: flex; justify-content: space-between; align-items: center; padding: 16px; font-size: 14px;}
-    .btn-menu:after { content: "›"; font-size: 20px; line-height: 0; color: var(--primary); }
-    .btn-secondary { background: #f1f2f6; color: var(--text-muted); margin-top: 8px; }
-    .btn-danger { background: #fff0f0; color: #d63031; border: 1px solid #ffdcdc; }
+    .btn-main { background: var(--teal-main); color: #ffffff; box-shadow: 0 6px 16px rgba(88, 180, 186, 0.3); }
+    .btn-menu { background: #f8fafc; color: var(--navy-main); border: 2px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; padding: 18px 24px;}
+    .btn-menu:after { content: "›"; font-size: 22px; line-height: 0; color: var(--teal-main); }
+    .btn-danger { background: #fff1f2; color: #e11d48; border: 2px solid #ffe4e6; }
+    
+    /* INPUT FIELD */
+    .input-group { margin-bottom: 16px; text-align: left; }
+    .input-group label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;}
+    .input-field { width: 100%; padding: 16px; border-radius: 16px; border: 2px solid #e2e8f0; font-size: 14px; background: #f8fafc; font-weight: 600; transition: all 0.3s; color: var(--navy-main); }
+    .input-field:focus { outline: none; border-color: var(--teal-main); background: #ffffff; }
+    select.input-field { appearance: auto; padding-left: 16px;}
+    .pin-input { font-size: 28px; letter-spacing: 12px; font-weight: 800; padding: 20px; text-align: center;}
 
-    .input-group { margin-bottom: 14px; text-align: left; }
-    .input-group label { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;}
-    .input-field { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid #dfe6e9; font-size: 14px; background: #fafbfc; text-align: center; font-weight: 600; transition: all 0.25s; }
-    .input-field:focus { outline: none; border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 4px var(--primary-soft); }
-    select.input-field { appearance: auto; text-align: left; padding-left: 14px;}
-    .pin-input { font-size: 24px; letter-spacing: 8px; font-weight: 800; padding: 18px;}
+    /* VISUAL RIWAYAT PERJALANAN (TIMELINE) */
+    .journey-container { margin-top: 20px; padding-left: 8px; margin-bottom: 24px; }
+    .journey-item { position: relative; padding-left: 32px; padding-bottom: 24px; }
+    .journey-item:last-child { padding-bottom: 0; }
+    .journey-dot { position: absolute; left: 0; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--teal-main); border: 3px solid #ffffff; box-shadow: 0 0 0 2px var(--teal-main); z-index: 2; }
+    .journey-line { position: absolute; left: 6px; top: 16px; bottom: -2px; width: 2px; border-left: 2px dashed #cbd5e1; z-index: 1; }
+    .journey-item:last-child .journey-line { display: none; }
+    .journey-title { font-size: 14px; font-weight: 800; color: var(--navy-main); margin-bottom: 4px; }
+    .journey-desc { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .journey-time { font-size: 11px; color: var(--teal-main); font-weight: 700; margin-top: 6px; display: inline-block; background: rgba(88,180,186,0.1); padding: 4px 8px; border-radius: 6px;}
 
-    .divider { height: 1px; background: #f1f2f6; margin: 16px 0; }
-    .status-box { padding: 12px; border-radius: 14px; font-size: 12px; font-weight: 600; text-align: center; margin-top: 8px; display: none; }
-    .status-info { background: var(--primary-soft); color: var(--primary-dark); }
+    /* SISA TIKET CHIPS */
+    .ticket-chip { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px; }
+    .ticket-chip strong { color: var(--navy-main); font-size: 13px; }
+    .ticket-chip span { color: var(--teal-main); font-size: 11px; font-weight: 700; background: rgba(88,180,186,0.15); padding: 4px 8px; border-radius: 6px; }
 
-    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .stat-box { background: #fafbfc; border-radius: 16px; padding: 14px; text-align: center; border: 1px solid #f1f2f6; }
-    .stat-number { font-size: 20px; font-weight: 800; color: var(--text-main); }
-    .stat-label { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-top: 4px;}
-
+    /* LAPORAN & TABEL */
+    .divider { height: 1px; background: #e2e8f0; margin: 20px 0; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .stat-box { background: #f8fafc; border-radius: 20px; padding: 16px; text-align: center; border: 1px solid #e2e8f0; }
+    .stat-number { font-size: 22px; font-weight: 800; color: var(--navy-main); }
+    .stat-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 6px;}
     .report-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; text-align: left; }
-    .report-table th { background: #f8f9fa; padding: 10px; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid #f1f2f6; }
-    .report-table td { padding: 10px; border-bottom: 1px solid #f1f2f6; color: var(--text-main); }
+    .report-table th { background: #f8fafc; padding: 12px; font-weight: 700; color: var(--text-muted); border-bottom: 2px solid #e2e8f0; }
+    .report-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; color: var(--navy-main); font-weight: 600; }
+    .badge-used { background: #fee2e2; color: #b91c1c; padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: 700;}
+    .badge-ready { background: #dcfce7; color: #15803d; padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: 700;}
 
-    .badge-used { background: #fff0f0; color: #d63031; padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: 600;}
-    .badge-ready { background: var(--primary-soft); color: var(--primary-dark); padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: 600;}
-
-    .receipt-box { border: 1.5px dashed #dfe6e9; padding: 20px; border-radius: 18px; background: #fafbfc; margin-bottom: 16px; }
-    .receipt-logo { text-align: center; margin-bottom: 12px; }
+    /* NOTA DIGITAL */
+    .receipt-box { border: 2px dashed #cbd5e1; padding: 24px; border-radius: 24px; background: #f8fafc; margin-bottom: 16px; }
+    .receipt-logo { text-align: center; margin-bottom: 16px; }
     .receipt-logo img { height: 40px; object-fit: contain; }
-    .receipt-header { text-align: center; font-weight: 800; color: var(--text-main); font-size: 15px; margin-bottom: 2px; }
-    .receipt-sub { text-align: center; font-size: 11px; color: var(--text-muted); margin-bottom: 14px; }
-    .receipt-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; border-bottom: 1px dashed #f1f2f6; padding-bottom: 8px; color: var(--text-muted);}
-    .receipt-row strong { color: var(--text-main); }
-    .receipt-total { display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; margin-top: 12px; color: var(--primary); }
+    .receipt-header { text-align: center; font-weight: 800; color: var(--navy-main); font-size: 16px; margin-bottom: 4px; }
+    .receipt-sub { text-align: center; font-size: 11px; color: var(--text-muted); margin-bottom: 20px; }
+    .receipt-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 10px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px; color: var(--text-muted); font-weight: 600;}
+    .receipt-row strong { color: var(--navy-main); font-weight: 800; }
+    .receipt-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; margin-top: 16px; color: var(--teal-main); }
 
-    .swal-soft { border-radius: 24px !important; padding: 1.5em !important; box-shadow: 0 12px 40px rgba(0,0,0,0.12) !important; }
-
+    /* UTILITIES */
+    .status-box { padding: 14px; border-radius: 16px; font-size: 12px; font-weight: 700; text-align: center; margin-top: 8px; display: none; background: #e0f2fe; color: #0369a1; }
+    .swal-soft { border-radius: 28px !important; padding: 1.5em !important; box-shadow: 0 15px 50px rgba(25, 51, 84, 0.15) !important; }
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     #buktiUpload { display: none; }
-    #mainContent { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: flex-start; padding-top:6px; }
-    #reader { border-radius: 20px; overflow: hidden; margin-top: 10px; border: 2px solid var(--primary-soft); box-shadow: var(--card-shadow); }
+    #mainContent { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: flex-start; }
+    #reader { border-radius: 24px; overflow: hidden; margin-top: 10px; border: 3px solid var(--teal-main); box-shadow: 0 10px 25px rgba(88, 180, 186, 0.2); }
     #reader video { object-fit: cover; }
 
-    /* BOTTOM NAVIGATION & FLOATING SCAN BUTTON */
+    /* BOTTOM NAVIGATION (ADA MENU KELUAR) */
     .bottom-nav { 
-      position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px); display: flex; justify-content: space-around; align-items: center; padding: 10px 10px 18px 10px; box-shadow: 0 -6px 25px rgba(0,0,0,0.04); border-top-left-radius: 26px; border-top-right-radius: 26px; z-index: 1000; 
+      position: fixed; bottom: 0; left: 0; width: 100%; 
+      background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); 
+      display: flex; justify-content: space-around; align-items: center; 
+      padding: 12px 8px 20px 8px; box-shadow: 0 -10px 30px rgba(25, 51, 84, 0.05); 
+      border-top-left-radius: 30px; border-top-right-radius: 30px; z-index: 1000; 
     }
-    .nav-item { flex: 1; text-align: center; font-size: 11px; font-weight: 600; color: #b2bec3; cursor: pointer; transition: all 0.25s ease; }
-    .nav-item.active { color: var(--primary); font-weight: 700; }
-    .floating-scan-btn { width: 52px; height: 52px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #ffffff; box-shadow: 0 8px 20px rgba(42, 157, 143, 0.4); margin-top: -24px; cursor: pointer; border: 3px solid #ffffff; transition: all 0.2s ease; }
+    .nav-item { flex: 1; text-align: center; font-size: 11px; font-weight: 700; color: #94a3b8; cursor: pointer; transition: all 0.25s ease; display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .nav-item.active { color: var(--navy-main); }
+    .nav-icon { font-size: 18px; opacity: 0.7; }
+    .nav-item.active .nav-icon { opacity: 1; color: var(--teal-main); }
+    
+    .floating-scan-btn { 
+      width: 56px; height: 56px; 
+      background: var(--teal-main); border-radius: 50%; 
+      display: flex; justify-content: center; align-items: center; color: #ffffff; 
+      box-shadow: 0 10px 25px rgba(88, 180, 186, 0.4); 
+      margin-top: -28px; cursor: pointer; border: 4px solid #ffffff; transition: all 0.2s ease; 
+    }
     .floating-scan-btn:active { transform: scale(0.92); }
-
-    /* LAYOUT BANTUAN UNTUK MOBILE */
     .grid-2-col { display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
 
     /* =========================================
        ✨ RESPONSIVE DESKTOP MODE ✨
-       Tampilan otomatis melebar saat di PC
+       Tampilan Otomatis Melebar & Terbagi 2 Kolom di PC
        ========================================= */
     @media (min-width: 768px) {
-      body { padding: 40px; padding-top: 90px; align-items: center; background: #eef2f5; }
-      .app-header { margin-bottom: 30px; }
-      .app-header img { height: 60px; }
-      .app-header p { font-size: 13px; }
+      body { padding: 40px; padding-top: 60px; background: #e2e8f0; }
+      .top-bg { height: 320px; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+      .app-header { max-width: 900px; padding: 0 20px; margin-bottom: 40px; }
       
-      /* Kartu Melebar ke Samping */
-      .card { max-width: 850px; padding: 40px; border-radius: 32px; box-shadow: 0 16px 50px rgba(0,0,0,0.06); margin-bottom: 24px; }
-      .card.card-narrow { max-width: 480px; margin: 0 auto; } /* Untuk Login & Kamera */
+      .card-container { margin-top: 0; }
+      .card { max-width: 900px; padding: 40px; border-radius: 40px; box-shadow: 0 20px 60px rgba(25, 51, 84, 0.1); margin-bottom: 30px; }
+      .card.card-narrow { max-width: 480px; margin: 0 auto; } 
       
-      /* Mengubah Grid menjadi Kiri Kanan */
-      .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; margin-bottom: 24px; }
+      .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; margin-bottom: 24px; }
       .grid-2-col > div { margin-bottom: 0 !important; }
       
       /* Navigasi Bawah Menjadi Header Melayang di PC */
       .bottom-nav { 
-        top: 20px; bottom: auto; left: 50%; transform: translateX(-50%); 
-        width: 100%; max-width: 500px; border-radius: 40px; 
-        padding: 12px 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
-        border: 1px solid rgba(0,0,0,0.02);
+        top: 24px; bottom: auto; left: 50%; transform: translateX(-50%); 
+        width: 100%; max-width: 600px; border-radius: 50px; 
+        padding: 10px 24px; box-shadow: 0 15px 40px rgba(25, 51, 84, 0.1); 
       }
-      .floating-scan-btn { margin-top: -6px; width: 56px; height: 56px; }
-      .nav-item { font-size: 13px; padding: 8px; }
-
-      /* Penyesuaian Desain Dalam Grid */
-      .wallet-container, .stat-grid, .passport-card-3d { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+      .floating-scan-btn { margin-top: -4px; width: 48px; height: 48px; border-width: 2px; }
+      .nav-item { font-size: 12px; flex-direction: row; justify-content: center; gap: 8px;}
+      .nav-icon { display: none; } /* Sembunyikan icon di PC agar bersih */
+      
+      .journey-container, .stat-grid { height: 100%; display: flex; flex-direction: column; justify-content: center; }
       .stat-grid { margin-bottom: 0; }
     }
   </style>
@@ -184,289 +165,327 @@
 </head>
 <body>
 
-  <!-- CARD NARROW AGAR LOGIN TETAP RAMPING DI PC -->
-  <div id="loginCard" class="card card-narrow" style="margin: auto; margin-top: 40px;">
+  <!-- BACKGROUND ATAS BIRU DONGKER -->
+  <div class="top-bg"></div>
+
+  <!-- LOGIN CARD (TETAP RAMPING) -->
+  <div id="loginCard">
     <div class="app-header">
       <img src="logo-amalzone.png" alt="Amal Zone" onerror="this.style.display='none'">
-      <p>Sistem Terintegrasi Internal</p>
+      <div class="app-header-text">
+        <h1>AMAL ZONE</h1>
+        <p>Sistem Terintegrasi Internal</p>
+      </div>
     </div>
-    <div class="card-title">Akses Keamanan</div>
-    <div class="input-group">
-      <label style="text-align: center;">Masukkan PIN Petugas</label>
-      <input type="password" id="inputPin" class="input-field pin-input" placeholder="••••" inputmode="numeric" maxlength="4">
+    
+    <div class="card-container">
+      <div class="card card-narrow">
+        <div class="card-title">Akses Keamanan</div>
+        <div class="input-group">
+          <label style="text-align: center;">Masukkan PIN Petugas</label>
+          <input type="password" id="inputPin" class="input-field pin-input" placeholder="••••" inputmode="numeric" maxlength="4">
+        </div>
+        <button class="btn btn-main" style="margin-top:24px;" onclick="cekPin()">Masuk Sistem</button>
+      </div>
     </div>
-    <button class="btn btn-main" style="margin-top:20px;" onclick="cekPin()">Masuk Sistem</button>
   </div>
 
   <div id="mainContent">
     <div class="app-header">
-      <img src="logo-amalzone.png" alt="Amal Zone" style="height: 42px;" onerror="this.style.display='none'">
-      <p id="teksSapaan">Portal Operasional</p>
+      <img src="logo-amalzone.png" alt="Amal Zone" onerror="this.style.display='none'">
+      <div class="app-header-text">
+        <h1>AMAL ZONE</h1>
+        <p id="teksSapaan">Portal Operasional</p>
+      </div>
     </div>
 
     <!-- MENU BERANDA (TETAP RAMPING) -->
-    <div id="homeCard" class="card card-narrow" style="display:none;">
-      <div class="card-title" id="homeTitle">Menu Transaksi</div>
-      <div id="wrapperMenuUtama">
-        <button class="btn btn-menu" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;">Penjualan & Aktivasi</button>
-        <button class="btn btn-menu" id="btnMenuPetugas" onclick="showMenu('petugas')" style="display:none;">Penukaran Voucher</button>
-        <button class="btn btn-menu" id="btnMenuLaporan" onclick="showMenu('laporan')" style="display:none;">Laporan Executive</button>
+    <div id="homeCard" class="card-container" style="display:none;">
+      <div class="card card-narrow">
+        <div class="card-title" id="homeTitle">Menu Transaksi</div>
+        <div id="wrapperMenuUtama">
+          <button class="btn btn-menu" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;">Penjualan & Aktivasi</button>
+          <button class="btn btn-menu" id="btnMenuPetugas" onclick="showMenu('petugas')" style="display:none;">Penukaran Wahana</button>
+          <button class="btn btn-menu" id="btnMenuLaporan" onclick="showMenu('laporan')" style="display:none;">Laporan Executive</button>
+          <div class="divider"></div>
+          <button class="btn btn-danger" onclick="logout()">Keluar (Logout)</button>
+        </div>
       </div>
     </div>
 
-    <!-- MENU CEK PASPOR (OTOMATIS LEBAR & KIRI KANAN DI PC) -->
-    <div id="cekCard" class="card" style="display:none;">
-      <div class="card-title">Pencarian Data Paspor</div>
-      <div class="input-group" style="max-width:400px; margin: 0 auto 16px auto;">
-        <label style="text-align:center;">Nomor ID Paspor</label>
-        <input type="text" id="inputCekPaspor" class="input-field" placeholder="Contoh: 0926001">
-      </div>
-      <button class="btn btn-main" style="max-width:400px; margin: 0 auto 16px auto; display:block;" onclick="prosesCekData()">Cari Data Paspor</button>
-      
-      <div id="loadingCek" style="display:none; text-align:center; font-size:12px; padding:12px; color:var(--text-muted);">Membuka arsip digital...</div>
-      
-      <div id="hasilCek" style="display:none; margin-top:16px;">
+    <!-- MENU CEK PASPOR & RIWAYAT (LEBAR DI PC) -->
+    <div id="cekCard" class="card-container" style="display:none;">
+      <div class="card">
+        <div class="card-title">Pencarian Data Paspor</div>
         
-        <!-- PEMBAGIAN KOLOM (DI HP ATAS BAWAH, DI PC KIRI KANAN) -->
-        <div class="grid-2-col">
-          <div>
-            <!-- KARTU PASPOR DIGITAL DENGAN ANIMASI 3D -->
-            <div class="passport-card-3d">
-              <div class="passport-chip"></div>
-              <div class="passport-header-title">PASPOR WISATA RESMI</div>
-              <div class="passport-owner-name" id="namaPemilikCek"></div>
-              <div class="passport-id-code">ID: <span id="notaIdCekLabel"></span></div>
+        <div class="input-group" style="max-width:400px; margin: 0 auto 16px auto;">
+          <label style="text-align:center;">Nomor ID Paspor</label>
+          <input type="text" id="inputCekPaspor" class="input-field" placeholder="Contoh: 0926001" style="text-align:center;">
+        </div>
+        <button class="btn btn-main" style="max-width:400px; margin: 0 auto 20px auto; display:block;" onclick="prosesCekData()">Cari Riwayat</button>
+        
+        <div id="loadingCek" style="display:none; text-align:center; font-size:13px; padding:12px; color:var(--text-muted); font-weight:600;">Mencari jejak perjalanan...</div>
+        
+        <div id="hasilCek" style="display:none; margin-top:20px;">
+          
+          <div style="text-align:center; margin-bottom:24px;">
+            <div style="font-size:12px; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Pemilik Paspor</div>
+            <div id="namaPemilikCek" style="font-size:22px; font-weight:800; color:var(--navy-main);"></div>
+            <div style="font-size:13px; color:var(--teal-main); font-weight:700; margin-top:4px;">ID: <span id="notaIdCekLabel"></span></div>
+          </div>
+
+          <div class="grid-2-col">
+            <div>
+              <div style="font-size:12px; font-weight:800; color:var(--navy-main); margin-bottom:12px; letter-spacing:0.5px;">RIWAYAT PERJALANAN (KLAIM):</div>
+              <!-- AREA TIMELINE RIWAYAT -->
+              <div class="journey-container" id="timelineKlaim"></div>
+            </div>
+
+            <div>
+              <div style="font-size:12px; font-weight:800; color:var(--teal-main); margin-bottom:12px; letter-spacing:0.5px;">SISA TIKET WAHANA (READY):</div>
+              <div id="tabelSisa" style="margin-bottom:24px;"></div>
             </div>
           </div>
 
-          <div>
-            <div style="font-size:11px; font-weight:700; color:#d63031; margin-bottom:6px;">RIWAYAT KLAIM:</div>
-            <table class="report-table" id="tabelKlaim" style="margin-bottom:16px;"></table>
-            <div style="font-size:11px; font-weight:700; color:var(--primary); margin-bottom:6px;">SISA TIKET (READY):</div>
-            <table class="report-table" id="tabelSisa" style="margin-bottom:0;"></table>
+          <div class="divider"></div>
+          
+          <div class="receipt-box" id="notaKertasCek" style="max-width:450px; margin: 0 auto 20px auto;">
+            <div class="receipt-logo"><img src="logo-paspor.png" alt="Paspor" onerror="this.style.display='none'"></div>
+            <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
+            <div class="receipt-sub">WISATA AMAL ZONE</div>
+            <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaIdCek"></strong></div>
+            <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNamaCek"></strong></div>
+            <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannelCek"></strong></div>
+            <div class="receipt-total"><span>Total Dibayar</span><strong>Rp375.000</strong></div>
+            <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Lunas - Salinan Sistem</div>
+          </div>
+          <button class="btn btn-menu" style="max-width:450px; margin: 0 auto; justify-content:center; display:flex;" onclick="unduhNotaPDFCek()">Unduh Salinan PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU KASIR (LEBAR DI PC) -->
+    <div id="kasirCard" class="card-container" style="display:none;">
+      <div class="card">
+        <div class="card-title">Aktivasi Paspor Baru</div>
+        <div id="formKasirArea">
+          
+          <div class="grid-2-col">
+            <div>
+              <div class="input-group"><label>Nomor ID Paspor</label><input type="text" id="inputPaspor" class="input-field" placeholder="Contoh: 0926001"></div>
+              <div class="input-group"><label>Nama Pelanggan</label><input type="text" id="namaCust" class="input-field" placeholder="Ketik nama pelanggan"></div>
+              <div class="input-group"><label>Nomor HP Pelanggan</label><input type="number" id="noHpCust" class="input-field" placeholder="Contoh: 08123456789"></div>
+            </div>
+            <div>
+              <div class="input-group"><label>Channel Penjualan</label><select id="channelBeli" class="input-field"></select></div>
+              <div class="input-group" style="margin-bottom: 0;">
+                <label>Bank Tujuan Transfer</label>
+                <select id="bankTujuan" class="input-field" onchange="tampilInfoRekening()">
+                  <option value="">Pilih Bank Transfer</option>
+                  <option value="BCA">BCA - 1711499666</option>
+                  <option value="BSI">BSI - 1577733337</option>
+                </select>
+              </div>
+              <div id="infoRekeningBox" class="status-info status-box"></div>
+
+              <div class="input-group" style="margin-top: 20px; margin-bottom:0;">
+                <label>Bukti Pembayaran</label>
+                <label for="buktiUpload" class="btn btn-menu" style="justify-content:center; margin-bottom:0;" id="labelUploadBtn">Lampirkan Foto Transfer</label>
+                <input type="file" id="buktiUpload" accept="image/*" onchange="previewBukti(event)">
+              </div>
+              <div id="buktiPreviewName" style="font-size:12px; text-align:center; margin-top:12px; line-height:1.5; font-weight:600;"></div>
+            </div>
+          </div>
+
+          <button class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:20px;">Aktifkan Paspor</button>
+          
+          <div class="divider"></div>
+          <div style="font-size:12px; font-weight:800; color:var(--navy-main); margin-bottom:12px;">Aktivasi Terakhir:</div>
+          <div id="widgetKasirTerbaru" style="font-size:13px; max-height:160px; overflow-y:auto; padding:0 4px;">
+            <div style="text-align:center; color:var(--text-muted); font-weight:600;">Memuat data...</div>
           </div>
         </div>
+
+        <div id="notaArea" style="display:none;">
+          <div class="receipt-box" id="notaKertas" style="max-width:450px; margin: 0 auto 20px auto;">
+            <div class="receipt-logo"><img src="logo-paspor.png" alt="Paspor" onerror="this.style.display='none'"></div>
+            <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
+            <div class="receipt-sub">WISATA AMAL ZONE</div>
+            <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaId"></strong></div>
+            <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNama"></strong></div>
+            <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggal"></strong></div>
+            <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannel"></strong></div>
+            <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBank"></strong></div>
+            <div class="receipt-total"><span>Total Dibayar</span><strong id="notaTotal"></strong></div>
+            <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Lunas - Paspor Aktif</div>
+          </div>
+          <button class="btn btn-main" style="max-width:450px; margin: 0 auto 12px auto; display:block;" onclick="unduhNotaPDF()">Unduh Nota PDF</button>
+          <button class="btn btn-menu" style="max-width:450px; margin: 0 auto; display:flex; justify-content:center;" onclick="resetKasir()">Transaksi Baru</button>
+        </div>
+        <div id="msgKasir" class="status-box"></div>
+      </div>
+    </div>
+
+    <!-- MENU PETUGAS (TETAP RAMPING) -->
+    <div id="petugasCard" class="card-container" style="display:none;">
+      <div class="card card-narrow">
+        <div class="card-title">Penukaran Voucher</div>
+        <div class="input-group">
+          <label>Identitas Petugas</label>
+          <input type="text" id="namaPetugas" class="input-field" placeholder="Nama Petugas & Unit Wahana">
+        </div>
+        
+        <button class="btn btn-main" id="btnBukaKamera" onclick="bukaLiveScanner()" style="margin-top:20px;">Scan Barcode</button>
+        
+        <div id="reader" style="display: none;"></div>
+        <button class="btn btn-danger" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:16px;">Tutup Kamera</button>
 
         <div class="divider"></div>
-        
-        <div class="receipt-box" id="notaKertasCek" style="max-width:500px; margin: 0 auto 16px auto;">
-          <div class="receipt-logo"><img src="logo-paspor.png" alt="Paspor" onerror="this.style.display='none'"></div>
-          <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
-          <div class="receipt-sub">WISATA AMAL ZONE</div>
-          <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaIdCek"></strong></div>
-          <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNamaCek"></strong></div>
-          <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannelCek"></strong></div>
-          <div class="receipt-total"><span>Total Dibayar</span><strong>Rp375.000</strong></div>
-          <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:16px;">Lunas - Salinan Sistem</div>
-        </div>
-        <button class="btn btn-menu" style="max-width:500px; margin: 0 auto; justify-content:center; display:flex;" onclick="unduhNotaPDFCek()">Unduh Salinan PDF</button>
+        <div class="input-group"><label>Input Kode Manual</label><input type="text" id="inputVoucherManual" class="input-field" placeholder="Ketik kode jika barcode rusak"></div>
+        <button class="btn btn-menu" style="justify-content:center;" onclick="prosesKlaimManual()">Proses Kode Manual</button>
+        <div id="msgPetugas" class="status-box"></div>
       </div>
     </div>
 
-    <!-- MENU KASIR (OTOMATIS LEBAR & KIRI KANAN DI PC) -->
-    <div id="kasirCard" class="card" style="display:none;">
-      <div class="card-title">Aktivasi Paspor Baru</div>
-      <div id="formKasirArea">
+    <!-- MENU LAPORAN MANAGER (LEBAR DI PC) -->
+    <div id="laporanCard" class="card-container" style="display:none;">
+      <div class="card">
+        <div class="card-title">Laporan Executive</div>
         
-        <!-- PEMBAGIAN FORM KIRI & KANAN -->
-        <div class="grid-2-col">
-          <div>
-            <div class="input-group"><label>Nomor ID Paspor</label><input type="text" id="inputPaspor" class="input-field" placeholder="Contoh: 0926001"></div>
-            <div class="input-group"><label>Nama Pelanggan</label><input type="text" id="namaCust" class="input-field" placeholder="Ketik nama pelanggan"></div>
-            <div class="input-group"><label>Nomor HP Pelanggan</label><input type="number" id="noHpCust" class="input-field" placeholder="Contoh: 08123456789"></div>
-          </div>
-          <div>
-            <div class="input-group"><label>Channel Penjualan</label><select id="channelBeli" class="input-field"></select></div>
-            <div class="input-group" style="margin-bottom: 0;">
-              <label>Bank Tujuan Transfer</label>
-              <select id="bankTujuan" class="input-field" onchange="tampilInfoRekening()">
-                <option value="">Pilih Bank Transfer</option>
-                <option value="BCA">BCA - 1711499666</option>
-                <option value="BSI">BSI - 1577733337</option>
-              </select>
-            </div>
-            <div id="infoRekeningBox" class="status-info" style="display:none; padding:10px; border-radius:12px; font-size:11px; text-align:center; margin-top:10px; margin-bottom:14px;"></div>
-
-            <div class="input-group" style="margin-top: 18px; margin-bottom:0;">
-              <label>Bukti Pembayaran</label>
-              <label for="buktiUpload" class="btn btn-menu" style="justify-content:center; margin-bottom:0;" id="labelUploadBtn">Pilih Foto Transfer</label>
-              <input type="file" id="buktiUpload" accept="image/*" onchange="previewBukti(event)">
-            </div>
-            <div id="buktiPreviewName" style="font-size:11px; text-align:center; margin-top:8px; line-height:1.5;"></div>
-          </div>
+        <div class="input-group" style="max-width:400px; margin: 0 auto 20px auto;">
+          <label style="text-align:center;">Periode Laporan</label>
+          <select id="filterBulan" class="input-field" onchange="loadDashboardData()" style="font-weight:800; color:var(--navy-main); text-align:center; padding-left:0;">
+            <option value="ALL">Semua Bulan</option>
+          </select>
         </div>
 
-        <button class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:16px;">Aktifkan Paspor</button>
+        <div id="loadingLaporan" style="text-align:center; padding:12px; font-size:13px; color:var(--text-muted); font-weight:600;">Mengambil rekapitulasi data...</div>
         
-        <div class="divider"></div>
-        <div style="font-size:11px; font-weight:700; color:var(--text-main); margin-bottom:10px;">Aktivasi Terakhir:</div>
-        <div id="widgetKasirTerbaru" style="font-size:12px; max-height:160px; overflow-y:auto; padding:0 4px;">
-          <div style="text-align:center; color:var(--text-muted);">Memuat data...</div>
-        </div>
-      </div>
-
-      <div id="notaArea" style="display:none;">
-        <div class="receipt-box" id="notaKertas" style="max-width:500px; margin: 0 auto 16px auto;">
-          <div class="receipt-logo"><img src="logo-paspor.png" alt="Paspor" onerror="this.style.display='none'"></div>
-          <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
-          <div class="receipt-sub">WISATA AMAL ZONE</div>
-          <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaId"></strong></div>
-          <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNama"></strong></div>
-          <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggal"></strong></div>
-          <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannel"></strong></div>
-          <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBank"></strong></div>
-          <div class="receipt-total"><span>Total Dibayar</span><strong id="notaTotal"></strong></div>
-          <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:16px;">Lunas - Paspor Aktif</div>
-        </div>
-        <button class="btn btn-main" style="max-width:500px; margin: 0 auto 10px auto; display:block;" onclick="unduhNotaPDF()">Unduh Nota PDF</button>
-        <button class="btn btn-secondary" style="max-width:500px; margin: 0 auto; display:block;" onclick="resetKasir()">Transaksi Baru</button>
-      </div>
-      <div id="msgKasir" class="status-box"></div>
-    </div>
-
-    <!-- MENU PETUGAS (TETAP RAMPING DI PC) -->
-    <div id="petugasCard" class="card card-narrow" style="display:none;">
-      <div class="card-title">Penukaran Voucher</div>
-      <div class="input-group">
-        <label>Identitas Petugas</label>
-        <input type="text" id="namaPetugas" class="input-field" placeholder="Nama Petugas & Unit Wahana">
-      </div>
-      
-      <button class="btn btn-main" id="btnBukaKamera" onclick="bukaLiveScanner()" style="margin-top:16px;">Scan Barcode</button>
-      
-      <div id="reader" style="display: none;"></div>
-      <button class="btn btn-danger" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:12px;">Tutup Kamera</button>
-
-      <div class="divider"></div>
-      <div class="input-group"><label>Input Kode Manual</label><input type="text" id="inputVoucherManual" class="input-field" placeholder="Ketik kode jika barcode rusak"></div>
-      <button class="btn btn-menu" style="justify-content:center;" onclick="prosesKlaimManual()">Proses Kode Manual</button>
-      <div id="msgPetugas" class="status-box"></div>
-    </div>
-
-    <!-- MENU LAPORAN MANAGER (OTOMATIS LEBAR & KIRI KANAN DI PC) -->
-    <div id="laporanCard" class="card" style="display:none;">
-      <div class="card-title">Laporan Executive</div>
-      
-      <div class="input-group" style="max-width:400px; margin: 0 auto 16px auto;">
-        <label style="text-align:center;">Periode Laporan</label>
-        <select id="filterBulan" class="input-field" onchange="loadDashboardData()" style="font-weight:700; color:var(--primary-dark);">
-          <option value="ALL">Semua Bulan</option>
-        </select>
-      </div>
-
-      <div id="loadingLaporan" style="text-align:center; padding:12px; font-size:12px; color:var(--text-muted);">Memuat rekapitulasi...</div>
-      
-      <div id="contentLaporan" style="display:none;">
-        
-        <!-- PEMBAGIAN KOLOM (DI HP ATAS BAWAH, DI PC KIRI KANAN) -->
-        <div class="grid-2-col">
-          <div>
-            <!-- WALLET POCKET CARD UTAMA -->
-            <div class="wallet-container">
-              <div class="wallet-card-stacked"></div>
-              <div class="wallet-content">
-                <div class="wallet-label">Total Omzet Penjualan</div>
-                <div class="wallet-balance" id="statOmzet">Rp0</div>
-                <div class="wallet-sub">
-                  <div>BCA: <span id="statOmzetBca" style="font-weight:700;">Rp0</span></div>
-                  <div>BSI: <span id="statOmzetBsi" style="font-weight:700;">Rp0</span></div>
+        <div id="contentLaporan" style="display:none;">
+          
+          <div class="grid-2-col">
+            <div>
+              <div style="background:var(--navy-main); border-radius:24px; padding:24px; color:#fff; box-shadow:0 10px 30px rgba(25,51,84,0.15);">
+                <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:rgba(255,255,255,0.7); letter-spacing:1px;">Total Omzet Penjualan</div>
+                <div id="statOmzet" style="font-size:32px; font-weight:800; margin-top:4px;">Rp0</div>
+                
+                <div style="display:flex; justify-content:space-between; margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.1); font-size:12px; font-weight:600;">
+                  <div>BCA: <span id="statOmzetBca" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
+                  <div>BSI: <span id="statOmzetBsi" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
                 </div>
-                <div style="margin-top:12px; font-size:11px; opacity:0.9;">
-                  Nilai Benefit: <span id="statKlaim" style="font-weight:700; color:var(--accent-gold);">Rp0</span>
+              </div>
+            </div>
+            
+            <div>
+              <div class="stat-grid" style="height:100%;">
+                <div class="stat-box" style="display:flex; flex-direction:column; justify-content:center;">
+                  <div class="stat-number" id="statPasporAktif" style="color:var(--teal-main); font-size:28px;">0</div>
+                  <div class="stat-label">Paspor Terjual</div>
+                </div>
+                <div class="stat-box" style="display:flex; flex-direction:column; justify-content:center;">
+                  <div class="stat-number" id="statTiketUsed" style="font-size:28px;">0</div>
+                  <div class="stat-label">Tiket Terpakai</div>
                 </div>
               </div>
             </div>
           </div>
           
-          <div>
-            <div class="stat-grid">
-              <div class="stat-box"><div class="stat-number" id="statPasporAktif" style="color:var(--primary);">0</div><div class="stat-label">Paspor Terjual</div></div>
-              <div class="stat-box"><div class="stat-number" id="statTiketUsed" style="color:var(--text-main);">0</div><div class="stat-label">Tiket Terpakai</div></div>
+          <div style="text-align:center; font-size:12px; font-weight:700; color:var(--text-muted); margin: 8px 0 24px 0;">
+            Estimasi Nilai Benefit Terdestribusi: <span id="statKlaim" style="color:var(--navy-main); font-weight:800; font-size:16px;">Rp0</span>
+          </div>
+
+          <div class="divider"></div>
+          
+          <div class="input-group">
+            <label>Daftar Paspor Aktif</label>
+            <input type="text" id="searchPasporAktif" class="input-field" placeholder="Cari ID, Nama, Channel..." onkeyup="filterTabelPasporAktif()">
+          </div>
+
+          <div style="max-height: 300px; overflow-y: auto; border: 2px solid #e2e8f0; border-radius: 20px; margin-bottom:24px;">
+            <table class="report-table" id="tabelPasporAktif">
+              <thead>
+                <tr style="position:sticky; top:0; background:#f8fafc; z-index:1;">
+                  <th>Paspor</th>
+                  <th>Channel</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyPasporAktif"></tbody>
+            </table>
+          </div>
+
+          <div class="grid-2-col">
+            <div>
+              <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:12px; text-transform:uppercase;">Kinerja Channel</label>
+              <table class="report-table" style="margin-bottom:16px;"><thead><tr><th>Channel</th><th>Penjualan</th></tr></thead><tbody id="tbodyChannel"></tbody></table>
+            </div>
+            <div>
+              <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:12px; text-transform:uppercase;">Trafik Wahana</label>
+              <table class="report-table"><thead><tr><th>Unit</th><th>Terpakai</th><th>Klaim</th></tr></thead><tbody id="tbodyUnit"></tbody></table>
             </div>
           </div>
+          
+          <div class="divider"></div>
+          <button class="btn btn-main" style="max-width:400px; margin:0 auto; display:block;" onclick="mintaPinDownloadAwandra()">Unduh Laporan PDF</button>
         </div>
-
-        <div class="divider"></div>
-        <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:var(--text-main); margin-bottom:8px;">Daftar Paspor Aktif</label>
-        <input type="text" id="searchPasporAktif" class="input-field" placeholder="Cari ID, Nama, Channel..." onkeyup="filterTabelPasporAktif()" style="margin-bottom:12px; padding:10px;">
-
-        <div style="max-height: 250px; overflow-y: auto; border: 1px solid #f1f2f6; border-radius: 14px; margin-bottom:16px;">
-          <table class="report-table" id="tabelPasporAktif">
-            <thead>
-              <tr style="position:sticky; top:0; background:#f8f9fa;">
-                <th>Paspor</th>
-                <th>Channel</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="tbodyPasporAktif"></tbody>
-          </table>
-        </div>
-
-        <div class="divider"></div>
-        
-        <div class="grid-2-col">
-          <div>
-            <label style="display:block; text-align:left; font-size:11px; font-weight:700; margin-bottom:8px;">Kinerja Channel</label>
-            <table class="report-table" style="margin-bottom:16px;"><thead><tr><th>Channel</th><th>Penjualan</th></tr></thead><tbody id="tbodyChannel"></tbody></table>
-          </div>
-          <div>
-            <label style="display:block; text-align:left; font-size:11px; font-weight:700; margin-bottom:8px;">Trafik Wahana</label>
-            <table class="report-table"><thead><tr><th>Unit</th><th>Terpakai</th><th>Klaim</th></tr></thead><tbody id="tbodyUnit"></tbody></table>
-          </div>
-        </div>
-        
-        <button class="btn btn-main" style="margin-top:10px; max-width:400px; margin:0 auto; display:block;" onclick="mintaPinDownloadAwandra()">Cetak Laporan PDF</button>
       </div>
     </div>
   </div>
 
-  <!-- BOTTOM NAVIGATION DENGAN FLOATING SCAN BUTTON DITENGAH -->
+  <!-- BOTTOM NAVIGATION (DENGAN MENU KELUAR) -->
   <div id="bottomNav" class="bottom-nav" style="display:none;">
-    <div class="nav-item" id="nav_home" onclick="showMenu('home')">Beranda</div>
+    <div class="nav-item" id="nav_home" onclick="showMenu('home')">
+      <span class="nav-icon">⌂</span> Beranda
+    </div>
     <div class="floating-scan-btn" onclick="showMenu('petugas')" title="Scan Barcode">
+      <!-- Icon Barcode Scan SVG -->
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
     </div>
-    <div class="nav-item" id="nav_cek" onclick="showMenu('cek')">Pencarian</div>
+    <div class="nav-item" id="nav_cek" onclick="showMenu('cek')">
+      <span class="nav-icon">⚲</span> Pencarian
+    </div>
+    <div class="nav-item" id="nav_logout" onclick="logout()">
+      <span class="nav-icon" style="color:#e11d48;">⎋</span> Keluar
+    </div>
   </div>
 
   <!-- TEMPLATE LAPORAN PDF -->
   <div id="printArea" style="display: none;">
     <div style="text-align:center; margin-bottom:15px;">
-      <h2 style="margin:0; font-size:18px; font-weight:800; color:#2d3436;">LAPORAN AUDIT FINANCE & OPERASIONAL</h2>
-      <h4 style="margin:4px 0; color:#636e72; font-size:13px;">WISATA AMAL ZONE - AWANDRA GROUP</h4>
-      <p style="margin:0; font-size:10px; color:#b2bec3;" id="printTanggal"></p>
-      <p style="margin:2px 0 0 0; font-size:11px; font-weight:bold; color:#2d3436;" id="printPeriodeBulan"></p>
+      <h2 style="margin:0; font-size:18px; font-weight:800; color:#193354;">LAPORAN AUDIT FINANCE & OPERASIONAL</h2>
+      <h4 style="margin:4px 0; color:#7f8c8d; font-size:13px;">WISATA AMAL ZONE - AWANDRA GROUP</h4>
+      <p style="margin:0; font-size:10px; color:#7f8c8d;" id="printTanggal"></p>
+      <p style="margin:2px 0 0 0; font-size:11px; font-weight:bold; color:#193354;" id="printPeriodeBulan"></p>
     </div>
-    <hr style="border:1px solid #dfe6e9; margin-bottom:15px;">
+    <hr style="border:1px solid #e2e8f0; margin-bottom:15px;">
     
     <div style="margin-bottom:15px;">
-      <h3 style="font-size:12px; margin-bottom:6px; color:#2d3436;">A. RINGKASAN KEUANGAN</h3>
+      <h3 style="font-size:12px; margin-bottom:6px; color:#193354;">A. RINGKASAN KEUANGAN</h3>
       <table style="font-size:11px;">
         <tr>
-          <td style="width:60%; background:#f8f9fa; font-weight:bold;">Total Omzet (Penjualan Paspor)</td>
-          <td style="font-weight:bold; color:#2a9d8f; text-align:right;" id="printOmzet"></td>
+          <td style="width:60%; background:#f8fafc; font-weight:bold;">Total Omzet (Penjualan Paspor)</td>
+          <td style="font-weight:bold; color:#58b4ba; text-align:right;" id="printOmzet"></td>
         </tr>
         <tr>
-          <td style="padding-left:15px; font-size:10px; color:#636e72;">• Masuk via BCA</td>
+          <td style="padding-left:15px; font-size:10px; color:#7f8c8d;">• Masuk via BCA</td>
           <td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBca"></td>
         </tr>
         <tr>
-          <td style="padding-left:15px; font-size:10px; color:#636e72;">• Masuk via BSI</td>
+          <td style="padding-left:15px; font-size:10px; color:#7f8c8d;">• Masuk via BSI</td>
           <td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBsi"></td>
         </tr>
         <tr>
-          <td style="background:#f8f9fa; font-weight:bold;">Nilai Benefit Wahana Terdestribusi</td>
-          <td style="font-weight:bold; color:#d63031; text-align:right;" id="printKlaim"></td>
+          <td style="background:#f8fafc; font-weight:bold;">Nilai Benefit Wahana Terdestribusi</td>
+          <td style="font-weight:bold; color:#e11d48; text-align:right;" id="printKlaim"></td>
         </tr>
       </table>
     </div>
 
     <div style="margin-bottom:15px;">
-      <h3 style="font-size:12px; margin-bottom:6px; color:#2d3436;">B. RINCIAN TRANSFER MASUK</h3>
+      <h3 style="font-size:12px; margin-bottom:6px; color:#193354;">B. RINCIAN TRANSFER MASUK</h3>
       <table style="font-size:10px;">
         <thead>
-          <tr style="background:#f1f2f6; color:#2d3436;">
+          <tr style="background:#f0f4f8; color:#193354;">
             <th style="text-align:center; width:22%;">Waktu Pembelian</th>
             <th style="text-align:center; width:12%;">ID Paspor</th>
             <th style="text-align:left; width:24%;">Nama Pelanggan</th>
@@ -480,10 +499,10 @@
     </div>
 
     <div style="margin-bottom:15px;">
-      <h3 style="font-size:12px; margin-bottom:6px; color:#2d3436;">C. RINCIAN BENEFIT DIKLAIM</h3>
+      <h3 style="font-size:12px; margin-bottom:6px; color:#193354;">C. RINCIAN BENEFIT DIKLAIM</h3>
       <table style="font-size:9px;">
         <thead>
-          <tr style="background:#f1f2f6; color:#2d3436;">
+          <tr style="background:#f0f4f8; color:#193354;">
             <th style="text-align:center; width:15%;">Waktu Klaim</th>
             <th style="text-align:center; width:12%;">ID Paspor</th>
             <th style="text-align:left; width:18%;">Pelanggan</th>
@@ -499,6 +518,7 @@
   </div>
 
   <script>
+    // API URL GOOGLE APPS SCRIPT ANDA TETAP SAMA
     const API_URL = "https://script.google.com/macros/s/AKfycbztM5KoUy_cxJGmF7a5IlKCe9gqVXW9_pJzgBYD0FQ46ZCzHtd7Kg7Sa-Rmi76IBb8c_w/exec";
 
     function callAPI(action, payload, onSuccess) {
@@ -507,7 +527,7 @@
       .then(response => response.json())
       .then(data => onSuccess(data))
       .catch(error => {
-        Swal.fire({ title: 'Koneksi Gagal', text: 'Tidak dapat menghubungi sistem pusat.', icon: 'error', customClass: { popup: 'swal-soft' }, confirmButtonColor: '#2a9d8f' });
+        Swal.fire({ title: 'Koneksi Gagal', text: 'Sistem tidak terhubung ke jaringan.', icon: 'error', customClass: { popup: 'swal-soft' }, confirmButtonColor: '#58b4ba' });
         hideStatus('msgKasir'); hideStatus('msgPetugas');
         document.getElementById('loadingCek').style.display = 'none'; document.getElementById('loadingLaporan').style.display = 'none';
       });
@@ -531,7 +551,7 @@
       else if (pin === PIN_KASIR_AL) { roleAktif = "kasir"; allowedChannels = ["Alila"]; loginSukses('home'); } 
       else if (pin === PIN_KASIR_MH) { roleAktif = "kasir"; allowedChannels = ["Murraya Hill"]; loginSukses('home'); } 
       else if (pin === PIN_PETUGAS) { roleAktif = "petugas"; allowedChannels = []; loginSukses('home'); } 
-      else { showToast('error', 'PIN Tidak Valid.'); document.getElementById('inputPin').value = ''; }
+      else { showToast('error', 'PIN Akses Ditolak'); document.getElementById('inputPin').value = ''; }
     }
 
     function setupDropdownChannel() {
@@ -542,25 +562,24 @@
 
     function tampilInfoRekening() {
       var bank = document.getElementById("bankTujuan").value; var box = document.getElementById("infoRekeningBox");
-      if (bank === "BCA") { box.innerHTML = "Rekening BCA: <b>1711499666</b><br>a/n KARYA GUNA SEMESTA CV"; box.style.display = "block"; } 
-      else if (bank === "BSI") { box.innerHTML = "Rekening BSI: <b>1577733337</b><br>a/n CV KARYA GUNA SEMESTA"; box.style.display = "block"; } 
+      if (bank === "BCA") { box.innerHTML = "Rekening BCA: <b style='color:var(--navy-main); font-size:14px;'>1711499666</b><br>a/n KARYA GUNA SEMESTA CV"; box.style.display = "block"; } 
+      else if (bank === "BSI") { box.innerHTML = "Rekening BSI: <b style='color:var(--navy-main); font-size:14px;'>1577733337</b><br>a/n CV KARYA GUNA SEMESTA"; box.style.display = "block"; } 
       else { box.style.display = "none"; }
     }
 
     function loginSukses(menuAwal) {
-      document.body.style.justifyContent = "flex-start"; 
       document.getElementById('loginCard').style.display = 'none'; 
       document.getElementById('mainContent').style.display = 'flex';
       document.getElementById('bottomNav').style.display = 'flex';
       
       document.getElementById('btnMenuKasir').style.display = 'none'; document.getElementById('btnMenuPetugas').style.display = 'none'; document.getElementById('btnMenuLaporan').style.display = 'none'; 
       
-      let teksRole = "Petugas";
+      let teksRole = "Petugas Lapangan";
       if (roleAktif === "manager") { 
-        teksRole = "Manager";
+        teksRole = "Executive Manager";
         document.getElementById('btnMenuKasir').style.display = 'flex'; document.getElementById('btnMenuPetugas').style.display = 'flex'; document.getElementById('btnMenuLaporan').style.display = 'flex';
       } else if (roleAktif === "kasir") { 
-        teksRole = "Kasir";
+        teksRole = "Kasir & Aktivasi";
         document.getElementById('btnMenuKasir').style.display = 'flex';
       } else if (roleAktif === "petugas") { 
         document.getElementById('btnMenuPetugas').style.display = 'flex'; 
@@ -575,8 +594,8 @@
       roleAktif = ""; allowedChannels = []; document.getElementById('inputPin').value = '';
       document.getElementById('mainContent').style.display = 'none'; 
       document.getElementById('bottomNav').style.display = 'none';
-      document.body.style.justifyContent = "center"; document.getElementById('loginCard').style.display = 'block';
-      showToast('info', 'Anda telah keluar.');
+      document.getElementById('loginCard').style.display = 'block';
+      showToast('info', 'Anda berhasil keluar.');
     }
 
     function updateNavState(menu) {
@@ -584,8 +603,6 @@
       let activeId = '';
       if(menu === 'home' || menu === 'kasir' || menu === 'laporan') activeId = 'nav_home';
       else if(menu === 'cek') activeId = 'nav_cek';
-      
-      // Jika di HP tekan icon scan maka tidak merubah indikator teks
       if(activeId) document.getElementById(activeId).classList.add('active');
     }
 
@@ -594,24 +611,24 @@
       document.getElementById('homeCard').style.display = 'none'; document.getElementById('kasirCard').style.display = 'none';
       document.getElementById('petugasCard').style.display = 'none'; document.getElementById('laporanCard').style.display = 'none'; document.getElementById('cekCard').style.display = 'none';
       
-      if(menu === 'kasir') { document.getElementById('kasirCard').style.display = 'block'; resetKasir(); }
-      else if(menu === 'petugas') document.getElementById('petugasCard').style.display = 'block';
-      else if(menu === 'laporan') { document.getElementById('laporanCard').style.display = 'block'; loadDashboardData(); }
-      else if(menu === 'cek') { document.getElementById('cekCard').style.display = 'block'; document.getElementById('hasilCek').style.display = 'none'; }
-      else if(menu === 'home') document.getElementById('homeCard').style.display = 'block';
+      if(menu === 'kasir') { document.getElementById('kasirCard').style.display = 'flex'; resetKasir(); }
+      else if(menu === 'petugas') document.getElementById('petugasCard').style.display = 'flex';
+      else if(menu === 'laporan') { document.getElementById('laporanCard').style.display = 'flex'; loadDashboardData(); }
+      else if(menu === 'cek') { document.getElementById('cekCard').style.display = 'flex'; document.getElementById('hasilCek').style.display = 'none'; }
+      else if(menu === 'home') document.getElementById('homeCard').style.display = 'flex';
       
       updateNavState(menu);
       hideStatus('msgKasir'); hideStatus('msgPetugas');
       
-      const activeCard = document.querySelector('.card[style*="display: block"]');
-      if(activeCard) { activeCard.style.animation = 'none'; activeCard.offsetHeight; activeCard.style.animation = 'fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1)'; }
+      const activeCard = document.querySelector('.card[style*="display: flex"]');
+      if(activeCard) { activeCard.style.animation = 'none'; activeCard.offsetHeight; activeCard.style.animation = 'fadeSlideUp 0.4s ease-out'; }
     }
 
-    function showStatus(elementId, text) { var el = document.getElementById(elementId); el.innerHTML = text; el.className = 'status-box status-info'; el.style.display = 'block'; }
+    function showStatus(elementId, text) { var el = document.getElementById(elementId); el.innerHTML = text; el.style.display = 'block'; }
     function hideStatus(elementId) { document.getElementById(elementId).style.display = 'none'; }
     
     function showToast(icon, message) { Swal.fire({ toast: true, position: 'top', icon: icon, title: message, showConfirmButton: false, timer: 2500, customClass: { popup: 'swal-soft' } }); }
-    function popNotification(title, text, icon) { Swal.fire({ title: title, text: text, icon: icon, position: 'top', confirmButtonText: 'Tutup', confirmButtonColor: '#2a9d8f', heightAuto: false, customClass: { popup: 'swal-soft' } }); }
+    function popNotification(title, text, icon) { Swal.fire({ title: title, text: text, icon: icon, position: 'top', confirmButtonText: 'Tutup', confirmButtonColor: '#58b4ba', heightAuto: false, customClass: { popup: 'swal-soft' } }); }
 
     function prosesCekData() {
       var id = document.getElementById('inputCekPaspor').value;
@@ -624,14 +641,36 @@
             document.getElementById('namaPemilikCek').innerText = res.customerName;
             document.getElementById('notaIdCekLabel').innerText = id;
             
+            // LOGIKA PEMBUATAN TIMELINE (VISUAL PERJALANAN)
             var htmlKlaim = '';
-            if(res.listKlaim.length === 0) { htmlKlaim = '<tr><td style="text-align:center; color:var(--text-muted);">Belum ada riwayat</td></tr>';
-            } else { for(var i=0; i<res.listKlaim.length; i++) { var item = res.listKlaim[i]; htmlKlaim += '<tr><td><b>' + item.unit + '</b> - ' + item.benefit + '<br><span style="font-size:10px; color:var(--text-muted);">' + item.waktu + ' | Petugas: ' + item.petugas + '</span></td></tr>'; } }
-            document.getElementById('tabelKlaim').innerHTML = htmlKlaim;
+            if(res.listKlaim.length === 0) { 
+              htmlKlaim = '<div style="text-align:center; color:var(--text-muted); font-size:12px; margin:24px 0; background:#f8fafc; padding:16px; border-radius:16px;">Belum ada riwayat perjalanan wisata.</div>';
+            } else { 
+              // Titik awal pembelian
+              htmlKlaim += '<div class="journey-item"><div class="journey-dot" style="background:var(--navy-main);"></div><div class="journey-line"></div><div class="journey-title">Aktivasi Paspor</div><div class="journey-desc">Channel: ' + res.channelBeli + '</div></div>';
+              
+              for(var i=0; i<res.listKlaim.length; i++) { 
+                var item = res.listKlaim[i]; 
+                htmlKlaim += '<div class="journey-item"><div class="journey-dot"></div><div class="journey-line"></div><div class="journey-title">' + item.unit + '</div><div class="journey-desc">' + item.benefit + '</div><div class="journey-time">' + item.waktu + ' • Petugas: ' + item.petugas + '</div></div>'; 
+              } 
+              
+              // Titik saat ini
+              htmlKlaim += '<div class="journey-item"><div class="journey-dot" style="background:#15803d; box-shadow: 0 0 0 3px rgba(21,128,61,0.2);"></div><div class="journey-title" style="color:#15803d;">Posisi Saat Ini</div></div>';
+            }
+            document.getElementById('timelineKlaim').innerHTML = htmlKlaim;
+
+            // TIKET SISA (CHIPS)
             var htmlSisa = '';
-            if(res.listSisa.length === 0) { htmlSisa = '<tr><td style="text-align:center; color:var(--text-muted);">Semua tiket habis</td></tr>';
-            } else { for(var j=0; j<res.listSisa.length; j++) { var itemSisa = res.listSisa[j]; htmlSisa += '<tr><td><b>' + itemSisa.unit + '</b> - ' + itemSisa.benefit + '</td></tr>'; } }
+            if(res.listSisa.length === 0) { htmlSisa = '<div style="text-align:center; color:#e11d48; font-size:12px; margin:10px 0; font-weight:700;">Semua tiket telah habis digunakan.</div>';
+            } else { 
+              for(var j=0; j<res.listSisa.length; j++) { 
+                var itemSisa = res.listSisa[j]; 
+                htmlSisa += '<div class="ticket-chip"><div><strong>' + itemSisa.unit + '</strong><br><small style="color:var(--text-muted); font-size:11px;">' + itemSisa.benefit + '</small></div><span>READY</span></div>'; 
+              } 
+            }
             document.getElementById('tabelSisa').innerHTML = htmlSisa;
+
+            // NOTA BAWAH
             document.getElementById('notaIdCek').innerText = id; document.getElementById('notaNamaCek').innerText = res.customerName; document.getElementById('notaChannelCek').innerText = res.channelBeli;
           }
       });
@@ -654,11 +693,11 @@
           document.getElementById('statOmzet').innerText = data.totalOmzetFormatted; document.getElementById('statOmzetBca').innerText = data.bcaOmzetFormatted; document.getElementById('statOmzetBsi').innerText = data.bsiOmzetFormatted;
           document.getElementById('statKlaim').innerText = data.totalKlaimFormatted; document.getElementById('statPasporAktif').innerText = data.countPasporAktif; document.getElementById('statTiketUsed').innerText = data.countUsed;
           
-          var htmlChannel = ''; for (var c in data.channelStats) { htmlChannel += '<tr><td><b>' + c + '</b></td><td style="text-align:right;">' + data.channelStats[c] + '</td></tr>'; }
+          var htmlChannel = ''; for (var c in data.channelStats) { htmlChannel += '<tr><td>' + c + '</td><td style="text-align:right;">' + data.channelStats[c] + '</td></tr>'; }
           if(htmlChannel === '') htmlChannel = '<tr><td colspan="2" style="text-align:center;">Belum ada penjualan</td></tr>'; document.getElementById('tbodyChannel').innerHTML = htmlChannel;
           
           var htmlUnit = '';
-          for (var u in data.unitStats) { var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); htmlUnit += '<tr><td><b>' + u + '</b></td><td>' + data.unitStats[u].used + '</td><td style="font-weight:700; color:var(--primary);">' + nilaiKlaimRupiah + '</td></tr>'; }
+          for (var u in data.unitStats) { var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); htmlUnit += '<tr><td>' + u + '</td><td>' + data.unitStats[u].used + '</td><td style="color:var(--teal-main);">' + nilaiKlaimRupiah + '</td></tr>'; }
           document.getElementById('tbodyUnit').innerHTML = htmlUnit;
 
           allPasporAktifData = data.listPasporAktif || []; renderTabelPasporAktif(allPasporAktifData); renderWidgetKasirTerbaru(allPasporAktifData);
@@ -682,8 +721,8 @@
       if (!list || list.length === 0) { html = '<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding:10px;">Tidak ada data</td></tr>'; } else {
         for (var i = 0; i < list.length; i++) {
           var item = list[i]; var badgeStatus = '';
-          if (item.readyCount > 0) { badgeStatus = '<span class="badge-ready">' + item.readyCount + '/' + item.totalTiket + ' Ready</span>'; } else { badgeStatus = '<span class="badge-used">Habis</span>'; }
-          html += '<tr onclick="langsungCekPaspor(\'' + item.rawId + '\')" style="cursor:pointer;"><td><b>' + item.id + '</b><br><span style="font-size:10px; color:var(--text-muted);">' + item.nama + '</span></td><td>' + item.channel + '</td><td>' + badgeStatus + '</td></tr>';
+          if (item.readyCount > 0) { badgeStatus = '<span class="badge-ready">' + item.readyCount + '/' + item.totalTiket + '</span>'; } else { badgeStatus = '<span class="badge-used">Habis</span>'; }
+          html += '<tr onclick="langsungCekPaspor(\'' + item.rawId + '\')" style="cursor:pointer;"><td><strong style="color:var(--navy-main);">' + item.id + '</strong><br><span style="font-size:10px; color:var(--text-muted);">' + item.nama + '</span></td><td>' + item.channel + '</td><td>' + badgeStatus + '</td></tr>';
         }
       } document.getElementById('tbodyPasporAktif').innerHTML = html;
     }
@@ -696,11 +735,11 @@
 
     function renderWidgetKasirTerbaru(list) {
       var el = document.getElementById('widgetKasirTerbaru'); if (!el) return;
-      if (!list || list.length === 0) { el.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:5px;">Belum ada aktivasi</div>'; return; }
+      if (!list || list.length === 0) { el.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:10px; background:#f8fafc; border-radius:12px;">Belum ada aktivasi</div>'; return; }
       var recent = list.slice().reverse().slice(0, 5); var html = '';
       for (var i = 0; i < recent.length; i++) {
         var item = recent[i];
-        html += '<div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f2f6; padding:8px 0; cursor:pointer;" onclick="langsungCekPaspor(\'' + item.rawId + '\')"><div><b style="color:var(--primary-dark);">' + item.id + '</b> - ' + item.nama + ' <br><span style="font-size:10px; color:var(--text-muted);">' + item.channel + ' | ' + item.bank + '</span></div><div style="color:var(--primary); font-size:14px;">›</div></div>';
+        html += '<div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:12px 0; cursor:pointer;" onclick="langsungCekPaspor(\'' + item.rawId + '\')"><div><b style="color:var(--navy-main); font-size:14px;">' + item.id + '</b> - ' + item.nama + ' <br><span style="font-size:11px; color:var(--text-muted); font-weight:600;">' + item.channel + ' | ' + item.bank + '</span></div><div style="color:var(--teal-main); font-size:18px;">›</div></div>';
       } el.innerHTML = html;
     }
 
@@ -708,7 +747,7 @@
 
     function mintaPinDownloadAwandra() {
       Swal.fire({
-        title: 'Verifikasi Keamanan', text: 'Masukkan PIN Otorisasi Laporan:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Unduh PDF', cancelButtonText: 'Batal', confirmButtonColor: '#2a9d8f', customClass: { popup: 'swal-soft' }, heightAuto: false
+        title: 'Verifikasi Keamanan', text: 'Masukkan PIN Otorisasi Laporan:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Unduh PDF', cancelButtonText: 'Batal', confirmButtonColor: '#58b4ba', customClass: { popup: 'swal-soft' }, heightAuto: false
       }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_DOWNLOAD_FINANCE) { unduhLaporanAwandra(); } else { showToast('error', 'PIN Tidak Valid.'); } } });
     }
 
@@ -730,10 +769,10 @@
       Tesseract.recognize(file, 'ind', { logger: m => {} } ).then(({ data: { text } }) => {
         var teksHurufBesar = text.toUpperCase().replace(/\s+/g, ' '); var aiPesan = "";
         var cekNominal = teksHurufBesar.includes('375'); var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');
-        if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:var(--primary); font-size:11px; font-weight:700;'>Indikasi Dokumen Valid</span>"; } else { isAiValid = false; aiPesan = "<br><span style='color:#d63031; font-size:11px; font-weight:700;'>Indikasi Dokumen Tidak Valid</span>"; }
-        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--text-main); font-weight:700;'>Foto Siap</span>" + aiPesan; hideStatus('msgKasir');
+        if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:var(--teal-main); font-size:11px; font-weight:800;'>Dokumen Valid Terdeteksi</span>"; } else { isAiValid = false; aiPesan = "<br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Dokumen Tidak Sesuai Kriteria</span>"; }
+        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap Diupload</span>" + aiPesan; hideStatus('msgKasir');
       }).catch(err => {
-        isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--text-main); font-weight:700;'>Foto Siap</span><br><span style='color:#d63031; font-size:11px; font-weight:700;'>Indikasi Dokumen Tidak Valid</span>"; hideStatus('msgKasir');
+        isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap</span><br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Gagal memvalidasi dokumen secara AI</span>"; hideStatus('msgKasir');
       });
       const reader = new FileReader();
       reader.onload = function(e) { 
@@ -748,10 +787,10 @@
 
     function prosesAktivasi() {
       var id = document.getElementById('inputPaspor').value; var nama = document.getElementById('namaCust').value; var hp = document.getElementById('noHpCust').value; var channel = document.getElementById('channelBeli').value; var bank = document.getElementById('bankTujuan').value;
-      if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Lengkapi seluruh data transaksi.'); if(!compressedImageBase64) return showToast('warning', 'Lampirkan foto bukti.');
+      if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Lengkapi seluruh data transaksi.'); if(!compressedImageBase64) return showToast('warning', 'Lampirkan foto bukti transfer.');
       if (isAiValid) { eksekusiAktivasi(id, nama, hp, channel, bank); } else {
         Swal.fire({
-          title: 'Otorisasi Manual', text: 'Sistem meragukan bukti transfer. Masukkan PIN Otorisasi untuk memaksa aktivasi:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Lanjutkan', cancelButtonText: 'Batal', confirmButtonColor: '#2a9d8f', customClass: { popup: 'swal-soft' }, heightAuto: false
+          title: 'Otorisasi Manual', text: 'Sistem meragukan bukti transfer. Masukkan PIN Otorisasi untuk memaksa aktivasi:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Lanjutkan', cancelButtonText: 'Batal', confirmButtonColor: '#58b4ba', customClass: { popup: 'swal-soft' }, heightAuto: false
         }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank); } else { showToast('error', 'PIN Tidak Valid. Ditolak.'); } } });
       }
     }
