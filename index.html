@@ -59,24 +59,14 @@
 
     /* KARTU PASPOR 3D CUSTOM */
     .passport-card-3d {
-      width: 100%;
-      height: 180px;
-      border-radius: 20px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 12px 30px rgba(25, 51, 84, 0.2);
-      margin-bottom: 24px;
-      background: var(--navy-main); /* Fallback warna */
+      width: 100%; height: 180px; border-radius: 20px; position: relative; overflow: hidden;
+      box-shadow: 0 12px 30px rgba(25, 51, 84, 0.2); margin-bottom: 24px; background: var(--navy-main);
       animation: passportSlideOut 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .passport-card-bg {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
-    }
+    .passport-card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
     .passport-card-content {
-      position: relative; z-index: 1; padding: 20px; width: 100%; height: 100%;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%);
-      color: #ffffff;
+      position: relative; z-index: 1; padding: 20px; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;
+      background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%); color: #ffffff;
     }
     .passport-owner-name { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
     .passport-id-code { font-size: 12px; font-family: monospace; letter-spacing: 2px; color: var(--teal-main); margin-top: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);}
@@ -112,12 +102,33 @@
     /* NOTA DIGITAL */
     .receipt-box { border: 2px dashed #cbd5e1; padding: 24px; border-radius: 24px; background: #f8fafc; margin-bottom: 16px; }
     .receipt-logo { text-align: center; margin-bottom: 16px; }
-    .receipt-logo img { height: 65px; object-fit: contain; } /* UKURAN LOGO DIPERBESAR */
+    .receipt-logo img { height: 65px; object-fit: contain; }
     .receipt-header { text-align: center; font-weight: 800; color: var(--navy-main); font-size: 16px; margin-bottom: 4px; }
     .receipt-sub { text-align: center; font-size: 11px; color: var(--text-muted); margin-bottom: 20px; }
     .receipt-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 10px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px; color: var(--text-muted); font-weight: 600;}
     .receipt-row strong { color: var(--navy-main); font-weight: 800; }
     .receipt-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; margin-top: 16px; color: var(--teal-main); }
+
+    /* DESAIN WALLET DOMPET 3D UNTUK OMZET */
+    .wallet-container {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-main), var(--navy-dark));
+      border-radius: 24px;
+      padding: 24px;
+      color: #ffffff;
+      box-shadow: 0 15px 35px rgba(25, 51, 84, 0.2);
+      margin-bottom: 24px;
+      margin-top: 24px; /* Memberi ruang untuk flap dompet */
+      z-index: 2;
+    }
+    .wallet-flap-1 {
+      position: absolute; top: -14px; left: 5%; width: 90%; height: 30px;
+      background: #2a4c75; border-radius: 16px 16px 0 0; z-index: -1;
+    }
+    .wallet-flap-2 {
+      position: absolute; top: -26px; left: 10%; width: 80%; height: 30px;
+      background: #cbd5e1; border-radius: 16px 16px 0 0; z-index: -2;
+    }
 
     /* UTILITIES */
     .status-box { padding: 14px; border-radius: 16px; font-size: 12px; font-weight: 700; text-align: center; margin-top: 8px; display: none; background: #e0f2fe; color: #0369a1; }
@@ -157,11 +168,8 @@
        ✨ RESPONSIVE DESKTOP MODE ✨
        ========================================= */
     @media (min-width: 768px) {
-      /* Penambahan padding top besar agar header turun di bawah menu navigasi */
       body { padding: 40px; padding-top: 100px; background: #e2e8f0; } 
       .top-bg { height: 320px; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-      
-      /* Memberi margin ekstra agar terbebas dari tabrakan navigasi */
       .app-header { max-width: 900px; padding: 0 20px; margin-top: 30px; margin-bottom: 40px; } 
       
       .card-container { margin-top: 0; }
@@ -229,7 +237,8 @@
       <div class="card card-narrow">
         <div class="card-title" id="homeTitle">Menu Transaksi</div>
         <div id="wrapperMenuUtama">
-          <button class="btn btn-menu" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;">Penjualan & Aktivasi</button>
+          <!-- TEKS KASIR DI UBAH MENJADI SALES & AKTIVASI -->
+          <button class="btn btn-menu" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;">Sales & Aktivasi</button>
           <button class="btn btn-menu" id="btnMenuPetugas" onclick="showMenu('petugas')" style="display:none;">Penukaran Wahana</button>
           <button class="btn btn-menu" id="btnMenuLaporan" onclick="showMenu('laporan')" style="display:none;">Laporan Executive</button>
           <div class="divider"></div>
@@ -255,10 +264,7 @@
           
           <!-- KARTU PASPOR CUSTOM (DESAIN BACKGROUND) -->
           <div class="passport-card-3d">
-            <!-- Ini akan memanggil gambar desain-paspor.png dari GitHub Anda -->
             <img class="passport-card-bg" src="desain-paspor.png" alt="Desain Paspor" onerror="this.style.display='none'">
-            
-            <!-- Teks melayang di atas gambar -->
             <div class="passport-card-content">
               <div class="passport-owner-name" id="namaPemilikCek"></div>
               <div class="passport-id-code">ID: <span id="notaIdCekLabel"></span></div>
@@ -294,10 +300,11 @@
       </div>
     </div>
 
-    <!-- MENU KASIR -->
+    <!-- MENU SALES & AKTIVASI -->
     <div id="kasirCard" class="card-container" style="display:none;">
       <div class="card">
-        <div class="card-title">Aktivasi Paspor Baru</div>
+        <!-- JUDUL DI UBAH -->
+        <div class="card-title">Sales & Aktivasi Paspor</div>
         <div id="formKasirArea">
           
           <div class="grid-2-col">
@@ -330,7 +337,8 @@
           <button class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:20px;">Aktifkan Paspor</button>
           
           <div class="divider"></div>
-          <div style="font-size:12px; font-weight:800; color:var(--navy-main); margin-bottom:12px;">Aktivasi Terakhir:</div>
+          <!-- LABEL DI UBAH -->
+          <div style="font-size:12px; font-weight:800; color:var(--navy-main); margin-bottom:12px;">Aktivasi Sales Terakhir:</div>
           <div id="widgetKasirTerbaru" style="font-size:13px; max-height:160px; overflow-y:auto; padding:0 4px;">
             <div style="text-align:center; color:var(--text-muted); font-weight:600;">Memuat data...</div>
           </div>
@@ -394,14 +402,20 @@
         <div id="contentLaporan" style="display:none;">
           
           <div class="grid-2-col">
-            <div>
-              <div style="background:var(--navy-main); border-radius:24px; padding:24px; color:#fff; box-shadow:0 10px 30px rgba(25,51,84,0.15);">
-                <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:rgba(255,255,255,0.7); letter-spacing:1px;">Total Omzet Penjualan</div>
-                <div id="statOmzet" style="font-size:32px; font-weight:800; margin-top:4px;">Rp0</div>
+            <div style="padding-top: 15px;">
+              <!-- DOMPET OMZET DENGAN EFEK 3D TERTUMPUK -->
+              <div class="wallet-container">
+                <div class="wallet-flap-2"></div>
+                <div class="wallet-flap-1"></div>
                 
-                <div style="display:flex; justify-content:space-between; margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.1); font-size:12px; font-weight:600;">
-                  <div>BCA: <span id="statOmzetBca" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
-                  <div>BSI: <span id="statOmzetBsi" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
+                <div style="position:relative; z-index:5;">
+                  <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:rgba(255,255,255,0.7); letter-spacing:1px;">Total Omzet Penjualan</div>
+                  <div id="statOmzet" style="font-size:32px; font-weight:800; margin-top:4px;">Rp0</div>
+                  
+                  <div style="display:flex; justify-content:space-between; margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.1); font-size:12px; font-weight:600;">
+                    <div>BCA: <span id="statOmzetBca" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
+                    <div>BSI: <span id="statOmzetBsi" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -615,7 +629,7 @@
         teksRole = "Executive Manager";
         document.getElementById('btnMenuKasir').style.display = 'flex'; document.getElementById('btnMenuPetugas').style.display = 'flex'; document.getElementById('btnMenuLaporan').style.display = 'flex';
       } else if (roleAktif === "kasir") { 
-        teksRole = "Kasir & Aktivasi";
+        teksRole = "Akses Sales & Aktivasi"; /* TEKS AKSES DIUBAH */
         document.getElementById('btnMenuKasir').style.display = 'flex';
       } else if (roleAktif === "petugas") { 
         document.getElementById('btnMenuPetugas').style.display = 'flex'; 
