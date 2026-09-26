@@ -5,56 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Wisata Amal Zone</title>
   <style>
+    /* DESAIN MODERN ALA MOBILE BANKING */
+    :root {
+      --primary: #2a9d8f; 
+      --primary-soft: #eaf6f5; 
+      --primary-dark: #218276;
+      --bg-color: #f7f9fc;
+      --text-main: #2d3436;
+      --text-muted: #636e72;
+      --border-soft: rgba(42, 157, 143, 0.15);
+      --card-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: #f0f2f5; color: #1c1e21; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 8px; justify-content: center; } 
-    .app-header { text-align: center; margin-bottom: 10px; margin-top: 2px; }
-    .app-header h1 { font-size: 17px; color: #1b365d; font-weight: 800; }
-    .app-header p { font-size: 11px; color: #65676b; }
-    .card { background: #ffffff; width: 100%; max-width: 380px; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04); margin-bottom: 10px; }
-    .card-title { font-size: 15px; font-weight: 700; color: #1c1e21; margin-bottom: 10px; text-align: center; }
-    .btn { width: 100%; padding: 11px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; display: block; text-align: center; margin-bottom: 8px; transition: 0.2s; }
-    .btn:active { transform: scale(0.98); }
-    .btn-login { background: #1b365d; color: #ffffff; padding: 14px; font-size: 14px; margin-top: 10px;}
-    .btn-kasir { background: #1b365d; color: #ffffff; }
-    .btn-petugas { background: #00a86b; color: #ffffff; }
-    .btn-laporan { background: #8e44ad; color: #ffffff; }
-    .btn-cek { background: #3498db; color: #ffffff; }
-    .btn-scan { background: #e67e22; color: #ffffff; font-size: 14px; padding: 12px; }
-    .btn-klaim { background: #27ae60; color: #ffffff; padding: 9px; font-size: 12px; }
-    .btn-secondary { background: #e4e6eb; color: #4b4f56; margin-top: 6px; margin-bottom: 0; }
-    .input-group { margin-bottom: 8px; text-align: left; }
-    .input-group label { display: block; font-size: 10px; font-weight: 700; color: #65676b; text-transform: uppercase; margin-bottom: 3px; }
-    .input-field { width: 100%; padding: 9px 10px; border-radius: 6px; border: 1.5px solid #e4e6eb; font-size: 13px; background: #f8f9fa; text-align: center; font-weight: 600; }
-    .input-field:focus { outline: none; border-color: #1b365d; background: #ffffff; }
-    select.input-field { appearance: auto; text-align: left; padding-left: 10px;}
-    .pin-input { font-size: 20px; letter-spacing: 5px; font-weight: 800; padding: 15px;}
-    .divider { height: 1px; background: #e4e6eb; margin: 8px 0; }
-    .omzet-box { background: linear-gradient(135deg, #1b365d, #2c3e50); color: #ffffff; border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 10px; }
-    .omzet-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #bdc3c7; }
-    .omzet-number { font-size: 22px; font-weight: 800; color: #2ecc71; margin-top: 2px; }
-    .status-box { padding: 8px; border-radius: 6px; font-size: 11px; font-weight: 600; text-align: center; margin-top: 6px; display: none; }
-    .status-info { background: #e7f3ff; color: #1877f2; border: 1px solid #b8daff; }
-    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
-    .stat-box { background: #f8f9fa; border-radius: 6px; padding: 6px; text-align: center; border: 1px solid #e4e6eb; }
-    .stat-number { font-size: 16px; font-weight: 800; color: #1b365d; }
-    .stat-label { font-size: 9px; font-weight: 700; color: #65676b; text-transform: uppercase; }
-    .report-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; }
-    .report-table th { background: #f0f2f5; padding: 5px; font-weight: 700; }
-    .report-table td { padding: 5px; border-bottom: 1px solid #f0f2f5; }
-    .badge-used { background: #e6f4ea; color: #137333; padding: 2px 5px; border-radius: 4px; font-size: 9px; font-weight: 700;}
-    .badge-ready { background: #e7f3ff; color: #1877f2; padding: 2px 5px; border-radius: 4px; font-size: 9px; font-weight: 700;}
-    .receipt-box { border: 2px dashed #1b365d; padding: 15px; border-radius: 8px; background: #fafafa; margin-bottom: 15px; }
-    .receipt-header { text-align: center; font-weight: 800; color: #1b365d; font-size: 16px; margin-bottom: 5px; }
-    .receipt-sub { text-align: center; font-size: 10px; color: #666; margin-bottom: 10px; }
-    .receipt-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; border-bottom: 1px dashed #ddd; padding-bottom: 4px;}
-    .receipt-total { display: flex; justify-content: space-between; font-size: 14px; font-weight: 800; margin-top: 8px; color: #27ae60; }
-    .swal2-popup { font-size: 11px !important; padding: 10px !important; width: 85% !important; max-width: 290px !important; border-radius: 12px !important; }
-    .swal2-icon { width: 42px !important; height: 42px !important; margin: 5px auto 5px !important; }
-    .swal2-title { font-size: 14px !important; padding: 4px 0 !important; color: #1c1e21 !important; }
+    body { background: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 12px 12px 80px 12px; } 
+    
+    /* ANIMASI HALUS */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .app-header { text-align: center; margin-bottom: 24px; margin-top: 10px; }
+    .app-header img { height: 55px; object-fit: contain; margin-bottom: 8px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05)); }
+    .app-header p { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 600; letter-spacing: 0.5px;}
+    
+    .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 20px; padding: 20px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.02); margin-bottom: 12px; animation: fadeSlideUp 0.4s ease-out; }
+    .card-title { font-size: 16px; font-weight: 700; color: var(--primary-dark); margin-bottom: 16px; text-align: center; }
+    
+    .btn { width: 100%; padding: 14px; border-radius: 14px; font-size: 14px; font-weight: 600; border: none; cursor: pointer; text-align: center; margin-bottom: 10px; transition: all 0.2s ease; letter-spacing: 0.3px; }
+    .btn:active { transform: scale(0.97); }
+    
+    .btn-main { background: var(--primary); color: #ffffff; box-shadow: 0 4px 12px rgba(42, 157, 143, 0.2); }
+    .btn-menu { background: var(--primary-soft); color: var(--primary-dark); border: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; padding: 16px; font-size: 14px;}
+    .btn-menu:after { content: "›"; font-size: 18px; line-height: 0; color: var(--primary); }
+    .btn-secondary { background: #f1f2f6; color: var(--text-muted); margin-top: 8px; }
+    .btn-danger { background: #fff0f0; color: #d63031; border: 1px solid #ffdcdc; }
+    
+    .input-group { margin-bottom: 14px; text-align: left; }
+    .input-group label { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;}
+    .input-field { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #dfe6e9; font-size: 14px; background: #fafbfc; text-align: center; font-weight: 600; transition: all 0.3s; }
+    .input-field:focus { outline: none; border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 4px var(--primary-soft); }
+    select.input-field { appearance: auto; text-align: left; padding-left: 14px;}
+    .pin-input { font-size: 24px; letter-spacing: 8px; font-weight: 800; padding: 18px;}
+    
+    .divider { height: 1px; background: #f1f2f6; margin: 16px 0; }
+    
+    .omzet-box { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #ffffff; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 16px; box-shadow: 0 8px 20px rgba(42, 157, 143, 0.25); }
+    .omzet-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,0.8); letter-spacing: 0.5px;}
+    .omzet-number { font-size: 26px; font-weight: 800; color: #ffffff; margin-top: 4px; }
+    
+    .status-box { padding: 12px; border-radius: 12px; font-size: 12px; font-weight: 600; text-align: center; margin-top: 8px; display: none; }
+    .status-info { background: var(--primary-soft); color: var(--primary-dark); border: 1px solid var(--border-soft); }
+    
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+    .stat-box { background: #fafbfc; border-radius: 14px; padding: 12px; text-align: center; border: 1px solid #f1f2f6; }
+    .stat-number { font-size: 18px; font-weight: 800; color: var(--text-main); }
+    .stat-label { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-top: 4px;}
+    
+    .report-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; text-align: left; }
+    .report-table th { background: #f8f9fa; padding: 10px; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid #f1f2f6; }
+    .report-table td { padding: 10px; border-bottom: 1px solid #f1f2f6; color: var(--text-main); }
+    
+    .badge-used { background: #fff0f0; color: #d63031; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600;}
+    .badge-ready { background: var(--primary-soft); color: var(--primary-dark); padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600;}
+    
+    .receipt-box { border: 1.5px dashed #dfe6e9; padding: 20px; border-radius: 16px; background: #fafbfc; margin-bottom: 16px; position: relative; }
+    .receipt-logo { text-align: center; margin-bottom: 12px; }
+    .receipt-logo img { height: 45px; object-fit: contain; }
+    .receipt-header { text-align: center; font-weight: 800; color: var(--text-main); font-size: 16px; margin-bottom: 4px; }
+    .receipt-sub { text-align: center; font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+    .receipt-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; border-bottom: 1px dashed #f1f2f6; padding-bottom: 8px; color: var(--text-muted);}
+    .receipt-row strong { color: var(--text-main); }
+    .receipt-total { display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; margin-top: 12px; color: var(--primary); }
+    
+    /* SWEETALERT HALUS */
+    .swal-soft { border-radius: 20px !important; padding: 1.5em !important; box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important; }
+    .swal2-title { font-size: 16px !important; color: var(--text-main) !important; font-weight: 700 !important; }
+    
     #buktiUpload { display: none; }
-    #mainContent { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; padding-top:10px; }
-    #reader { border-radius: 8px; overflow: hidden; margin-top: 10px; border: 2px solid #1b365d; }
+    #mainContent { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: flex-start; padding-top:10px; }
+    #reader { border-radius: 16px; overflow: hidden; margin-top: 10px; border: 2px solid var(--primary-soft); box-shadow: var(--card-shadow); }
     #reader video { object-fit: cover; }
+
+    /* BOTTOM NAVIGATION BAR */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 12px 10px 20px 10px; box-shadow: 0 -4px 20px rgba(0,0,0,0.03); border-top-left-radius: 24px; border-top-right-radius: 24px; z-index: 1000; border-top: 1px solid rgba(0,0,0,0.02); }
+    .nav-item { flex: 1; text-align: center; font-size: 12px; font-weight: 600; color: #b2bec3; padding: 8px 0; cursor: pointer; transition: all 0.3s ease; }
+    .nav-item.active { color: var(--primary); transform: translateY(-2px); }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -64,106 +100,113 @@
 </head>
 <body>
 
-  <div id="loginCard" class="card" style="margin: auto;">
-    <div class="app-header" style="margin-bottom: 20px;">
-      <h1>WISATA AMAL ZONE</h1>
-      <p>Portal Paspor & Voucher Digital</p>
+  <div id="loginCard" class="card" style="margin: auto; margin-top: 40px;">
+    <div class="app-header">
+      <!-- LOGO UTAMA AMAL ZONE -->
+      <img src="logo-amalzone.png" alt="Amal Zone" onerror="this.style.display='none'">
+      <p>Sistem Terintegrasi Internal</p>
     </div>
     <div class="card-title">Akses Keamanan</div>
     <div class="input-group">
-      <label style="text-align: center;">Masukkan PIN Anda</label>
+      <label style="text-align: center;">Masukkan PIN Petugas</label>
       <input type="password" id="inputPin" class="input-field pin-input" placeholder="••••" inputmode="numeric" maxlength="4">
     </div>
-    <button class="btn btn-login" onclick="cekPin()">Masuk</button>
+    <button class="btn btn-main" style="margin-top:20px;" onclick="cekPin()">Masuk Sistem</button>
   </div>
 
   <div id="mainContent">
     <div class="app-header">
-      <h1>WISATA AMAL ZONE</h1>
-      <p>Portal Paspor & Voucher Digital</p>
+      <!-- LOGO UTAMA AMAL ZONE KECIL -->
+      <img src="logo-amalzone.png" alt="Amal Zone" style="height: 45px;" onerror="this.style.display='none'">
+      <p id="teksSapaan">Portal Operasional</p>
     </div>
 
     <!-- MENU BERANDA -->
     <div id="homeCard" class="card" style="display:none;">
-      <div class="card-title" id="homeTitle">Pilih Menu Transaksi</div>
-      <button class="btn btn-kasir" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;">💼 Menu Penjualan & Aktivasi</button>
-      <button class="btn btn-petugas" id="btnMenuPetugas" onclick="showMenu('petugas')" style="display:none;">📷 Menu Petugas (Scan QR)</button>
-      <button class="btn btn-cek" id="btnMenuCek" onclick="showMenu('cek')" style="display:none;">🔍 Cek Riwayat Paspor</button>
-      <button class="btn btn-laporan" id="btnMenuLaporan" onclick="showMenu('laporan')" style="display:none;">📊 Laporan Manager</button>
-      <button class="btn btn-secondary" style="margin-top: 15px; color:#c5221f;" onclick="logout()">🔒 Keluar (Logout)</button>
+      <div class="card-title" id="homeTitle">Menu Transaksi</div>
+      <div id="wrapperMenuUtama">
+        <button class="btn btn-menu" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;">Penjualan & Aktivasi</button>
+        <button class="btn btn-menu" id="btnMenuPetugas" onclick="showMenu('petugas')" style="display:none;">Penukaran Voucher</button>
+        <button class="btn btn-menu" id="btnMenuLaporan" onclick="showMenu('laporan')" style="display:none;">Laporan Executive</button>
+      </div>
     </div>
 
     <!-- MENU CEK PASPOR -->
     <div id="cekCard" class="card" style="display:none;">
-      <div class="card-title">🔍 Cek Riwayat Paspor</div>
+      <div class="card-title">Pencarian Data Paspor</div>
       <div class="input-group">
         <label>Nomor ID Paspor</label>
         <input type="text" id="inputCekPaspor" class="input-field" placeholder="Contoh: 0926001">
       </div>
-      <button class="btn btn-cek" onclick="prosesCekData()">Cari Data</button>
+      <button class="btn btn-main" onclick="prosesCekData()">Cari Data</button>
       
-      <div id="loadingCek" style="display:none; text-align:center; font-size:11px; padding:8px; color:#65676b;">⏳ Mencari data di sistem...</div>
+      <div id="loadingCek" style="display:none; text-align:center; font-size:12px; padding:12px; color:var(--text-muted);">Memeriksa database...</div>
       
-      <div id="hasilCek" style="display:none; margin-top:15px; padding:10px; border:1px solid #e4e6eb; border-radius:8px; background:#fafafa;">
-        <div style="font-size:12px; font-weight:bold; margin-bottom:10px; text-align:center;">Pemilik: <span id="namaPemilikCek" style="color:#1b365d; font-size:14px;"></span></div>
-        <div style="font-size:10px; font-weight:bold; color:#c5221f; margin-bottom:4px;">❌ SUDAH DIPAKAI (KLAIM):</div>
-        <table class="report-table" id="tabelKlaim" style="margin-bottom:12px;"></table>
-        <div style="font-size:10px; font-weight:bold; color:#137333; margin-bottom:4px;">✅ BELUM DIPAKAI (READY):</div>
-        <table class="report-table" id="tabelSisa" style="margin-bottom:15px;"></table>
+      <div id="hasilCek" style="display:none; margin-top:16px;">
+        <div style="font-size:14px; font-weight:700; margin-bottom:12px; text-align:center; color:var(--text-main);">Pemilik: <span id="namaPemilikCek" style="color:var(--primary);"></span></div>
+        
+        <div style="font-size:11px; font-weight:700; color:#d63031; margin-bottom:6px;">SUDAH DIKLAIM:</div>
+        <table class="report-table" id="tabelKlaim" style="margin-bottom:16px;"></table>
+        
+        <div style="font-size:11px; font-weight:700; color:var(--primary); margin-bottom:6px;">SISA TIKET (READY):</div>
+        <table class="report-table" id="tabelSisa" style="margin-bottom:20px;"></table>
 
         <div class="divider"></div>
-        <div style="font-size:10px; font-weight:bold; color:#1b365d; margin-bottom:8px; text-align:center;">📜 SALINAN NOTA DIGITAL:</div>
+        <div style="font-size:12px; font-weight:700; color:var(--text-main); margin-bottom:12px; text-align:center;">Salinan Nota Digital</div>
         
-        <div class="receipt-box" id="notaKertasCek" style="margin-bottom:10px;">
+        <div class="receipt-box" id="notaKertasCek">
+          <!-- LOGO PASPOR UNTUK NOTA -->
+          <div class="receipt-logo"><img src="logo-paspor.png" alt="Paspor" onerror="this.style.display='none'"></div>
           <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
           <div class="receipt-sub">WISATA AMAL ZONE</div>
           <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaIdCek"></strong></div>
           <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNamaCek"></strong></div>
           <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannelCek"></strong></div>
-          <div class="receipt-total"><span>TOTAL DIBAYAR</span><strong>Rp375.000</strong></div>
-          <div style="text-align:center; font-size:9px; color:#888; margin-top:10px;">LUNAS - Salinan Sistem</div>
+          <div class="receipt-total"><span>Total Dibayar</span><strong>Rp375.000</strong></div>
+          <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:16px;">Lunas - Salinan Sistem</div>
         </div>
-        <button class="btn" onclick="unduhNotaPDFCek()" style="background:#8e44ad; color:#fff; margin-bottom:8px;">📄 Unduh Salinan Nota (PDF)</button>
+        <button class="btn btn-menu" style="justify-content:center;" onclick="unduhNotaPDFCek()">Unduh Salinan PDF</button>
       </div>
-      <button class="btn btn-secondary" onclick="showMenu('home')" style="margin-top:10px;">⬅️ Kembali ke Beranda</button>
     </div>
 
     <!-- MENU KASIR -->
     <div id="kasirCard" class="card" style="display:none;">
-      <div class="card-title">💼 Penjualan & Aktivasi Paspor</div>
+      <div class="card-title">Aktivasi Paspor Baru</div>
       <div id="formKasirArea">
         <div class="input-group"><label>Nomor ID Paspor</label><input type="text" id="inputPaspor" class="input-field" placeholder="Contoh: 0926001"></div>
-        <div class="input-group"><label>Nama Customer</label><input type="text" id="namaCust" class="input-field" placeholder="Misal: Bapak Andi"></div>
-        <div class="input-group"><label>Nomor HP Customer</label><input type="number" id="noHpCust" class="input-field" placeholder="Misal: 08123456789"></div>
-        <div class="input-group"><label>Channel Sales</label><select id="channelBeli" class="input-field"></select></div>
+        <div class="input-group"><label>Nama Pelanggan</label><input type="text" id="namaCust" class="input-field" placeholder="Ketik nama pelanggan"></div>
+        <div class="input-group"><label>Nomor HP Pelanggan</label><input type="number" id="noHpCust" class="input-field" placeholder="Contoh: 08123456789"></div>
+        <div class="input-group"><label>Channel Penjualan</label><select id="channelBeli" class="input-field"></select></div>
         
         <div class="input-group">
           <label>Bank Tujuan Transfer</label>
           <select id="bankTujuan" class="input-field" onchange="tampilInfoRekening()">
-            <option value="">-- Pilih Bank Tujuan Transfer --</option>
+            <option value="">Pilih Bank Transfer</option>
             <option value="BCA">BCA - 1711499666</option>
             <option value="BSI">BSI - 1577733337</option>
           </select>
         </div>
-        <div id="infoRekeningBox" style="display:none; font-size:10px; padding:6px; background:#e7f3ff; border:1px solid #b8daff; border-radius:6px; margin-bottom:8px; text-align:center; color:#1b365d; font-weight:bold; line-height:1.4;"></div>
+        <div id="infoRekeningBox" class="status-info" style="display:none; padding:10px; border-radius:12px; font-size:11px; text-align:center; margin-bottom:12px;"></div>
 
-        <div class="input-group">
-          <label>Upload Bukti Pembayaran (Wajib)</label>
-          <label for="buktiUpload" class="btn btn-secondary" style="background:#e7f3ff; color:#1877f2; border:1px solid #b8daff;" id="labelUploadBtn">📸 Pilih Foto Bukti Transfer</label>
+        <div class="input-group" style="margin-top: 20px;">
+          <label>Bukti Pembayaran</label>
+          <label for="buktiUpload" class="btn btn-menu" style="justify-content:center;" id="labelUploadBtn">Pilih Foto Transfer</label>
           <input type="file" id="buktiUpload" accept="image/*" onchange="previewBukti(event)">
-          <div id="buktiPreviewName" style="font-size:10px; text-align:center; margin-top:4px; font-weight:bold; line-height:1.4;"></div>
+          <div id="buktiPreviewName" style="font-size:11px; text-align:center; margin-top:8px; line-height:1.5;"></div>
         </div>
-        <button class="btn btn-kasir" onclick="prosesAktivasi()" style="margin-top:12px;">Aktifkan Paspor</button>
+        <button class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:20px;">Aktifkan Paspor</button>
         
         <div class="divider"></div>
-        <div style="font-size:10px; font-weight:700; color:#1b365d; margin-bottom:6px; text-align:left;">🕒 AKTIVASI TERBARU:</div>
-        <div id="widgetKasirTerbaru" style="font-size:11px; text-align:left; max-height:140px; overflow-y:auto; background:#fafafa; border:1px solid #e4e6eb; border-radius:6px; padding:6px;">
-          <div style="text-align:center; color:#888;">⏳ Memuat data...</div>
+        <div style="font-size:11px; font-weight:700; color:var(--text-main); margin-bottom:10px;">Aktivasi Terakhir:</div>
+        <div id="widgetKasirTerbaru" style="font-size:12px; max-height:140px; overflow-y:auto; padding:0 4px;">
+          <div style="text-align:center; color:var(--text-muted);">Memuat data...</div>
         </div>
       </div>
 
       <div id="notaArea" style="display:none;">
         <div class="receipt-box" id="notaKertas">
+          <!-- LOGO PASPOR UNTUK NOTA -->
+          <div class="receipt-logo"><img src="logo-paspor.png" alt="Paspor" onerror="this.style.display='none'"></div>
           <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
           <div class="receipt-sub">WISATA AMAL ZONE</div>
           <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaId"></strong></div>
@@ -171,76 +214,76 @@
           <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggal"></strong></div>
           <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannel"></strong></div>
           <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBank"></strong></div>
-          <div class="receipt-total"><span>TOTAL DIBAYAR</span><strong id="notaTotal"></strong></div>
-          <div style="text-align:center; font-size:9px; color:#888; margin-top:10px;">LUNAS - Paspor Resmi Diaktifkan</div>
+          <div class="receipt-total"><span>Total Dibayar</span><strong id="notaTotal"></strong></div>
+          <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:16px;">Lunas - Paspor Aktif</div>
         </div>
-        <button class="btn" onclick="unduhNotaPDF()" style="background:#8e44ad; color:#fff; margin-bottom:8px;">📄 Unduh Nota (PDF)</button>
-        <button class="btn btn-petugas" onclick="resetKasir()">Selesai & Transaksi Baru</button>
+        <button class="btn btn-main" onclick="unduhNotaPDF()">Unduh Nota PDF</button>
+        <button class="btn btn-secondary" onclick="resetKasir()">Transaksi Baru</button>
       </div>
       <div id="msgKasir" class="status-box"></div>
-      <button class="btn btn-secondary" onclick="showMenu('home')">⬅️ Kembali ke Beranda</button>
     </div>
 
-    <!-- MENU PETUGAS (REVISI: HANYA LIVE SCANNER) -->
+    <!-- MENU PETUGAS (LIVE SCANNER) -->
     <div id="petugasCard" class="card" style="display:none;">
-      <div class="card-title">📷 Penukaran Voucher Wisata</div>
-      <div class="input-group"><label>Nama Petugas & Unit</label><input type="text" id="namaPetugas" class="input-field" placeholder="Misal: Budi - Wahana Air"></div>
+      <div class="card-title">Penukaran Voucher</div>
+      <div class="input-group">
+        <label>Identitas Petugas</label>
+        <input type="text" id="namaPetugas" class="input-field" placeholder="Nama Petugas & Unit Wahana">
+      </div>
       
-      <!-- Tombol Live Scanner Utama -->
-      <button class="btn btn-scan" id="btnBukaKamera" onclick="bukaLiveScanner()" style="background:#e67e22;">📷 SCAN BARCODE</button>
+      <button class="btn btn-main" id="btnBukaKamera" onclick="bukaLiveScanner()" style="margin-top:16px;">Scan Barcode</button>
       
       <div id="reader" style="display: none;"></div>
-      <button class="btn btn-secondary" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:10px; color:#c5221f;">❌ Tutup Kamera</button>
+      <button class="btn btn-danger" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:12px;">Tutup Kamera</button>
 
       <div class="divider"></div>
-      <div class="input-group"><label>Atau Ketik Kode Manual</label><input type="text" id="inputVoucherManual" class="input-field" placeholder="Contoh: 0926001-R1"></div>
-      <button class="btn btn-klaim" onclick="prosesKlaimManual()">Klaim Manual</button>
+      <div class="input-group"><label>Input Kode Manual</label><input type="text" id="inputVoucherManual" class="input-field" placeholder="Ketik kode jika barcode rusak"></div>
+      <button class="btn btn-menu" style="justify-content:center;" onclick="prosesKlaimManual()">Proses Kode Manual</button>
       <div id="msgPetugas" class="status-box"></div>
-      <button class="btn btn-secondary" onclick="showMenu('home')">⬅️ Kembali ke Beranda</button>
     </div>
 
     <!-- MENU LAPORAN MANAGER -->
     <div id="laporanCard" class="card" style="display:none;">
-      <div class="card-title">📊 Executive Dashboard</div>
+      <div class="card-title">Laporan Executive</div>
       
-      <div class="input-group" style="margin-bottom: 10px;">
-        <label>🗓️ Periode Bulan Laporan:</label>
-        <select id="filterBulan" class="input-field" onchange="loadDashboardData()" style="background:#e7f3ff; border-color:#1877f2; color:#1b365d; font-weight:bold;">
-          <option value="ALL">🗓️ Semua Bulan (All Time)</option>
+      <div class="input-group" style="margin-bottom: 16px;">
+        <label>Periode Laporan</label>
+        <select id="filterBulan" class="input-field" onchange="loadDashboardData()" style="font-weight:700; color:var(--primary-dark);">
+          <option value="ALL">Semua Bulan</option>
         </select>
       </div>
 
-      <div id="loadingLaporan" style="text-align:center; padding:8px; font-size:11px; color:#65676b;">⏳ Memuat data...</div>
+      <div id="loadingLaporan" style="text-align:center; padding:12px; font-size:12px; color:var(--text-muted);">Memuat rekapitulasi...</div>
+      
       <div id="contentLaporan" style="display:none;">
-        
         <div class="omzet-box">
           <div class="omzet-label">Total Omzet Penjualan</div><div class="omzet-number" id="statOmzet">Rp0</div>
-          <div class="divider" style="background:rgba(255,255,255,0.2); margin: 6px 0;"></div>
-          <div style="display:flex; justify-content:space-around; font-size:11px; margin-bottom:4px;">
-            <div>🔵 <b>BCA:</b> <span id="statOmzetBca" style="color:#2ecc71; font-weight:bold;">Rp0</span> (<span id="statCountBca">0</span>)</div>
-            <div>🟢 <b>BSI:</b> <span id="statOmzetBsi" style="color:#2ecc71; font-weight:bold;">Rp0</span> (<span id="statCountBsi">0</span>)</div>
+          <div class="divider" style="background:rgba(255,255,255,0.2); margin: 12px 0;"></div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; padding: 0 10px;">
+            <div>BCA: <span id="statOmzetBca" style="font-weight:700;">Rp0</span></div>
+            <div>BSI: <span id="statOmzetBsi" style="font-weight:700;">Rp0</span></div>
           </div>
-          <div class="divider" style="background:rgba(255,255,255,0.2); margin: 6px 0;"></div>
-          <div class="omzet-label">Total Nilai Benefit Diklaim</div><div class="omzet-number" style="color:#f1c40f;" id="statKlaim">Rp0</div>
+          <div class="divider" style="background:rgba(255,255,255,0.2); margin: 12px 0;"></div>
+          <div class="omzet-label">Nilai Benefit Terdestribusi</div>
+          <div class="omzet-number" style="font-size:20px; color:#ffeaa7;" id="statKlaim">Rp0</div>
         </div>
 
         <div class="stat-grid">
-          <div class="stat-box"><div class="stat-label">Paspor Terjual</div><div class="stat-number" id="statPasporAktif" style="color:#27ae60;">0</div></div>
-          <div class="stat-box"><div class="stat-label">Tiket Terpakai</div><div class="stat-number" id="statTiketUsed" style="color:#1877f2;">0</div></div>
+          <div class="stat-box"><div class="stat-number" id="statPasporAktif" style="color:var(--primary);">0</div><div class="stat-label">Paspor Terjual</div></div>
+          <div class="stat-box"><div class="stat-number" id="statTiketUsed" style="color:var(--text-main);">0</div><div class="stat-label">Tiket Terpakai</div></div>
         </div>
+
         <div class="divider"></div>
+        <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:var(--text-main); margin-bottom:8px;">Daftar Paspor Aktif</label>
+        <input type="text" id="searchPasporAktif" class="input-field" placeholder="Cari ID, Nama, Channel..." onkeyup="filterTabelPasporAktif()" style="margin-bottom:12px; padding:10px;">
 
-        <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:#1b365d; margin-bottom:4px;">📋 DAFTAR PASPOR TERJUAL / AKTIF:</label>
-        <input type="text" id="searchPasporAktif" class="input-field" placeholder="🔍 Cari ID / Nama / Channel / Bank..." onkeyup="filterTabelPasporAktif()" style="margin-bottom:8px; font-size:11px; padding:6px 8px; text-align:left;">
-
-        <div style="max-height: 220px; overflow-y: auto; border: 1px solid #e4e6eb; border-radius: 6px; margin-bottom:12px;">
+        <div style="max-height: 250px; overflow-y: auto; border: 1px solid #f1f2f6; border-radius: 12px; margin-bottom:16px;">
           <table class="report-table" id="tabelPasporAktif">
             <thead>
-              <tr style="position:sticky; top:0; background:#f0f2f5;">
-                <th>ID & Nama</th>
-                <th>Channel/Bank</th>
-                <th>Sisa Tiket</th>
-                <th>Aksi</th>
+              <tr style="position:sticky; top:0; background:#f8f9fa;">
+                <th>Paspor</th>
+                <th>Channel</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody id="tbodyPasporAktif"></tbody>
@@ -248,62 +291,67 @@
         </div>
 
         <div class="divider"></div>
-        <label style="display:block; text-align:left; font-size:10px; font-weight:700; margin-bottom:4px;">📈 REKAP PENJUALAN PER CHANNEL:</label>
-        <table class="report-table"><thead><tr><th>Channel Sales</th><th>Total Paspor</th></tr></thead><tbody id="tbodyChannel"></tbody></table>
-        <div class="divider"></div>
-        <label style="display:block; text-align:left; font-size:10px; font-weight:700; margin-bottom:4px;">📌 REKAP KLAIM PER UNIT WISATA:</label>
-        <table class="report-table"><thead><tr><th>Unit Wisata</th><th>Terpakai</th><th>Ready</th><th>Nilai Klaim</th></tr></thead><tbody id="tbodyUnit"></tbody></table>
+        <label style="display:block; text-align:left; font-size:11px; font-weight:700; margin-bottom:8px;">Kinerja Channel</label>
+        <table class="report-table" style="margin-bottom:16px;"><thead><tr><th>Channel</th><th>Penjualan</th></tr></thead><tbody id="tbodyChannel"></tbody></table>
         
-        <button class="btn" style="background:#2c3e50; color:#fff; margin-top:15px; font-size:12px;" onclick="mintaPinDownloadAwandra()">🔒 Cetak Laporan PDF (Awandra Group)</button>
+        <label style="display:block; text-align:left; font-size:11px; font-weight:700; margin-bottom:8px;">Trafik Wahana</label>
+        <table class="report-table"><thead><tr><th>Unit</th><th>Terpakai</th><th>Klaim</th></tr></thead><tbody id="tbodyUnit"></tbody></table>
+        
+        <button class="btn btn-main" style="margin-top:24px;" onclick="mintaPinDownloadAwandra()">Cetak Laporan PDF</button>
       </div>
-      <button class="btn btn-kasir" style="padding:7px; font-size:11px; margin-top:8px;" onclick="loadDashboardData()">🔄 Refresh Data</button>
-      <button class="btn btn-secondary" onclick="showMenu('home')">⬅️ Kembali ke Beranda</button>
     </div>
+  </div>
+
+  <!-- BOTTOM NAVIGATION BAR -->
+  <div id="bottomNav" class="bottom-nav" style="display:none;">
+    <div class="nav-item" id="nav_home" onclick="showMenu('home')">Beranda</div>
+    <div class="nav-item" id="nav_cek" onclick="showMenu('cek')">Pencarian</div>
+    <div class="nav-item" id="nav_logout" onclick="logout()">Keluar</div>
   </div>
 
   <!-- TEMPLATE LAPORAN PDF -->
   <div id="printArea" style="display: none;">
     <div style="text-align:center; margin-bottom:15px;">
-      <h2 style="margin:0; font-size:18px; font-weight:800; color:#1b365d;">LAPORAN AUDIT FINANCE & OPERASIONAL</h2>
-      <h4 style="margin:4px 0; color:#555; font-size:13px;">WISATA AMAL ZONE - AWANDRA GROUP</h4>
-      <p style="margin:0; font-size:10px; color:#888;" id="printTanggal"></p>
-      <p style="margin:2px 0 0 0; font-size:11px; font-weight:bold; color:#1b365d;" id="printPeriodeBulan"></p>
+      <h2 style="margin:0; font-size:18px; font-weight:800; color:#2d3436;">LAPORAN AUDIT FINANCE & OPERASIONAL</h2>
+      <h4 style="margin:4px 0; color:#636e72; font-size:13px;">WISATA AMAL ZONE - AWANDRA GROUP</h4>
+      <p style="margin:0; font-size:10px; color:#b2bec3;" id="printTanggal"></p>
+      <p style="margin:2px 0 0 0; font-size:11px; font-weight:bold; color:#2d3436;" id="printPeriodeBulan"></p>
     </div>
-    <hr style="border:1px solid #1b365d; margin-bottom:15px;">
+    <hr style="border:1px solid #dfe6e9; margin-bottom:15px;">
     
     <div style="margin-bottom:15px;">
-      <h3 style="font-size:12px; margin-bottom:6px; color:#1b365d;">A. RINGKASAN KEUANGAN KONSOLIDASI</h3>
+      <h3 style="font-size:12px; margin-bottom:6px; color:#2d3436;">A. RINGKASAN KEUANGAN</h3>
       <table style="font-size:11px;">
         <tr>
-          <td style="width:60%; background:#f8f9fa; font-weight:bold;">Total Pemasukan Transfer (Penjualan Paspor)</td>
-          <td style="font-weight:bold; color:#27ae60; text-align:right;" id="printOmzet"></td>
+          <td style="width:60%; background:#f8f9fa; font-weight:bold;">Total Omzet (Penjualan Paspor)</td>
+          <td style="font-weight:bold; color:#2a9d8f; text-align:right;" id="printOmzet"></td>
         </tr>
         <tr>
-          <td style="padding-left:15px; font-size:10px; color:#555;">• Pemasukan via Bank BCA</td>
+          <td style="padding-left:15px; font-size:10px; color:#636e72;">• Masuk via BCA</td>
           <td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBca"></td>
         </tr>
         <tr>
-          <td style="padding-left:15px; font-size:10px; color:#555;">• Pemasukan via Bank BSI</td>
+          <td style="padding-left:15px; font-size:10px; color:#636e72;">• Masuk via BSI</td>
           <td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBsi"></td>
         </tr>
         <tr>
-          <td style="background:#f8f9fa; font-weight:bold;">Total Nilai Benefit Wahana Diklaim</td>
-          <td style="font-weight:bold; color:#c0392b; text-align:right;" id="printKlaim"></td>
+          <td style="background:#f8f9fa; font-weight:bold;">Nilai Benefit Wahana Terdestribusi</td>
+          <td style="font-weight:bold; color:#d63031; text-align:right;" id="printKlaim"></td>
         </tr>
       </table>
     </div>
 
     <div style="margin-bottom:15px;">
-      <h3 style="font-size:12px; margin-bottom:6px; color:#1b365d;">B. RINCIAN TRANSFER MASUK (PENJUALAN PASPOR)</h3>
+      <h3 style="font-size:12px; margin-bottom:6px; color:#2d3436;">B. RINCIAN TRANSFER MASUK</h3>
       <table style="font-size:10px;">
         <thead>
-          <tr style="background:#1b365d; color:#fff;">
-            <th style="text-align:center; width:22%;">Waktu & Hari Pembelian</th>
+          <tr style="background:#f1f2f6; color:#2d3436;">
+            <th style="text-align:center; width:22%;">Waktu Pembelian</th>
             <th style="text-align:center; width:12%;">ID Paspor</th>
             <th style="text-align:left; width:24%;">Nama Pelanggan</th>
-            <th style="text-align:center; width:16%;">Channel Pembelian</th>
-            <th style="text-align:center; width:10%;">Bank Tujuan</th>
-            <th style="text-align:right; width:16%;">Nominal Transfer</th>
+            <th style="text-align:center; width:16%;">Channel</th>
+            <th style="text-align:center; width:10%;">Bank</th>
+            <th style="text-align:right; width:16%;">Nominal</th>
           </tr>
         </thead>
         <tbody id="printTbodyPenjualan"></tbody>
@@ -311,31 +359,25 @@
     </div>
 
     <div style="margin-bottom:15px;">
-      <h3 style="font-size:12px; margin-bottom:6px; color:#1b365d;">C. RINCIAN DETIL BENEFIT WAHANA YANG DIKLAIM</h3>
+      <h3 style="font-size:12px; margin-bottom:6px; color:#2d3436;">C. RINCIAN BENEFIT DIKLAIM</h3>
       <table style="font-size:9px;">
         <thead>
-          <tr style="background:#27ae60; color:#fff;">
+          <tr style="background:#f1f2f6; color:#2d3436;">
             <th style="text-align:center; width:15%;">Waktu Klaim</th>
             <th style="text-align:center; width:12%;">ID Paspor</th>
-            <th style="text-align:left; width:18%;">Nama Pelanggan</th>
-            <th style="text-align:left; width:15%;">Unit Wahana</th>
-            <th style="text-align:left; width:20%;">Rincian Benefit</th>
+            <th style="text-align:left; width:18%;">Pelanggan</th>
+            <th style="text-align:left; width:15%;">Wahana</th>
+            <th style="text-align:left; width:20%;">Rincian</th>
             <th style="text-align:left; width:10%;">Petugas</th>
-            <th style="text-align:right; width:10%;">Nilai Benefit</th>
+            <th style="text-align:right; width:10%;">Nilai</th>
           </tr>
         </thead>
         <tbody id="printTbodyKlaimDetail"></tbody>
       </table>
     </div>
-    
-    <div style="margin-top:20px; font-size:10px; text-align:right;">
-      Dibuat oleh Sistem Terintegrasi Amal Zone<br>
-      <i>Dokumen ini sah untuk keperluan rekonsiliasi Audit Finance Awandra Group.</i>
-    </div>
   </div>
 
   <script>
-    // API URL GOOGLE APPS SCRIPT ANDA
     const API_URL = "https://script.google.com/macros/s/AKfycbztM5KoUy_cxJGmF7a5IlKCe9gqVXW9_pJzgBYD0FQ46ZCzHtd7Kg7Sa-Rmi76IBb8c_w/exec";
 
     function callAPI(action, payload, onSuccess) {
@@ -344,19 +386,15 @@
       .then(response => response.json())
       .then(data => onSuccess(data))
       .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Koneksi Gagal', 'Gagal menghubungi server database.', 'error');
+        Swal.fire({ title: 'Koneksi Gagal', text: 'Tidak dapat menghubungi sistem pusat.', icon: 'error', customClass: { popup: 'swal-soft' }, confirmButtonColor: '#2a9d8f' });
         hideStatus('msgKasir'); hideStatus('msgPetugas');
-        document.getElementById('loadingCek').style.display = 'none';
-        document.getElementById('loadingLaporan').style.display = 'none';
+        document.getElementById('loadingCek').style.display = 'none'; document.getElementById('loadingLaporan').style.display = 'none';
       });
     }
 
     const PIN_KASIR_ALL = "2020"; const PIN_PETUGAS = "3030"; const PIN_MANAGER = "9090";
     const PIN_KASIR_MK = "4040"; const PIN_KASIR_AL = "5050"; const PIN_KASIR_MH = "6060"; 
-    const PIN_DOWNLOAD_FINANCE = "1919"; 
-    const PIN_OVERRIDE_KASIR = "1212"; 
-
+    const PIN_DOWNLOAD_FINANCE = "1919"; const PIN_OVERRIDE_KASIR = "1212"; 
     const ALL_CHANNELS = ["Canvassing", "Ulam Singkil", "Keramba", "Kopi Deal", "Murraya Hill", "Alila", "Mak Kundil"];
     
     let roleAktif = ""; let allowedChannels = []; let compressedImageBase64 = "";
@@ -372,36 +410,60 @@
       else if (pin === PIN_KASIR_AL) { roleAktif = "kasir"; allowedChannels = ["Alila"]; loginSukses('home'); } 
       else if (pin === PIN_KASIR_MH) { roleAktif = "kasir"; allowedChannels = ["Murraya Hill"]; loginSukses('home'); } 
       else if (pin === PIN_PETUGAS) { roleAktif = "petugas"; allowedChannels = []; loginSukses('home'); } 
-      else { showToast('error', 'PIN Salah! Akses Ditolak.'); document.getElementById('inputPin').value = ''; }
+      else { showToast('error', 'PIN Tidak Valid.'); document.getElementById('inputPin').value = ''; }
     }
 
     function setupDropdownChannel() {
       var select = document.getElementById("channelBeli"); select.innerHTML = ''; 
-      if (allowedChannels.length > 1) { select.innerHTML = '<option value="">-- Pilih Channel --</option>'; for(var i = 0; i < allowedChannels.length; i++) { select.innerHTML += '<option value="' + allowedChannels[i] + '">' + allowedChannels[i] + '</option>'; } select.disabled = false;
+      if (allowedChannels.length > 1) { select.innerHTML = '<option value="">Pilih Channel</option>'; for(var i = 0; i < allowedChannels.length; i++) { select.innerHTML += '<option value="' + allowedChannels[i] + '">' + allowedChannels[i] + '</option>'; } select.disabled = false;
       } else if (allowedChannels.length === 1) { select.innerHTML = '<option value="' + allowedChannels[0] + '">' + allowedChannels[0] + '</option>'; select.value = allowedChannels[0]; select.disabled = true; }
     }
 
     function tampilInfoRekening() {
       var bank = document.getElementById("bankTujuan").value; var box = document.getElementById("infoRekeningBox");
-      if (bank === "BCA") { box.innerHTML = "💳 Rekening BCA: <b>1711499666</b><br>a/n KARYA GUNA SEMESTA CV"; box.style.display = "block"; } 
-      else if (bank === "BSI") { box.innerHTML = "💳 Rekening BSI: <b>1577733337</b><br>a/n CV KARYA GUNA SEMESTA"; box.style.display = "block"; } 
+      if (bank === "BCA") { box.innerHTML = "Rekening BCA: <b>1711499666</b><br>a/n KARYA GUNA SEMESTA CV"; box.style.display = "block"; } 
+      else if (bank === "BSI") { box.innerHTML = "Rekening BSI: <b>1577733337</b><br>a/n CV KARYA GUNA SEMESTA"; box.style.display = "block"; } 
       else { box.style.display = "none"; }
     }
 
     function loginSukses(menuAwal) {
-      document.body.style.justifyContent = "flex-start"; document.getElementById('loginCard').style.display = 'none'; document.getElementById('mainContent').style.display = 'flex';
-      document.getElementById('btnMenuKasir').style.display = 'none'; document.getElementById('btnMenuPetugas').style.display = 'none'; document.getElementById('btnMenuLaporan').style.display = 'none'; document.getElementById('btnMenuCek').style.display = 'none';
-      if (roleAktif === "manager") { document.getElementById('btnMenuKasir').style.display = 'block'; document.getElementById('btnMenuPetugas').style.display = 'block'; document.getElementById('btnMenuCek').style.display = 'block'; document.getElementById('btnMenuLaporan').style.display = 'block';
-      } else if (roleAktif === "kasir") { document.getElementById('btnMenuKasir').style.display = 'block';
-      } else if (roleAktif === "petugas") { document.getElementById('btnMenuPetugas').style.display = 'block'; }
-      if(roleAktif === "kasir" || roleAktif === "manager") setupDropdownChannel(); showMenu(menuAwal);
+      document.body.style.justifyContent = "flex-start"; 
+      document.getElementById('loginCard').style.display = 'none'; 
+      document.getElementById('mainContent').style.display = 'flex';
+      document.getElementById('bottomNav').style.display = 'flex';
+      
+      document.getElementById('btnMenuKasir').style.display = 'none'; document.getElementById('btnMenuPetugas').style.display = 'none'; document.getElementById('btnMenuLaporan').style.display = 'none'; 
+      
+      let teksRole = "Petugas";
+      if (roleAktif === "manager") { 
+        teksRole = "Manager";
+        document.getElementById('btnMenuKasir').style.display = 'flex'; document.getElementById('btnMenuPetugas').style.display = 'flex'; document.getElementById('btnMenuLaporan').style.display = 'flex';
+      } else if (roleAktif === "kasir") { 
+        teksRole = "Kasir";
+        document.getElementById('btnMenuKasir').style.display = 'flex';
+      } else if (roleAktif === "petugas") { 
+        document.getElementById('btnMenuPetugas').style.display = 'flex'; 
+      }
+      
+      document.getElementById('teksSapaan').innerText = "Akses: " + teksRole;
+      if(roleAktif === "kasir" || roleAktif === "manager") setupDropdownChannel(); 
+      showMenu(menuAwal);
     }
 
     function logout() {
       roleAktif = ""; allowedChannels = []; document.getElementById('inputPin').value = '';
-      document.getElementById('mainContent').style.display = 'none'; showMenu('none');
+      document.getElementById('mainContent').style.display = 'none'; 
+      document.getElementById('bottomNav').style.display = 'none';
       document.body.style.justifyContent = "center"; document.getElementById('loginCard').style.display = 'block';
       showToast('info', 'Anda telah keluar.');
+    }
+
+    function updateNavState(menu) {
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      let activeId = '';
+      if(menu === 'home' || menu === 'kasir' || menu === 'petugas' || menu === 'laporan') activeId = 'nav_home';
+      else if(menu === 'cek') activeId = 'nav_cek';
+      if(activeId) document.getElementById(activeId).classList.add('active');
     }
 
     function showMenu(menu) {
@@ -414,28 +476,34 @@
       else if(menu === 'laporan') { document.getElementById('laporanCard').style.display = 'block'; loadDashboardData(); }
       else if(menu === 'cek') { document.getElementById('cekCard').style.display = 'block'; document.getElementById('hasilCek').style.display = 'none'; }
       else if(menu === 'home') document.getElementById('homeCard').style.display = 'block';
+      
+      updateNavState(menu);
       hideStatus('msgKasir'); hideStatus('msgPetugas');
+      
+      const activeCard = document.querySelector('.card[style*="display: block"]');
+      if(activeCard) { activeCard.style.animation = 'none'; activeCard.offsetHeight; activeCard.style.animation = 'fadeSlideUp 0.4s ease-out'; }
     }
 
-    function showStatus(elementId, text, type) { var el = document.getElementById(elementId); el.innerHTML = text; el.className = 'status-box status-' + type; el.style.display = 'block'; }
+    function showStatus(elementId, text) { var el = document.getElementById(elementId); el.innerHTML = text; el.className = 'status-box status-info'; el.style.display = 'block'; }
     function hideStatus(elementId) { document.getElementById(elementId).style.display = 'none'; }
-    function showToast(icon, message) { Swal.fire({ toast: true, position: 'top', icon: icon, title: message, showConfirmButton: false, timer: 2500, customClass: { popup: 'swal2-popup' } }); }
-    function popNotification(title, text, icon) { Swal.fire({ title: title, text: text, icon: icon, position: 'top', confirmButtonText: 'OK / Lanjut', confirmButtonColor: icon === 'success' ? '#27ae60' : '#c5221f', heightAuto: false }); }
+    
+    function showToast(icon, message) { Swal.fire({ toast: true, position: 'top', icon: icon, title: message, showConfirmButton: false, timer: 2500, customClass: { popup: 'swal-soft' } }); }
+    function popNotification(title, text, icon) { Swal.fire({ title: title, text: text, icon: icon, position: 'top', confirmButtonText: 'Tutup', confirmButtonColor: '#2a9d8f', heightAuto: false, customClass: { popup: 'swal-soft' } }); }
 
     function prosesCekData() {
       var id = document.getElementById('inputCekPaspor').value;
-      if(!id) return showToast('warning', 'Harap ketik ID Paspor!');
+      if(!id) return showToast('warning', 'Masukkan ID Paspor.');
       document.getElementById('loadingCek').style.display = 'block'; document.getElementById('hasilCek').style.display = 'none';
       callAPI('checkPassportData', { id: id }, function(res) {
           document.getElementById('loadingCek').style.display = 'none';
-          if(!res.success) { popNotification('TIDAK DITEMUKAN', res.message, 'warning'); } else {
+          if(!res.success) { popNotification('Tidak Ditemukan', res.message, 'warning'); } else {
             document.getElementById('hasilCek').style.display = 'block'; document.getElementById('namaPemilikCek').innerText = res.customerName;
             var htmlKlaim = '';
-            if(res.listKlaim.length === 0) { htmlKlaim = '<tr><td style="text-align:center; color:#888;">Belum ada yang dipakai</td></tr>';
-            } else { for(var i=0; i<res.listKlaim.length; i++) { var item = res.listKlaim[i]; htmlKlaim += '<tr><td><b>' + item.unit + '</b> - ' + item.benefit + '<br><span style="font-size:9px; color:#666;">🕒 ' + item.waktu + ' | 👤 Petugas: ' + item.petugas + '</span></td></tr>'; } }
+            if(res.listKlaim.length === 0) { htmlKlaim = '<tr><td style="text-align:center; color:var(--text-muted);">Belum ada riwayat</td></tr>';
+            } else { for(var i=0; i<res.listKlaim.length; i++) { var item = res.listKlaim[i]; htmlKlaim += '<tr><td><b>' + item.unit + '</b> - ' + item.benefit + '<br><span style="font-size:10px; color:var(--text-muted);">' + item.waktu + ' | Petugas: ' + item.petugas + '</span></td></tr>'; } }
             document.getElementById('tabelKlaim').innerHTML = htmlKlaim;
             var htmlSisa = '';
-            if(res.listSisa.length === 0) { htmlSisa = '<tr><td style="text-align:center; color:#888;">Semua tiket sudah habis dipakai</td></tr>';
+            if(res.listSisa.length === 0) { htmlSisa = '<tr><td style="text-align:center; color:var(--text-muted);">Semua tiket habis</td></tr>';
             } else { for(var j=0; j<res.listSisa.length; j++) { var itemSisa = res.listSisa[j]; htmlSisa += '<tr><td><b>' + itemSisa.unit + '</b> - ' + itemSisa.benefit + '</td></tr>'; } }
             document.getElementById('tabelSisa').innerHTML = htmlSisa;
             document.getElementById('notaIdCek').innerText = id; document.getElementById('notaNamaCek').innerText = res.customerName; document.getElementById('notaChannelCek').innerText = res.channelBeli;
@@ -445,51 +513,51 @@
 
     function unduhNotaPDFCek() {
       var element = document.getElementById('notaKertasCek'); var idPaspor = document.getElementById('notaIdCek').innerText;
-      var opt = { margin: 0.3, filename: 'Salinan_Nota_AmalZone_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
+      var opt = { margin: 0.3, filename: 'Salinan_Nota_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
       html2pdf().set(opt).from(element).save();
     }
 
     function loadDashboardData() {
-      var selBulan = document.getElementById("filterBulan") ? document.getElementById("filterBulan").value : "ALL";
+      var selBulan = document.getElementById("filterBulan").value;
       document.getElementById('loadingLaporan').style.display = 'block'; document.getElementById('contentLaporan').style.display = 'none';
       callAPI('getDashboardData', { selBulan: selBulan }, function(data) {
           document.getElementById('loadingLaporan').style.display = 'none'; document.getElementById('contentLaporan').style.display = 'block';
-          var selectEl = document.getElementById("filterBulan"); var currentVal = data.selectedMonth; selectEl.innerHTML = '<option value="ALL">🗓️ Semua Bulan (All Time)</option>';
-          if (data.availableMonths) { for (var key in data.availableMonths) { var opt = document.createElement("option"); opt.value = key; opt.innerText = "🗓️ " + data.availableMonths[key]; if (key === currentVal) opt.selected = true; selectEl.appendChild(opt); } }
+          var selectEl = document.getElementById("filterBulan"); var currentVal = data.selectedMonth; selectEl.innerHTML = '<option value="ALL">Semua Bulan</option>';
+          if (data.availableMonths) { for (var key in data.availableMonths) { var opt = document.createElement("option"); opt.value = key; opt.innerText = data.availableMonths[key]; if (key === currentVal) opt.selected = true; selectEl.appendChild(opt); } }
 
-          document.getElementById('statOmzet').innerText = data.totalOmzetFormatted; document.getElementById('statOmzetBca').innerText = data.bcaOmzetFormatted; document.getElementById('statCountBca').innerText = data.bcaCount + " paspor"; document.getElementById('statOmzetBsi').innerText = data.bsiOmzetFormatted; document.getElementById('statCountBsi').innerText = data.bsiCount + " paspor";
+          document.getElementById('statOmzet').innerText = data.totalOmzetFormatted; document.getElementById('statOmzetBca').innerText = data.bcaOmzetFormatted; document.getElementById('statOmzetBsi').innerText = data.bsiOmzetFormatted;
           document.getElementById('statKlaim').innerText = data.totalKlaimFormatted; document.getElementById('statPasporAktif').innerText = data.countPasporAktif; document.getElementById('statTiketUsed').innerText = data.countUsed;
           
-          var htmlChannel = ''; for (var c in data.channelStats) { htmlChannel += '<tr><td><b>' + c + '</b></td><td><span class="badge-channel" style="background:#fce8e6; color:#c5221f; padding:2px 5px; border-radius:4px; font-size:9px; font-weight:700;">' + data.channelStats[c] + ' Paspor</span></td></tr>'; }
+          var htmlChannel = ''; for (var c in data.channelStats) { htmlChannel += '<tr><td><b>' + c + '</b></td><td style="text-align:right;">' + data.channelStats[c] + '</td></tr>'; }
           if(htmlChannel === '') htmlChannel = '<tr><td colspan="2" style="text-align:center;">Belum ada penjualan</td></tr>'; document.getElementById('tbodyChannel').innerHTML = htmlChannel;
           
           var htmlUnit = '';
-          for (var u in data.unitStats) { var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); htmlUnit += '<tr><td><b>' + u + '</b></td><td><span class="badge-used">' + data.unitStats[u].used + '</span></td><td><span class="badge-ready">' + data.unitStats[u].ready + '</span></td><td style="font-weight:700; color:#27ae60;">' + nilaiKlaimRupiah + '</td></tr>'; }
+          for (var u in data.unitStats) { var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); htmlUnit += '<tr><td><b>' + u + '</b></td><td>' + data.unitStats[u].used + '</td><td style="font-weight:700; color:var(--primary);">' + nilaiKlaimRupiah + '</td></tr>'; }
           document.getElementById('tbodyUnit').innerHTML = htmlUnit;
 
           allPasporAktifData = data.listPasporAktif || []; renderTabelPasporAktif(allPasporAktifData); renderWidgetKasirTerbaru(allPasporAktifData);
 
-          document.getElementById('printOmzet').innerText = data.totalOmzetFormatted; document.getElementById('printOmzetBca').innerText = data.bcaOmzetFormatted + " (" + data.bcaCount + " Paspor)"; document.getElementById('printOmzetBsi').innerText = data.bsiOmzetFormatted + " (" + data.bsiCount + " Paspor)"; document.getElementById('printKlaim').innerText = data.totalKlaimFormatted;
+          document.getElementById('printOmzet').innerText = data.totalOmzetFormatted; document.getElementById('printOmzetBca').innerText = data.bcaOmzetFormatted + " (" + data.bcaCount + ")"; document.getElementById('printOmzetBsi').innerText = data.bsiOmzetFormatted + " (" + data.bsiCount + ")"; document.getElementById('printKlaim').innerText = data.totalKlaimFormatted;
           var dateStr = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); document.getElementById('printTanggal').innerText = "Tanggal Cetak: " + dateStr;
-          var filterText = selectEl.options[selectEl.selectedIndex] ? selectEl.options[selectEl.selectedIndex].text : "Semua Bulan"; document.getElementById('printPeriodeBulan').innerText = "Periode Laporan: " + filterText.replace("🗓️ ", "");
+          var filterText = selectEl.options[selectEl.selectedIndex] ? selectEl.options[selectEl.selectedIndex].text : "Semua Bulan"; document.getElementById('printPeriodeBulan').innerText = "Periode Laporan: " + filterText;
 
           var htmlPenjualan = '';
-          for(var i=0; i<data.listPenjualan.length; i++) { var item = data.listPenjualan[i]; var stringWaktuPembelian = item.waktuPembelian || "-"; htmlPenjualan += '<tr><td style="padding:5px; text-align:center; font-weight:bold; color:#555;">' + stringWaktuPembelian + '</td><td style="padding:5px; text-align:center;">' + item.id + '</td><td style="padding:5px;">' + item.nama + '</td><td style="padding:5px; text-align:center;">' + item.channel + '</td><td style="padding:5px; text-align:center; font-weight:bold;">' + item.bank + '</td><td style="padding:5px; text-align:right;">Rp 375.000</td></tr>'; }
-          if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center; padding:8px;">Belum ada data transfer/penjualan pada periode ini.</td></tr>'; document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
+          for(var i=0; i<data.listPenjualan.length; i++) { var item = data.listPenjualan[i]; htmlPenjualan += '<tr><td style="padding:5px; text-align:center;">' + (item.waktuPembelian || "-") + '</td><td style="padding:5px; text-align:center;">' + item.id + '</td><td style="padding:5px;">' + item.nama + '</td><td style="padding:5px; text-align:center;">' + item.channel + '</td><td style="padding:5px; text-align:center;">' + item.bank + '</td><td style="padding:5px; text-align:right;">Rp 375.000</td></tr>'; }
+          if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center; padding:8px;">Kosong.</td></tr>'; document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
 
           var htmlKlaimDetail = '';
           for(var j=0; j<data.listDetailKlaim.length; j++) { var k = data.listDetailKlaim[j]; htmlKlaimDetail += '<tr><td style="padding:4px; text-align:center;">' + k.waktu + '</td><td style="padding:4px; text-align:center;">' + k.id + '</td><td style="padding:4px;">' + k.nama + '</td><td style="padding:4px;">' + k.unit + '</td><td style="padding:4px;">' + k.benefit + '</td><td style="padding:4px;">' + k.petugas + '</td><td style="padding:4px; text-align:right; font-weight:bold;">' + k.nilai + '</td></tr>'; }
-          if(htmlKlaimDetail === '') htmlKlaimDetail = '<tr><td colspan="7" style="text-align:center; padding:8px;">Belum ada klaim benefit pada periode ini.</td></tr>'; document.getElementById('printTbodyKlaimDetail').innerHTML = htmlKlaimDetail;
+          if(htmlKlaimDetail === '') htmlKlaimDetail = '<tr><td colspan="7" style="text-align:center; padding:8px;">Kosong.</td></tr>'; document.getElementById('printTbodyKlaimDetail').innerHTML = htmlKlaimDetail;
       });
     }
 
     function renderTabelPasporAktif(list) {
       var html = '';
-      if (!list || list.length === 0) { html = '<tr><td colspan="4" style="text-align:center; color:#888; padding:10px;">Tidak ada paspor terjual pada periode ini</td></tr>'; } else {
+      if (!list || list.length === 0) { html = '<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding:10px;">Tidak ada data</td></tr>'; } else {
         for (var i = 0; i < list.length; i++) {
           var item = list[i]; var badgeStatus = '';
-          if (item.readyCount > 0) { badgeStatus = '<span class="badge-ready">' + item.readyCount + '/' + item.totalTiket + ' Ready</span>'; } else { badgeStatus = '<span class="badge-used">Habis (' + item.usedCount + ' Used)</span>'; }
-          html += '<tr><td><b>' + item.id + '</b><br><span style="font-size:10px; color:#555;">' + item.nama + '</span></td><td>' + item.channel + '<br><b style="color:#1b365d; font-size:9px;">' + item.bank + '</b></td><td>' + badgeStatus + '</td><td><button class="btn btn-cek" style="padding:3px 6px; font-size:9px; margin:0;" onclick="langsungCekPaspor(\'' + item.rawId + '\')">🔍 Detail</button></td></tr>';
+          if (item.readyCount > 0) { badgeStatus = '<span class="badge-ready">' + item.readyCount + '/' + item.totalTiket + ' Ready</span>'; } else { badgeStatus = '<span class="badge-used">Habis</span>'; }
+          html += '<tr onclick="langsungCekPaspor(\'' + item.rawId + '\')" style="cursor:pointer;"><td><b>' + item.id + '</b><br><span style="font-size:10px; color:var(--text-muted);">' + item.nama + '</span></td><td>' + item.channel + '</td><td>' + badgeStatus + '</td></tr>';
         }
       } document.getElementById('tbodyPasporAktif').innerHTML = html;
     }
@@ -502,11 +570,11 @@
 
     function renderWidgetKasirTerbaru(list) {
       var el = document.getElementById('widgetKasirTerbaru'); if (!el) return;
-      if (!list || list.length === 0) { el.innerHTML = '<div style="text-align:center; color:#888; padding:5px;">Belum ada aktivasi</div>'; return; }
+      if (!list || list.length === 0) { el.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:5px;">Belum ada aktivasi</div>'; return; }
       var recent = list.slice().reverse().slice(0, 5); var html = '';
       for (var i = 0; i < recent.length; i++) {
         var item = recent[i];
-        html += '<div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding:4px 0;"><div><b>' + item.id + '</b> - ' + item.nama + ' <span style="font-size:9px; color:#888;">(' + item.channel + ' | ' + item.bank + ')</span></div><div><button class="btn btn-cek" style="padding:2px 5px; font-size:9px; margin:0;" onclick="langsungCekPaspor(\'' + item.rawId + '\')">🔍 Cek</button></div></div>';
+        html += '<div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f2f6; padding:8px 0; cursor:pointer;" onclick="langsungCekPaspor(\'' + item.rawId + '\')"><div><b style="color:var(--primary-dark);">' + item.id + '</b> - ' + item.nama + ' <br><span style="font-size:10px; color:var(--text-muted);">' + item.channel + ' | ' + item.bank + '</span></div><div style="color:var(--primary); font-size:14px;">›</div></div>';
       } el.innerHTML = html;
     }
 
@@ -514,32 +582,32 @@
 
     function mintaPinDownloadAwandra() {
       Swal.fire({
-        title: 'Verifikasi Otorisasi', text: 'Masukkan PIN Khusus Manager Finance / Marketing:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Unduh PDF', cancelButtonText: 'Batal', confirmButtonColor: '#1b365d', heightAuto: false
-      }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_DOWNLOAD_FINANCE) { unduhLaporanAwandra(); } else { showToast('error', 'PIN Otorisasi Salah! Unduhan Ditolak.'); } } });
+        title: 'Verifikasi Keamanan', text: 'Masukkan PIN Otorisasi Laporan:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Unduh PDF', cancelButtonText: 'Batal', confirmButtonColor: '#2a9d8f', customClass: { popup: 'swal-soft' }, heightAuto: false
+      }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_DOWNLOAD_FINANCE) { unduhLaporanAwandra(); } else { showToast('error', 'PIN Tidak Valid.'); } } });
     }
 
     function unduhLaporanAwandra() {
-      showToast('info', '⏳ Membuat PDF di Server Google...'); var printContent = document.getElementById('printArea').innerHTML;
+      showToast('info', 'Membuat PDF di Server...'); var printContent = document.getElementById('printArea').innerHTML;
       callAPI('generateReportPdf', { printContent: printContent }, function(res) {
         if (res.success) {
           var byteCharacters = atob(res.base64); var byteNumbers = new Array(byteCharacters.length);
           for (var i = 0; i < byteCharacters.length; i++) { byteNumbers[i] = byteCharacters.charCodeAt(i); }
           var byteArray = new Uint8Array(byteNumbers); var blob = new Blob([byteArray], { type: 'application/pdf' }); var blobUrl = URL.createObjectURL(blob);
-          var link = document.createElement('a'); link.href = blobUrl; link.download = res.filename; document.body.appendChild(link); link.click(); document.body.removeChild(link); setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 1000); showToast('success', 'Laporan PDF Berhasil Diunduh!');
-        } else { popNotification('GAGAL MEMBUAT PDF', res.message, 'error'); }
+          var link = document.createElement('a'); link.href = blobUrl; link.download = res.filename; document.body.appendChild(link); link.click(); document.body.removeChild(link); setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 1000); showToast('success', 'PDF Berhasil Diunduh');
+        } else { popNotification('Gagal Membuat PDF', res.message, 'error'); }
       });
     }
 
     function previewBukti(event) {
       const file = event.target.files[0]; if (!file) { compressedImageBase64 = ""; isAiValid = false; document.getElementById('buktiPreviewName').innerText = ""; return; }
-      showStatus('msgKasir', '⏳ AI sedang memindai bukti transfer...', 'info'); 
+      showStatus('msgKasir', 'Sistem memindai bukti transfer...'); 
       Tesseract.recognize(file, 'ind', { logger: m => {} } ).then(({ data: { text } }) => {
         var teksHurufBesar = text.toUpperCase().replace(/\s+/g, ' '); var aiPesan = "";
         var cekNominal = teksHurufBesar.includes('375'); var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');
-        if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:#1877f2; font-size:10px; font-weight:bold;'>🤖 Terdeteksi Indikasi Bukti Transfer VALID</span>"; } else { isAiValid = false; aiPesan = "<br><span style='color:#c5221f; font-size:10px; font-weight:bold;'>🤖 Indikasi bukti transfer TIDAK VALID</span>"; }
-        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:#27ae60;'>✅ Foto dilampirkan!</span>" + aiPesan; hideStatus('msgKasir');
+        if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:var(--primary); font-size:11px; font-weight:700;'>Indikasi Dokumen Valid</span>"; } else { isAiValid = false; aiPesan = "<br><span style='color:#d63031; font-size:11px; font-weight:700;'>Indikasi Dokumen Tidak Valid</span>"; }
+        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--text-main); font-weight:700;'>Foto Siap</span>" + aiPesan; hideStatus('msgKasir');
       }).catch(err => {
-        isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:#27ae60;'>✅ Foto dilampirkan!</span><br><span style='color:#c5221f; font-size:10px; font-weight:bold;'>🤖 Indikasi bukti transfer TIDAK VALID</span>"; hideStatus('msgKasir');
+        isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--text-main); font-weight:700;'>Foto Siap</span><br><span style='color:#d63031; font-size:11px; font-weight:700;'>Indikasi Dokumen Tidak Valid</span>"; hideStatus('msgKasir');
       });
       const reader = new FileReader();
       reader.onload = function(e) { 
@@ -554,29 +622,29 @@
 
     function prosesAktivasi() {
       var id = document.getElementById('inputPaspor').value; var nama = document.getElementById('namaCust').value; var hp = document.getElementById('noHpCust').value; var channel = document.getElementById('channelBeli').value; var bank = document.getElementById('bankTujuan').value;
-      if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Harap lengkapi semua data termasuk Bank Tujuan!'); if(!compressedImageBase64) return showToast('warning', 'Wajib melampirkan foto bukti!');
+      if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Lengkapi seluruh data transaksi.'); if(!compressedImageBase64) return showToast('warning', 'Lampirkan foto bukti.');
       if (isAiValid) { eksekusiAktivasi(id, nama, hp, channel, bank); } else {
         Swal.fire({
-          title: 'Otorisasi Bukti Transfer', text: 'AI mengindikasikan Bukti Transfer TIDAK VALID. Masukkan PIN Otorisasi Kasir / Manager untuk melanjutkan:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Lanjutkan Aktivasi', cancelButtonText: 'Batal', confirmButtonColor: '#e67e22', heightAuto: false
-        }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank); } else { showToast('error', 'PIN Otorisasi Salah! Aktivasi Ditolak.'); } } });
+          title: 'Otorisasi Manual', text: 'Sistem meragukan bukti transfer. Masukkan PIN Otorisasi untuk memaksa aktivasi:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Lanjutkan', cancelButtonText: 'Batal', confirmButtonColor: '#2a9d8f', customClass: { popup: 'swal-soft' }, heightAuto: false
+        }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank); } else { showToast('error', 'PIN Tidak Valid. Ditolak.'); } } });
       }
     }
 
     function eksekusiAktivasi(id, nama, hp, channel, bank) {
-      showStatus('msgKasir', '⏳ Mengaktifkan paspor...', 'info');
+      showStatus('msgKasir', 'Menghubungkan ke server...');
       callAPI('activatePassport', { id: id, nama: nama, hp: hp, channel: channel, bank: bank, compressedImageBase64: compressedImageBase64 }, function(res) {
           hideStatus('msgKasir');
           if(res.success) {
             document.getElementById('formKasirArea').style.display = 'none'; document.getElementById('notaArea').style.display = 'block';
             document.getElementById('notaId').innerText = res.receipt.id; document.getElementById('notaNama').innerText = res.receipt.nama; document.getElementById('notaTanggal').innerText = res.receipt.tanggal; document.getElementById('notaChannel').innerText = res.receipt.channel; document.getElementById('notaBank').innerText = res.receipt.bank; document.getElementById('notaTotal').innerText = res.receipt.harga; 
-            showToast('success', 'Aktivasi Berhasil!'); loadDashboardData(); 
-          } else { popNotification('AKTIVASI DITOLAK', res.message, 'error'); }
+            showToast('success', 'Aktivasi Berhasil'); loadDashboardData(); 
+          } else { popNotification('Aktivasi Ditolak', res.message, 'error'); }
       });
     }
 
     function unduhNotaPDF() {
       var element = document.getElementById('notaKertas'); var idPaspor = document.getElementById('notaId').innerText;
-      var opt = { margin: 0.3, filename: 'Nota_AmalZone_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
+      var opt = { margin: 0.3, filename: 'Nota_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
       html2pdf().set(opt).from(element).save();
     }
 
@@ -584,13 +652,9 @@
       document.getElementById('inputPaspor').value = ''; document.getElementById('namaCust').value = ''; document.getElementById('noHpCust').value = ''; if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; } document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none'; document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; compressedImageBase64 = ""; isAiValid = false; document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir');
     }
 
-    // ==========================================
-    // LOGIKA LIVE SCANNER SAJA (FOTO MANUAL DIHAPUS)
-    // ==========================================
-    
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
-      if (!petugas) return showToast('warning', 'Harap isi Nama Petugas & Unit terlebih dahulu!');
+      if (!petugas) return showToast('warning', 'Identitas Petugas wajib diisi.');
       
       document.getElementById('btnBukaKamera').style.display = 'none';
       document.getElementById('reader').style.display = 'block';
@@ -607,17 +671,17 @@
           html5QrcodeScanner.start(
             cameraId, { fps: 10, qrbox: { width: 250, height: 250 } },
             (decodedText, decodedResult) => {
-              tutupLiveScanner(); showStatus('msgPetugas', '⏳ Memeriksa data voucher...', 'info');
+              tutupLiveScanner(); showStatus('msgPetugas', 'Validasi server...');
               callAPI('scanVoucher', { voucher: decodedText, petugas: petugas }, function(res) {
                 hideStatus('msgPetugas');
-                if(res.success) { popNotification('TIKET BERHASIL!', res.message, 'success'); } 
-                else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('TIKET SUDAH TERPAKAI!', res.message, 'error'); } 
-                else { popNotification('BELUM DIAKTIFKAN', res.message, 'warning'); }
+                if(res.success) { popNotification('Tiket Valid', res.message, 'success'); } 
+                else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('Tiket Terpakai', res.message, 'error'); } 
+                else { popNotification('Tidak Valid', res.message, 'warning'); }
               });
             },
             (errorMessage) => { }
-          ).catch((err) => { showToast('error', 'Kamera diblokir oleh browser perangkat Anda.'); tutupLiveScanner(); });
-        } else { showToast('error', 'Kamera fisik tidak ditemukan.'); tutupLiveScanner(); }
+          ).catch((err) => { showToast('error', 'Kamera diblokir perangkat.'); tutupLiveScanner(); });
+        } else { showToast('error', 'Modul kamera tidak ditemukan.'); tutupLiveScanner(); }
       }).catch(err => { showToast('error', 'Akses kamera ditolak.'); tutupLiveScanner(); });
     }
 
@@ -633,13 +697,13 @@
 
     function prosesKlaimManual() {
       var petugas = document.getElementById('namaPetugas').value; var voucher = document.getElementById('inputVoucherManual').value;
-      if(!petugas || !voucher) return showToast('warning', 'Harap isi Petugas & Kode Voucher!');
-      showStatus('msgPetugas', '⏳ Memeriksa voucher...', 'info');
+      if(!petugas || !voucher) return showToast('warning', 'Petugas & Kode wajib diisi.');
+      showStatus('msgPetugas', 'Validasi server...');
       callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(res) {
           hideStatus('msgPetugas');
-          if(res.success) { popNotification('TIKET BERHASIL!', res.message, 'success'); document.getElementById('inputVoucherManual').value = ''; } 
-          else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('TIKET SUDAH TERPAKAI!', res.message, 'error'); } 
-          else { popNotification('BELUM DIAKTIFKAN', res.message, 'warning'); }
+          if(res.success) { popNotification('Tiket Valid', res.message, 'success'); document.getElementById('inputVoucherManual').value = ''; } 
+          else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('Tiket Terpakai', res.message, 'error'); } 
+          else { popNotification('Tidak Valid', res.message, 'warning'); }
       });
     }
   </script>
