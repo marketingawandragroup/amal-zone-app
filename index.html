@@ -118,7 +118,7 @@
       color: #ffffff;
       box-shadow: 0 15px 35px rgba(25, 51, 84, 0.2);
       margin-bottom: 24px;
-      margin-top: 24px; /* Memberi ruang untuk flap dompet */
+      margin-top: 24px; 
       z-index: 2;
     }
     .wallet-flap-1 {
@@ -237,7 +237,6 @@
       <div class="card card-narrow">
         <div class="card-title" id="homeTitle">Menu Transaksi</div>
         <div id="wrapperMenuUtama">
-          <!-- TEKS KASIR DI UBAH MENJADI SALES & AKTIVASI -->
           <button class="btn btn-menu" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;">Sales & Aktivasi</button>
           <button class="btn btn-menu" id="btnMenuPetugas" onclick="showMenu('petugas')" style="display:none;">Penukaran Wahana</button>
           <button class="btn btn-menu" id="btnMenuLaporan" onclick="showMenu('laporan')" style="display:none;">Laporan Executive</button>
@@ -247,7 +246,7 @@
       </div>
     </div>
 
-    <!-- MENU CEK PASPOR (DENGAN KARTU PASPOR BACKGROUND GAMBAR) -->
+    <!-- MENU CEK PASPOR -->
     <div id="cekCard" class="card-container" style="display:none;">
       <div class="card">
         <div class="card-title">Pencarian Data Paspor</div>
@@ -262,7 +261,6 @@
         
         <div id="hasilCek" style="display:none; margin-top:20px;">
           
-          <!-- KARTU PASPOR CUSTOM (DESAIN BACKGROUND) -->
           <div class="passport-card-3d">
             <img class="passport-card-bg" src="desain-paspor.png" alt="Desain Paspor" onerror="this.style.display='none'">
             <div class="passport-card-content">
@@ -291,7 +289,11 @@
             <div class="receipt-sub">WISATA AMAL ZONE</div>
             <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaIdCek"></strong></div>
             <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNamaCek"></strong></div>
+            <!-- TAMBAHAN BARIS NOTA AGAR SAMA -->
+            <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggalCek"></strong></div>
             <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannelCek"></strong></div>
+            <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBankCek"></strong></div>
+            
             <div class="receipt-total"><span>Total Dibayar</span><strong>Rp375.000</strong></div>
             <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Lunas - Salinan Sistem</div>
           </div>
@@ -303,7 +305,6 @@
     <!-- MENU SALES & AKTIVASI -->
     <div id="kasirCard" class="card-container" style="display:none;">
       <div class="card">
-        <!-- JUDUL DI UBAH -->
         <div class="card-title">Sales & Aktivasi Paspor</div>
         <div id="formKasirArea">
           
@@ -337,7 +338,6 @@
           <button class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:20px;">Aktifkan Paspor</button>
           
           <div class="divider"></div>
-          <!-- LABEL DI UBAH -->
           <div style="font-size:12px; font-weight:800; color:var(--navy-main); margin-bottom:12px;">Aktivasi Sales Terakhir:</div>
           <div id="widgetKasirTerbaru" style="font-size:13px; max-height:160px; overflow-y:auto; padding:0 4px;">
             <div style="text-align:center; color:var(--text-muted); font-weight:600;">Memuat data...</div>
@@ -403,7 +403,6 @@
           
           <div class="grid-2-col">
             <div style="padding-top: 15px;">
-              <!-- DOMPET OMZET DENGAN EFEK 3D TERTUMPUK -->
               <div class="wallet-container">
                 <div class="wallet-flap-2"></div>
                 <div class="wallet-flap-1"></div>
@@ -559,7 +558,6 @@
       </table>
     </div>
 
-    <!-- FOOTER LEGALITAS -->
     <div style="margin-top: 25px; border-top: 1px dashed #e2e8f0; padding-top: 10px; text-align: center;">
       <p style="font-size: 8px; font-weight: bold; font-style: italic; color: #7f8c8d; margin: 0; line-height: 1.4;">
         Dokumen ini dihasilkan secara otomatis oleh Sistem Terintegrasi Wisata Amal Zone.<br>
@@ -629,7 +627,7 @@
         teksRole = "Executive Manager";
         document.getElementById('btnMenuKasir').style.display = 'flex'; document.getElementById('btnMenuPetugas').style.display = 'flex'; document.getElementById('btnMenuLaporan').style.display = 'flex';
       } else if (roleAktif === "kasir") { 
-        teksRole = "Akses Sales & Aktivasi"; /* TEKS AKSES DIUBAH */
+        teksRole = "Akses Sales & Aktivasi"; 
         document.getElementById('btnMenuKasir').style.display = 'flex';
       } else if (roleAktif === "petugas") { 
         document.getElementById('btnMenuPetugas').style.display = 'flex'; 
@@ -716,7 +714,14 @@
             }
             document.getElementById('tabelSisa').innerHTML = htmlSisa;
 
-            document.getElementById('notaIdCek').innerText = id; document.getElementById('notaNamaCek').innerText = res.customerName; document.getElementById('notaChannelCek').innerText = res.channelBeli;
+            /* UPDATE NOTA SALINAN AGAR LENGKAP */
+            document.getElementById('notaIdCek').innerText = id; 
+            document.getElementById('notaNamaCek').innerText = res.customerName; 
+            document.getElementById('notaChannelCek').innerText = res.channelBeli;
+            
+            // Penambahan pengisian untuk Waktu dan Bank
+            document.getElementById('notaTanggalCek').innerText = res.waktuBeli || res.tanggalBeli || "Sesuai Riwayat Sistem";
+            document.getElementById('notaBankCek').innerText = res.bankBeli || res.bank || "-";
           }
       });
     }
