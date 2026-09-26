@@ -1,829 +1,813 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="id">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Wisata Amal Zone</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #f0f2f5; color: #1c1e21; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 8px; justify-content: center; } 
+    .app-header { text-align: center; margin-bottom: 10px; margin-top: 2px; }
+    .app-header h1 { font-size: 17px; color: #1b365d; font-weight: 800; }
+    .app-header p { font-size: 11px; color: #65676b; }
+    .card { background: #ffffff; width: 100%; max-width: 380px; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04); margin-bottom: 10px; }
+    .card-title { font-size: 15px; font-weight: 700; color: #1c1e21; margin-bottom: 10px; text-align: center; }
+    .btn { width: 100%; padding: 11px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; display: block; text-align: center; margin-bottom: 8px; transition: 0.2s; }
+    .btn:active { transform: scale(0.98); }
+    .btn-login { background: #1b365d; color: #ffffff; padding: 14px; font-size: 14px; margin-top: 10px;}
+    .btn-kasir { background: #1b365d; color: #ffffff; }
+    .btn-petugas { background: #00a86b; color: #ffffff; }
+    .btn-laporan { background: #8e44ad; color: #ffffff; }
+    .btn-cek { background: #3498db; color: #ffffff; }
+    .btn-scan { background: #e67e22; color: #ffffff; font-size: 14px; padding: 12px; }
+    .btn-klaim { background: #27ae60; color: #ffffff; padding: 9px; font-size: 12px; }
+    .btn-secondary { background: #e4e6eb; color: #4b4f56; margin-top: 6px; margin-bottom: 0; }
+    .input-group { margin-bottom: 8px; text-align: left; }
+    .input-group label { display: block; font-size: 10px; font-weight: 700; color: #65676b; text-transform: uppercase; margin-bottom: 3px; }
+    .input-field { width: 100%; padding: 9px 10px; border-radius: 6px; border: 1.5px solid #e4e6eb; font-size: 13px; background: #f8f9fa; text-align: center; font-weight: 600; }
+    .input-field:focus { outline: none; border-color: #1b365d; background: #ffffff; }
+    select.input-field { appearance: auto; text-align: left; padding-left: 10px;}
+    .pin-input { font-size: 20px; letter-spacing: 5px; font-weight: 800; padding: 15px;}
+    .divider { height: 1px; background: #e4e6eb; margin: 8px 0; }
+    .omzet-box { background: linear-gradient(135deg, #1b365d, #2c3e50); color: #ffffff; border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 10px; }
+    .omzet-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #bdc3c7; }
+    .omzet-number { font-size: 22px; font-weight: 800; color: #2ecc71; margin-top: 2px; }
+    .status-box { padding: 8px; border-radius: 6px; font-size: 11px; font-weight: 600; text-align: center; margin-top: 6px; display: none; }
+    .status-info { background: #e7f3ff; color: #1877f2; border: 1px solid #b8daff; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+    .stat-box { background: #f8f9fa; border-radius: 6px; padding: 6px; text-align: center; border: 1px solid #e4e6eb; }
+    .stat-number { font-size: 16px; font-weight: 800; color: #1b365d; }
+    .stat-label { font-size: 9px; font-weight: 700; color: #65676b; text-transform: uppercase; }
+    .report-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; }
+    .report-table th { background: #f0f2f5; padding: 5px; font-weight: 700; }
+    .report-table td { padding: 5px; border-bottom: 1px solid #f0f2f5; }
+    .badge-used { background: #e6f4ea; color: #137333; padding: 2px 5px; border-radius: 4px; font-size: 9px; font-weight: 700;}
+    .badge-ready { background: #e7f3ff; color: #1877f2; padding: 2px 5px; border-radius: 4px; font-size: 9px; font-weight: 700;}
+    .receipt-box { border: 2px dashed #1b365d; padding: 15px; border-radius: 8px; background: #fafafa; margin-bottom: 15px; }
+    .receipt-header { text-align: center; font-weight: 800; color: #1b365d; font-size: 16px; margin-bottom: 5px; }
+    .receipt-sub { text-align: center; font-size: 10px; color: #666; margin-bottom: 10px; }
+    .receipt-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; border-bottom: 1px dashed #ddd; padding-bottom: 4px;}
+    .receipt-total { display: flex; justify-content: space-between; font-size: 14px; font-weight: 800; margin-top: 8px; color: #27ae60; }
+    .swal2-popup { font-size: 11px !important; padding: 10px !important; width: 85% !important; max-width: 290px !important; border-radius: 12px !important; }
+    .swal2-icon { width: 42px !important; height: 42px !important; margin: 5px auto 5px !important; }
+    .swal2-title { font-size: 14px !important; padding: 4px 0 !important; color: #1c1e21 !important; }
+    #buktiUpload, #fileInputFallback { display: none; }
+    #mainContent { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; padding-top:10px; }
+    #reader { border-radius: 8px; overflow: hidden; margin-top: 10px; border: 2px solid #1b365d; }
+    #reader video { object-fit: cover; }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="id"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Wisata Amal Zone&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body { background: #f0f2f5; color: #1c1e21; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 8px; justify-content: center; }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.app-header { text-align: center; margin-bottom: 10px; margin-top: 2px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.app-header h1 { font-size: 17px; color: #1b365d; font-weight: 800; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.app-header p { font-size: 11px; color: #65676b; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card { background: #ffffff; width: 100%; max-width: 380px; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04); margin-bottom: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card-title { font-size: 15px; font-weight: 700; color: #1c1e21; margin-bottom: 10px; text-align: center; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn { width: 100%; padding: 11px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; display: block; text-align: center; margin-bottom: 8px; transition: 0.2s; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn:active { transform: scale(0.98); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-login { background: #1b365d; color: #ffffff; padding: 14px; font-size: 14px; margin-top: 10px;}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-kasir { background: #1b365d; color: #ffffff; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-petugas { background: #00a86b; color: #ffffff; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-laporan { background: #8e44ad; color: #ffffff; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-cek { background: #3498db; color: #ffffff; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-scan { background: #e67e22; color: #ffffff; font-size: 14px; padding: 12px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-klaim { background: #27ae60; color: #ffffff; padding: 9px; font-size: 12px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-secondary { background: #e4e6eb; color: #4b4f56; margin-top: 6px; margin-bottom: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.input-group { margin-bottom: 8px; text-align: left; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.input-group label { display: block; font-size: 10px; font-weight: 700; color: #65676b; text-transform: uppercase; margin-bottom: 3px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.input-field { width: 100%; padding: 9px 10px; border-radius: 6px; border: 1.5px solid #e4e6eb; font-size: 13px; background: #f8f9fa; text-align: center; font-weight: 600; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.input-field:focus { outline: none; border-color: #1b365d; background: #ffffff; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>select.input-field { appearance: auto; text-align: left; padding-left: 10px;}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.pin-input { font-size: 20px; letter-spacing: 5px; font-weight: 800; padding: 15px;}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.divider { height: 1px; background: #e4e6eb; margin: 8px 0; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.omzet-box { background: linear-gradient(135deg, #1b365d, #2c3e50); color: #ffffff; border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.omzet-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #bdc3c7; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.omzet-number { font-size: 22px; font-weight: 800; color: #2ecc71; margin-top: 2px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.status-box { padding: 8px; border-radius: 6px; font-size: 11px; font-weight: 600; text-align: center; margin-top: 6px; display: none; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.status-info { background: #e7f3ff; color: #1877f2; border: 1px solid #b8daff; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.stat-box { background: #f8f9fa; border-radius: 6px; padding: 6px; text-align: center; border: 1px solid #e4e6eb; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.stat-number { font-size: 16px; font-weight: 800; color: #1b365d; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.stat-label { font-size: 9px; font-weight: 700; color: #65676b; text-transform: uppercase; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.report-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.report-table th { background: #f0f2f5; padding: 5px; font-weight: 700; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.report-table td { padding: 5px; border-bottom: 1px solid #f0f2f5; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge-used { background: #e6f4ea; color: #137333; padding: 2px 5px; border-radius: 4px; font-size: 9px; font-weight: 700;}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge-ready { background: #e7f3ff; color: #1877f2; padding: 2px 5px; border-radius: 4px; font-size: 9px; font-weight: 700;}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.receipt-box { border: 2px dashed #1b365d; padding: 15px; border-radius: 8px; background: #fafafa; margin-bottom: 15px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.receipt-header { text-align: center; font-weight: 800; color: #1b365d; font-size: 16px; margin-bottom: 5px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.receipt-sub { text-align: center; font-size: 10px; color: #666; margin-bottom: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.receipt-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; border-bottom: 1px dashed #ddd; padding-bottom: 4px;}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.receipt-total { display: flex; justify-content: space-between; font-size: 14px; font-weight: 800; margin-top: 8px; color: #27ae60; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swal2-popup { font-size: 11px !important; padding: 10px !important; width: 85% !important; max-width: 290px !important; border-radius: 12px !important; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swal2-icon { width: 42px !important; height: 42px !important; margin: 5px auto 5px !important; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swal2-title { font-size: 14px !important; padding: 4px 0 !important; color: #1c1e21 !important; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>#buktiUpload, #fileInputFallback { display: none; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>#mainContent { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; padding-top:10px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>#reader { border-radius: 8px; overflow: hidden; margin-top: 10px; border: 2px solid #1b365d; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>#reader video { object-fit: cover; }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://unpkg.com/html5-qrcode"&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="loginCard" class="card" style="margin: auto;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="app-header" style="margin-bottom: 20px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h1&gt;WISATA AMAL ZONE&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;Portal Paspor &amp; Voucher Digital&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card-title"&gt;Akses Keamanan&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;label style="text-align: center;"&gt;Masukkan PIN Anda&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="password" id="inputPin" class="input-field pin-input" placeholder="••••" inputmode="numeric" maxlength="4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn btn-login" onclick="cekPin()"&gt;Masuk&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="mainContent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="app-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h1&gt;WISATA AMAL ZONE&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;Portal Paspor &amp; Voucher Digital&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- MENU BERANDA --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="homeCard" class="card" style="display:none;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card-title" id="homeTitle"&gt;Pilih Menu Transaksi&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-kasir" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;"&gt;💼 Menu Penjualan &amp; Aktivasi&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-petugas" id="btnMenuPetugas" onclick="showMenu('petugas')" style="display:none;"&gt;📷 Menu Petugas (Scan QR)&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-cek" id="btnMenuCek" onclick="showMenu('cek')" style="display:none;"&gt;🔍 Cek Riwayat Paspor&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-laporan" id="btnMenuLaporan" onclick="showMenu('laporan')" style="display:none;"&gt;📊 Laporan Manager&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-secondary" style="margin-top: 15px; color:#c5221f;" onclick="logout()"&gt;🔒 Keluar (Logout)&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- MENU CEK PASPOR --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="cekCard" class="card" style="display:none;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card-title"&gt;🔍 Cek Riwayat Paspor&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;Nomor ID Paspor&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="inputCekPaspor" class="input-field" placeholder="Contoh: 0926001"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-cek" onclick="prosesCekData()"&gt;Cari Data&lt;/button&gt;</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="loadingCek" style="display:none; text-align:center; font-size:11px; padding:8px; color:#65676b;"&gt;⏳ Mencari data di sistem...&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="hasilCek" style="display:none; margin-top:15px; padding:10px; border:1px solid #e4e6eb; border-radius:8px; background:#fafafa;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="font-size:12px; font-weight:bold; margin-bottom:10px; text-align:center;"&gt;Pemilik: &lt;span id="namaPemilikCek" style="color:#1b365d; font-size:14px;"&gt;&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="font-size:10px; font-weight:bold; color:#c5221f; margin-bottom:4px;"&gt;❌ SUDAH DIPAKAI (KLAIM):&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;table class="report-table" id="tabelKlaim" style="margin-bottom:12px;"&gt;&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="font-size:10px; font-weight:bold; color:#137333; margin-bottom:4px;"&gt;✅ BELUM DIPAKAI (READY):&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;table class="report-table" id="tabelSisa" style="margin-bottom:15px;"&gt;&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="divider"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="font-size:10px; font-weight:bold; color:#1b365d; margin-bottom:8px; text-align:center;"&gt;📜 SALINAN NOTA DIGITAL:&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="receipt-box" id="notaKertasCek" style="margin-bottom:10px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-header"&gt;BUKTI PEMBELIAN PASPOR&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-sub"&gt;WISATA AMAL ZONE&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-row"&gt;&lt;span&gt;No. ID Paspor&lt;/span&gt;&lt;strong id="notaIdCek"&gt;&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-row"&gt;&lt;span&gt;Nama Pelanggan&lt;/span&gt;&lt;strong id="notaNamaCek"&gt;&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-row"&gt;&lt;span&gt;Channel Pembelian&lt;/span&gt;&lt;strong id="notaChannelCek"&gt;&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-total"&gt;&lt;span&gt;TOTAL DIBAYAR&lt;/span&gt;&lt;strong&gt;Rp375.000&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div style="text-align:center; font-size:9px; color:#888; margin-top:10px;"&gt;LUNAS - Salinan Sistem&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn" onclick="unduhNotaPDFCek()" style="background:#8e44ad; color:#fff; margin-bottom:8px;"&gt;📄 Unduh Salinan Nota (PDF)&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-secondary" onclick="showMenu('home')" style="margin-top:10px;"&gt;⬅️ Kembali ke Beranda&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- MENU KASIR --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="kasirCard" class="card" style="display:none;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card-title"&gt;💼 Penjualan &amp; Aktivasi Paspor&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="formKasirArea"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-group"&gt;&lt;label&gt;Nomor ID Paspor&lt;/label&gt;&lt;input type="text" id="inputPaspor" class="input-field" placeholder="Contoh: 0926001"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-group"&gt;&lt;label&gt;Nama Customer&lt;/label&gt;&lt;input type="text" id="namaCust" class="input-field" placeholder="Misal: Bapak Andi"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-group"&gt;&lt;label&gt;Nomor HP Customer&lt;/label&gt;&lt;input type="number" id="noHpCust" class="input-field" placeholder="Misal: 08123456789"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-group"&gt;&lt;label&gt;Channel Sales&lt;/label&gt;&lt;select id="channelBeli" class="input-field"&gt;&lt;/select&gt;&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;label&gt;Bank Tujuan Transfer&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;select id="bankTujuan" class="input-field" onchange="tampilInfoRekening()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value=""&gt;-- Pilih Bank Tujuan Transfer --&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="BCA"&gt;BCA - 1711499666&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="BSI"&gt;BSI - 1577733337&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="infoRekeningBox" style="display:none; font-size:10px; padding:6px; background:#e7f3ff; border:1px solid #b8daff; border-radius:6px; margin-bottom:8px; text-align:center; color:#1b365d; font-weight:bold; line-height:1.4;"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;label&gt;Upload Bukti Pembayaran (Wajib)&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;label for="buktiUpload" class="btn btn-secondary" style="background:#e7f3ff; color:#1877f2; border:1px solid #b8daff;" id="labelUploadBtn"&gt;📸 Pilih Foto Bukti Transfer&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;input type="file" id="buktiUpload" accept="image/*" onchange="previewBukti(event)"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div id="buktiPreviewName" style="font-size:10px; text-align:center; margin-top:4px; font-weight:bold; line-height:1.4;"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-kasir" onclick="prosesAktivasi()" style="margin-top:12px;"&gt;Aktifkan Paspor&lt;/button&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="divider"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="font-size:10px; font-weight:700; color:#1b365d; margin-bottom:6px; text-align:left;"&gt;🕒 AKTIVASI TERBARU:&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="widgetKasirTerbaru" style="font-size:11px; text-align:left; max-height:140px; overflow-y:auto; background:#fafafa; border:1px solid #e4e6eb; border-radius:6px; padding:6px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div style="text-align:center; color:#888;"&gt;⏳ Memuat data...&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="notaArea" style="display:none;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="receipt-box" id="notaKertas"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-header"&gt;BUKTI PEMBELIAN PASPOR&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-sub"&gt;WISATA AMAL ZONE&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-row"&gt;&lt;span&gt;No. ID Paspor&lt;/span&gt;&lt;strong id="notaId"&gt;&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-row"&gt;&lt;span&gt;Nama Pelanggan&lt;/span&gt;&lt;strong id="notaNama"&gt;&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-row"&gt;&lt;span&gt;Waktu Transaksi&lt;/span&gt;&lt;strong id="notaTanggal"&gt;&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-row"&gt;&lt;span&gt;Channel Pembelian&lt;/span&gt;&lt;strong id="notaChannel"&gt;&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-row"&gt;&lt;span&gt;Bank Transfer&lt;/span&gt;&lt;strong id="notaBank"&gt;&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="receipt-total"&gt;&lt;span&gt;TOTAL DIBAYAR&lt;/span&gt;&lt;strong id="notaTotal"&gt;&lt;/strong&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div style="text-align:center; font-size:9px; color:#888; margin-top:10px;"&gt;LUNAS - Paspor Resmi Diaktifkan&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn" onclick="unduhNotaPDF()" style="background:#8e44ad; color:#fff; margin-bottom:8px;"&gt;📄 Unduh Nota (PDF)&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-petugas" onclick="resetKasir()"&gt;Selesai &amp; Transaksi Baru&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="msgKasir" class="status-box"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-secondary" onclick="showMenu('home')"&gt;⬅️ Kembali ke Beranda&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- MENU PETUGAS (LIVE SCANNER) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="petugasCard" class="card" style="display:none;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card-title"&gt;📷 Penukaran Voucher Wisata&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="input-group"&gt;&lt;label&gt;Nama Petugas &amp; Unit&lt;/label&gt;&lt;input type="text" id="namaPetugas" class="input-field" placeholder="Misal: Budi - Wahana Air"&gt;&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Opsi 1: Live Scanner (Super Cepat) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-scan" id="btnBukaKamera" onclick="bukaLiveScanner()" style="background:#e67e22;"&gt;🔴 LIVE SCAN (Otomatis)&lt;/button&gt;</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="reader" style="display: none;"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-secondary" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:10px; color:#c5221f;"&gt;❌ Tutup Live Kamera&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div style="text-align:center; font-size:11px; margin: 8px 0; color:#888;"&gt;--- ATAU ---&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Opsi 2: Upload/Jepret Foto Manual --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;label for="fileInputFallback" class="btn btn-scan" style="background:#34495e; padding:10px; font-size:12px;"&gt;📸 FOTO MANUAL (Kamera Asli HP)&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="file" id="fileInputFallback" accept="image/*" capture="environment" onchange="scanQRFromFileFallback(event)"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="divider"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="input-group"&gt;&lt;label&gt;Atau Ketik Kode Manual&lt;/label&gt;&lt;input type="text" id="inputVoucherManual" class="input-field" placeholder="Contoh: 0926001-R1"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-klaim" onclick="prosesKlaimManual()"&gt;Klaim Manual&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="msgPetugas" class="status-box"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-secondary" onclick="showMenu('home')"&gt;⬅️ Kembali ke Beranda&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- MENU LAPORAN MANAGER --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="laporanCard" class="card" style="display:none;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card-title"&gt;📊 Executive Dashboard&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="input-group" style="margin-bottom: 10px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;🗓️ Periode Bulan Laporan:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="filterBulan" class="input-field" onchange="loadDashboardData()" style="background:#e7f3ff; border-color:#1877f2; color:#1b365d; font-weight:bold;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="ALL"&gt;🗓️ Semua Bulan (All Time)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="loadingLaporan" style="text-align:center; padding:8px; font-size:11px; color:#65676b;"&gt;⏳ Memuat data...&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="contentLaporan" style="display:none;"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="omzet-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="omzet-label"&gt;Total Omzet Penjualan&lt;/div&gt;&lt;div class="omzet-number" id="statOmzet"&gt;Rp0&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="divider" style="background:rgba(255,255,255,0.2); margin: 6px 0;"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div style="display:flex; justify-content:space-around; font-size:11px; margin-bottom:4px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;🔵 &lt;b&gt;BCA:&lt;/b&gt; &lt;span id="statOmzetBca" style="color:#2ecc71; font-weight:bold;"&gt;Rp0&lt;/span&gt; (&lt;span id="statCountBca"&gt;0&lt;/span&gt;)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;🟢 &lt;b&gt;BSI:&lt;/b&gt; &lt;span id="statOmzetBsi" style="color:#2ecc71; font-weight:bold;"&gt;Rp0&lt;/span&gt; (&lt;span id="statCountBsi"&gt;0&lt;/span&gt;)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="divider" style="background:rgba(255,255,255,0.2); margin: 6px 0;"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="omzet-label"&gt;Total Nilai Benefit Diklaim&lt;/div&gt;&lt;div class="omzet-number" style="color:#f1c40f;" id="statKlaim"&gt;Rp0&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="stat-box"&gt;&lt;div class="stat-label"&gt;Paspor Terjual&lt;/div&gt;&lt;div class="stat-number" id="statPasporAktif" style="color:#27ae60;"&gt;0&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="stat-box"&gt;&lt;div class="stat-label"&gt;Tiket Terpakai&lt;/div&gt;&lt;div class="stat-number" id="statTiketUsed" style="color:#1877f2;"&gt;0&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="divider"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label style="display:block; text-align:left; font-size:11px; font-weight:700; color:#1b365d; margin-bottom:4px;"&gt;📋 DAFTAR PASPOR TERJUAL / AKTIF:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="searchPasporAktif" class="input-field" placeholder="🔍 Cari ID / Nama / Channel / Bank..." onkeyup="filterTabelPasporAktif()" style="margin-bottom:8px; font-size:11px; padding:6px 8px; text-align:left;"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="max-height: 220px; overflow-y: auto; border: 1px solid #e4e6eb; border-radius: 6px; margin-bottom:12px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;table class="report-table" id="tabelPasporAktif"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;tr style="position:sticky; top:0; background:#f0f2f5;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;ID &amp; Nama&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Channel/Bank&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Sisa Tiket&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Aksi&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;tbody id="tbodyPasporAktif"&gt;&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="divider"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label style="display:block; text-align:left; font-size:10px; font-weight:700; margin-bottom:4px;"&gt;📈 REKAP PENJUALAN PER CHANNEL:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;table class="report-table"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Channel Sales&lt;/th&gt;&lt;th&gt;Total Paspor&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id="tbodyChannel"&gt;&lt;/tbody&gt;&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="divider"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label style="display:block; text-align:left; font-size:10px; font-weight:700; margin-bottom:4px;"&gt;📌 REKAP KLAIM PER UNIT WISATA:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;table class="report-table"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Unit Wisata&lt;/th&gt;&lt;th&gt;Terpakai&lt;/th&gt;&lt;th&gt;Ready&lt;/th&gt;&lt;th&gt;Nilai Klaim&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id="tbodyUnit"&gt;&lt;/tbody&gt;&lt;/table&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn" style="background:#2c3e50; color:#fff; margin-top:15px; font-size:12px;" onclick="mintaPinDownloadAwandra()"&gt;🔒 Cetak Laporan PDF (Awandra Group)&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-kasir" style="padding:7px; font-size:11px; margin-top:8px;" onclick="loadDashboardData()"&gt;🔄 Refresh Data&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-secondary" onclick="showMenu('home')"&gt;⬅️ Kembali ke Beranda&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- TEMPLATE LAPORAN PDF (DISembunyikan) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="printArea" style="display: none;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div style="text-align:center; margin-bottom:15px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2 style="margin:0; font-size:18px; font-weight:800; color:#1b365d;"&gt;LAPORAN AUDIT FINANCE &amp; OPERASIONAL&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h4 style="margin:4px 0; color:#555; font-size:13px;"&gt;WISATA AMAL ZONE - AWANDRA GROUP&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p style="margin:0; font-size:10px; color:#888;" id="printTanggal"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p style="margin:2px 0 0 0; font-size:11px; font-weight:bold; color:#1b365d;" id="printPeriodeBulan"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;hr style="border:1px solid #1b365d; margin-bottom:15px;"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div style="margin-bottom:15px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3 style="font-size:12px; margin-bottom:6px; color:#1b365d;"&gt;A. RINGKASAN KEUANGAN KONSOLIDASI&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;table style="font-size:11px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;td style="width:60%; background:#f8f9fa; font-weight:bold;"&gt;Total Pemasukan Transfer (Penjualan Paspor)&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;td style="font-weight:bold; color:#27ae60; text-align:right;" id="printOmzet"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;td style="padding-left:15px; font-size:10px; color:#555;"&gt;• Pemasukan via Bank BCA&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBca"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;td style="padding-left:15px; font-size:10px; color:#555;"&gt;• Pemasukan via Bank BSI&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBsi"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;td style="background:#f8f9fa; font-weight:bold;"&gt;Total Nilai Benefit Wahana Diklaim&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;td style="font-weight:bold; color:#c0392b; text-align:right;" id="printKlaim"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div style="margin-bottom:15px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3 style="font-size:12px; margin-bottom:6px; color:#1b365d;"&gt;B. RINCIAN TRANSFER MASUK (PENJUALAN PASPOR)&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;table style="font-size:10px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;tr style="background:#1b365d; color:#fff;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:center; width:22%;"&gt;Waktu &amp; Hari Pembelian&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:center; width:12%;"&gt;ID Paspor&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:left; width:24%;"&gt;Nama Pelanggan&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:center; width:16%;"&gt;Channel Pembelian&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:center; width:10%;"&gt;Bank Tujuan&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:right; width:16%;"&gt;Nominal Transfer&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;tbody id="printTbodyPenjualan"&gt;&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div style="margin-bottom:15px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3 style="font-size:12px; margin-bottom:6px; color:#1b365d;"&gt;C. RINCIAN DETIL BENEFIT WAHANA YANG DIKLAIM&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;table style="font-size:9px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;tr style="background:#27ae60; color:#fff;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:center; width:15%;"&gt;Waktu Klaim&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:center; width:12%;"&gt;ID Paspor&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:left; width:18%;"&gt;Nama Pelanggan&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:left; width:15%;"&gt;Unit Wahana&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:left; width:20%;"&gt;Rincian Benefit&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:left; width:10%;"&gt;Petugas&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th style="text-align:right; width:10%;"&gt;Nilai Benefit&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;tbody id="printTbodyKlaimDetail"&gt;&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div style="margin-top:20px; font-size:10px; text-align:right;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>Dibuat oleh Sistem Terintegrasi Amal Zone&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;i&gt;Dokumen ini sah untuk keperluan rekonsiliasi Audit Finance Awandra Group.&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// ==========================================</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// API URL GOOGLE APPS SCRIPT ANDA</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// ==========================================</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const API_URL = "https://script.google.com/macros/s/AKfycbztM5KoUy_cxJGmF7a5IlKCe9gqVXW9_pJzgBYD0FQ46ZCzHtd7Kg7Sa-Rmi76IBb8c_w/exec";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// FUNGSI KOMUNIKASI SERVER MODERN (PENGGANTI google.script.run)</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function callAPI(action, payload, onSuccess) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>payload.action = action;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fetch(API_URL, {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>method: "POST",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body: JSON.stringify(payload)</p>
-<p class="p1"><span class="Apple-converted-space">      </span>})</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.then(response =&gt; response.json())</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.then(data =&gt; onSuccess(data))</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.catch(error =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>console.error('Error:', error);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Swal.fire('Koneksi Gagal', 'Gagal menghubungi server database.', 'error');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>hideStatus('msgKasir'); hideStatus('msgPetugas');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('loadingCek').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('loadingLaporan').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const PIN_KASIR_ALL = "2020"; const PIN_PETUGAS = "3030"; const PIN_MANAGER = "9090";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const PIN_KASIR_MK = "4040"; const PIN_KASIR_AL = "5050"; const PIN_KASIR_MH = "6060";<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const PIN_DOWNLOAD_FINANCE = "1919";<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const PIN_OVERRIDE_KASIR = "1212";<span class="Apple-converted-space"> </span></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const ALL_CHANNELS = ["Canvassing", "Ulam Singkil", "Keramba", "Kopi Deal", "Murraya Hill", "Alila", "Mak Kundil"];</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let roleAktif = ""; let allowedChannels = []; let compressedImageBase64 = "";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let allPasporAktifData = [];<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let isAiValid = false;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let html5QrcodeScanner = null;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("inputPin").addEventListener("keypress", function(event) { if (event.key === "Enter") { event.preventDefault(); cekPin(); } });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function cekPin() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var pin = document.getElementById('inputPin').value;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(pin === PIN_KASIR_ALL) { roleAktif = "kasir"; allowedChannels = ALL_CHANNELS; loginSukses('home'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if (pin === PIN_MANAGER) { roleAktif = "manager"; allowedChannels = ALL_CHANNELS; loginSukses('home'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if (pin === PIN_KASIR_MK) { roleAktif = "kasir"; allowedChannels = ["Mak Kundil"]; loginSukses('home'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if (pin === PIN_KASIR_AL) { roleAktif = "kasir"; allowedChannels = ["Alila"]; loginSukses('home'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if (pin === PIN_KASIR_MH) { roleAktif = "kasir"; allowedChannels = ["Murraya Hill"]; loginSukses('home'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if (pin === PIN_PETUGAS) { roleAktif = "petugas"; allowedChannels = []; loginSukses('home'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>else { showToast('error', 'PIN Salah! Akses Ditolak.'); document.getElementById('inputPin').value = ''; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function setupDropdownChannel() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var select = document.getElementById("channelBeli"); select.innerHTML = '';<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (allowedChannels.length &gt; 1) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>select.innerHTML = '&lt;option value=""&gt;-- Pilih Channel --&lt;/option&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>for(var i = 0; i &lt; allowedChannels.length; i++) { select.innerHTML += '&lt;option value="' + allowedChannels[i] + '"&gt;' + allowedChannels[i] + '&lt;/option&gt;'; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>select.disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else if (allowedChannels.length === 1) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>select.innerHTML = '&lt;option value="' + allowedChannels[0] + '"&gt;' + allowedChannels[0] + '&lt;/option&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>select.value = allowedChannels[0]; select.disabled = true;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function tampilInfoRekening() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var bank = document.getElementById("bankTujuan").value;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var box = document.getElementById("infoRekeningBox");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (bank === "BCA") { box.innerHTML = "💳 Rekening BCA: &lt;b&gt;1711499666&lt;/b&gt;&lt;br&gt;a/n KARYA GUNA SEMESTA CV"; box.style.display = "block"; }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if (bank === "BSI") { box.innerHTML = "💳 Rekening BSI: &lt;b&gt;1577733337&lt;/b&gt;&lt;br&gt;a/n CV KARYA GUNA SEMESTA"; box.style.display = "block"; }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>else { box.style.display = "none"; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function loginSukses(menuAwal) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.body.style.justifyContent = "flex-start"; document.getElementById('loginCard').style.display = 'none'; document.getElementById('mainContent').style.display = 'flex';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('btnMenuKasir').style.display = 'none'; document.getElementById('btnMenuPetugas').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('btnMenuLaporan').style.display = 'none'; document.getElementById('btnMenuCek').style.display = 'none';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (roleAktif === "manager") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('btnMenuKasir').style.display = 'block'; document.getElementById('btnMenuPetugas').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('btnMenuCek').style.display = 'block'; document.getElementById('btnMenuLaporan').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else if (roleAktif === "kasir") { document.getElementById('btnMenuKasir').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else if (roleAktif === "petugas") { document.getElementById('btnMenuPetugas').style.display = 'block'; }</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(roleAktif === "kasir" || roleAktif === "manager") setupDropdownChannel();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showMenu(menuAwal);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function logout() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>roleAktif = ""; allowedChannels = []; document.getElementById('inputPin').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('mainContent').style.display = 'none'; showMenu('none');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.body.style.justifyContent = "center"; document.getElementById('loginCard').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showToast('info', 'Anda telah keluar.');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function showMenu(menu) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>tutupLiveScanner();</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('homeCard').style.display = 'none'; document.getElementById('kasirCard').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('petugasCard').style.display = 'none'; document.getElementById('laporanCard').style.display = 'none'; document.getElementById('cekCard').style.display = 'none';</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(menu === 'kasir') { document.getElementById('kasirCard').style.display = 'block'; resetKasir(); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if(menu === 'petugas') document.getElementById('petugasCard').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if(menu === 'laporan') { document.getElementById('laporanCard').style.display = 'block'; loadDashboardData(); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if(menu === 'cek') { document.getElementById('cekCard').style.display = 'block'; document.getElementById('hasilCek').style.display = 'none'; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>else if(menu === 'home') document.getElementById('homeCard').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>hideStatus('msgKasir'); hideStatus('msgPetugas');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function showStatus(elementId, text, type) { var el = document.getElementById(elementId); el.innerHTML = text; el.className = 'status-box status-' + type; el.style.display = 'block'; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function hideStatus(elementId) { document.getElementById(elementId).style.display = 'none'; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function showToast(icon, message) { Swal.fire({ toast: true, position: 'top', icon: icon, title: message, showConfirmButton: false, timer: 2500, customClass: { popup: 'swal2-popup' } }); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function popNotification(title, text, icon) { Swal.fire({ title: title, text: text, icon: icon, position: 'top', confirmButtonText: 'OK / Lanjut', confirmButtonColor: icon === 'success' ? '#27ae60' : '#c5221f', heightAuto: false }); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function prosesCekData() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var id = document.getElementById('inputCekPaspor').value;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(!id) return showToast('warning', 'Harap ketik ID Paspor!');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('loadingCek').style.display = 'block'; document.getElementById('hasilCek').style.display = 'none';</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>callAPI('checkPassportData', { id: id }, function(res) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('loadingCek').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if(!res.success) { popNotification('TIDAK DITEMUKAN', res.message, 'warning'); } else {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('hasilCek').style.display = 'block'; document.getElementById('namaPemilikCek').innerText = res.customerName;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var htmlKlaim = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(res.listKlaim.length === 0) { htmlKlaim = '&lt;tr&gt;&lt;td style="text-align:center; color:#888;"&gt;Belum ada yang dipakai&lt;/td&gt;&lt;/tr&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else { for(var i=0; i&lt;res.listKlaim.length; i++) { var item = res.listKlaim[i]; htmlKlaim += '&lt;tr&gt;&lt;td&gt;&lt;b&gt;' + item.unit + '&lt;/b&gt; - ' + item.benefit + '&lt;br&gt;&lt;span style="font-size:9px; color:#666;"&gt;🕒 ' + item.waktu + ' | 👤 Petugas: ' + item.petugas + '&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;'; } }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('tabelKlaim').innerHTML = htmlKlaim;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var htmlSisa = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if(res.listSisa.length === 0) { htmlSisa = '&lt;tr&gt;&lt;td style="text-align:center; color:#888;"&gt;Semua tiket sudah habis dipakai&lt;/td&gt;&lt;/tr&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else { for(var j=0; j&lt;res.listSisa.length; j++) { var itemSisa = res.listSisa[j]; htmlSisa += '&lt;tr&gt;&lt;td&gt;&lt;b&gt;' + itemSisa.unit + '&lt;/b&gt; - ' + itemSisa.benefit + '&lt;/td&gt;&lt;/tr&gt;'; } }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('tabelSisa').innerHTML = htmlSisa;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('notaIdCek').innerText = id; document.getElementById('notaNamaCek').innerText = res.customerName; document.getElementById('notaChannelCek').innerText = res.channelBeli;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function unduhNotaPDFCek() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var element = document.getElementById('notaKertasCek');<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>var idPaspor = document.getElementById('notaIdCek').innerText;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var opt = {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>margin: 0.3,<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>filename: 'Salinan_Nota_AmalZone_' + idPaspor + '.pdf',<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>image: { type: 'jpeg', quality: 1 },<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>html2canvas: { scale: 3, scrollY: 0, useCORS: true },<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>};</p>
-<p class="p1"><span class="Apple-converted-space">      </span>html2pdf().set(opt).from(element).save();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function loadDashboardData() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var selBulan = document.getElementById("filterBulan") ? document.getElementById("filterBulan").value : "ALL";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('loadingLaporan').style.display = 'block'; document.getElementById('contentLaporan').style.display = 'none';</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>callAPI('getDashboardData', { selBulan: selBulan }, function(data) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('loadingLaporan').style.display = 'none'; document.getElementById('contentLaporan').style.display = 'block';</p>
-<p class="p2"><span class="Apple-converted-space">          </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>var selectEl = document.getElementById("filterBulan");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>var currentVal = data.selectedMonth;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>selectEl.innerHTML = '&lt;option value="ALL"&gt;🗓️ Semua Bulan (All Time)&lt;/option&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (data.availableMonths) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (var key in data.availableMonths) {</p>
-<p class="p1"><span class="Apple-converted-space">              </span>var opt = document.createElement("option");</p>
-<p class="p1"><span class="Apple-converted-space">              </span>opt.value = key;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>opt.innerText = "🗓️ " + data.availableMonths[key];</p>
-<p class="p1"><span class="Apple-converted-space">              </span>if (key === currentVal) opt.selected = true;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>selectEl.appendChild(opt);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('statOmzet').innerText = data.totalOmzetFormatted;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('statOmzetBca').innerText = data.bcaOmzetFormatted;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('statCountBca').innerText = data.bcaCount + " paspor";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('statOmzetBsi').innerText = data.bsiOmzetFormatted;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('statCountBsi').innerText = data.bsiCount + " paspor";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('statKlaim').innerText = data.totalKlaimFormatted;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('statPasporAktif').innerText = data.countPasporAktif; document.getElementById('statTiketUsed').innerText = data.countUsed;</p>
-<p class="p2"><span class="Apple-converted-space">          </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>var htmlChannel = ''; for (var c in data.channelStats) { htmlChannel += '&lt;tr&gt;&lt;td&gt;&lt;b&gt;' + c + '&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;span class="badge-channel" style="background:#fce8e6; color:#c5221f; padding:2px 5px; border-radius:4px; font-size:9px; font-weight:700;"&gt;' + data.channelStats[c] + ' Paspor&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;'; }</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if(htmlChannel === '') htmlChannel = '&lt;tr&gt;&lt;td colspan="2" style="text-align:center;"&gt;Belum ada penjualan&lt;/td&gt;&lt;/tr&gt;'; document.getElementById('tbodyChannel').innerHTML = htmlChannel;</p>
-<p class="p2"><span class="Apple-converted-space">          </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>var htmlUnit = '';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>for (var u in data.unitStats) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>htmlUnit += '&lt;tr&gt;&lt;td&gt;&lt;b&gt;' + u + '&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;span class="badge-used"&gt;' + data.unitStats[u].used + '&lt;/span&gt;&lt;/td&gt;&lt;td&gt;&lt;span class="badge-ready"&gt;' + data.unitStats[u].ready + '&lt;/span&gt;&lt;/td&gt;&lt;td style="font-weight:700; color:#27ae60;"&gt;' + nilaiKlaimRupiah + '&lt;/td&gt;&lt;/tr&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('tbodyUnit').innerHTML = htmlUnit;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>allPasporAktifData = data.listPasporAktif || [];</p>
-<p class="p1"><span class="Apple-converted-space">          </span>renderTabelPasporAktif(allPasporAktifData);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>renderWidgetKasirTerbaru(allPasporAktifData);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('printOmzet').innerText = data.totalOmzetFormatted;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('printOmzetBca').innerText = data.bcaOmzetFormatted + " (" + data.bcaCount + " Paspor)";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('printOmzetBsi').innerText = data.bsiOmzetFormatted + " (" + data.bsiCount + " Paspor)";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('printKlaim').innerText = data.totalKlaimFormatted;</p>
-<p class="p2"><span class="Apple-converted-space">          </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>var dateStr = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('printTanggal').innerText = "Tanggal Cetak: " + dateStr;</p>
-<p class="p2"><span class="Apple-converted-space">          </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>var filterText = selectEl.options[selectEl.selectedIndex] ? selectEl.options[selectEl.selectedIndex].text : "Semua Bulan";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('printPeriodeBulan').innerText = "Periode Laporan: " + filterText.replace("🗓️ ", "");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>var htmlPenjualan = '';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>for(var i=0; i&lt;data.listPenjualan.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>var item = data.listPenjualan[i];</p>
-<p class="p1"><span class="Apple-converted-space">             </span>var stringWaktuPembelian = item.waktuPembelian || "-";<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">             </span>htmlPenjualan += '&lt;tr&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">               </span>'&lt;td style="padding:5px; text-align:center; font-weight:bold; color:#555;"&gt;' + stringWaktuPembelian + '&lt;/td&gt;' +<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">               </span>'&lt;td style="padding:5px; text-align:center;"&gt;' + item.id + '&lt;/td&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">               </span>'&lt;td style="padding:5px;"&gt;' + item.nama + '&lt;/td&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">               </span>'&lt;td style="padding:5px; text-align:center;"&gt;' + item.channel + '&lt;/td&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">               </span>'&lt;td style="padding:5px; text-align:center; font-weight:bold;"&gt;' + item.bank + '&lt;/td&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">               </span>'&lt;td style="padding:5px; text-align:right;"&gt;Rp 375.000&lt;/td&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">             </span>'&lt;/tr&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if(htmlPenjualan === '') htmlPenjualan = '&lt;tr&gt;&lt;td colspan="6" style="text-align:center; padding:8px;"&gt;Belum ada data transfer/penjualan pada periode ini.&lt;/td&gt;&lt;/tr&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>var htmlKlaimDetail = '';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>for(var j=0; j&lt;data.listDetailKlaim.length; j++) {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>var k = data.listDetailKlaim[j];</p>
-<p class="p1"><span class="Apple-converted-space">             </span>htmlKlaimDetail += '&lt;tr&gt;&lt;td style="padding:4px; text-align:center;"&gt;' + k.waktu + '&lt;/td&gt;&lt;td style="padding:4px; text-align:center;"&gt;' + k.id + '&lt;/td&gt;&lt;td style="padding:4px;"&gt;' + k.nama + '&lt;/td&gt;&lt;td style="padding:4px;"&gt;' + k.unit + '&lt;/td&gt;&lt;td style="padding:4px;"&gt;' + k.benefit + '&lt;/td&gt;&lt;td style="padding:4px;"&gt;' + k.petugas + '&lt;/td&gt;&lt;td style="padding:4px; text-align:right; font-weight:bold;"&gt;' + k.nilai + '&lt;/td&gt;&lt;/tr&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if(htmlKlaimDetail === '') htmlKlaimDetail = '&lt;tr&gt;&lt;td colspan="7" style="text-align:center; padding:8px;"&gt;Belum ada klaim benefit pada periode ini.&lt;/td&gt;&lt;/tr&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('printTbodyKlaimDetail').innerHTML = htmlKlaimDetail;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function renderTabelPasporAktif(list) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var html = '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!list || list.length === 0) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>html = '&lt;tr&gt;&lt;td colspan="4" style="text-align:center; color:#888; padding:10px;"&gt;Tidak ada paspor terjual pada periode ini&lt;/td&gt;&lt;/tr&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>for (var i = 0; i &lt; list.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>var item = list[i];</p>
-<p class="p1"><span class="Apple-converted-space">          </span>var badgeStatus = '';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (item.readyCount &gt; 0) { badgeStatus = '&lt;span class="badge-ready"&gt;' + item.readyCount + '/' + item.totalTiket + ' Ready&lt;/span&gt;'; }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>else { badgeStatus = '&lt;span class="badge-used"&gt;Habis (' + item.usedCount + ' Used)&lt;/span&gt;'; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>html += '&lt;tr&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'&lt;td&gt;&lt;b&gt;' + item.id + '&lt;/b&gt;&lt;br&gt;&lt;span style="font-size:10px; color:#555;"&gt;' + item.nama + '&lt;/span&gt;&lt;/td&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'&lt;td&gt;' + item.channel + '&lt;br&gt;&lt;b style="color:#1b365d; font-size:9px;"&gt;' + item.bank + '&lt;/b&gt;&lt;/td&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'&lt;td&gt;' + badgeStatus + '&lt;/td&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'&lt;td&gt;&lt;button class="btn btn-cek" style="padding:3px 6px; font-size:9px; margin:0;" onclick="langsungCekPaspor(\'' + item.rawId + '\')"&gt;🔍 Detail&lt;/button&gt;&lt;/td&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">          </span>'&lt;/tr&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('tbodyPasporAktif').innerHTML = html;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function filterTabelPasporAktif() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var query = document.getElementById('searchPasporAktif').value.toLowerCase();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var filtered = allPasporAktifData.filter(function(item) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return item.id.toLowerCase().includes(query) || item.nama.toLowerCase().includes(query) || item.channel.toLowerCase().includes(query) || item.bank.toLowerCase().includes(query);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">      </span>renderTabelPasporAktif(filtered);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function renderWidgetKasirTerbaru(list) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var el = document.getElementById('widgetKasirTerbaru');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!el) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!list || list.length === 0) { el.innerHTML = '&lt;div style="text-align:center; color:#888; padding:5px;"&gt;Belum ada aktivasi&lt;/div&gt;'; return; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var recent = list.slice().reverse().slice(0, 5);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var html = '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; recent.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>var item = recent[i];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>html += '&lt;div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding:4px 0;"&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">          </span>'&lt;div&gt;&lt;b&gt;' + item.id + '&lt;/b&gt; - ' + item.nama + ' &lt;span style="font-size:9px; color:#888;"&gt;(' + item.channel + ' | ' + item.bank + ')&lt;/span&gt;&lt;/div&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">          </span>'&lt;div&gt;&lt;button class="btn btn-cek" style="padding:2px 5px; font-size:9px; margin:0;" onclick="langsungCekPaspor(\'' + item.rawId + '\')"&gt;🔍 Cek&lt;/button&gt;&lt;/div&gt;' +</p>
-<p class="p1"><span class="Apple-converted-space">        </span>'&lt;/div&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>el.innerHTML = html;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function langsungCekPaspor(idPaspor) { showMenu('cek'); document.getElementById('inputCekPaspor').value = idPaspor; prosesCekData(); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function mintaPinDownloadAwandra() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>Swal.fire({</p>
-<p class="p1"><span class="Apple-converted-space">        </span>title: 'Verifikasi Otorisasi', text: 'Masukkan PIN Khusus Manager Finance / Marketing:', input: 'password',</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' },</p>
-<p class="p1"><span class="Apple-converted-space">        </span>showCancelButton: true, confirmButtonText: 'Unduh PDF', cancelButtonText: 'Batal', confirmButtonColor: '#1b365d', heightAuto: false</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}).then((result) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (result.isConfirmed) { if (result.value === PIN_DOWNLOAD_FINANCE) { unduhLaporanAwandra(); } else { showToast('error', 'PIN Otorisasi Salah! Unduhan Ditolak.'); } }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function unduhLaporanAwandra() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showToast('info', '⏳ Membuat PDF di Server Google...');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var printContent = document.getElementById('printArea').innerHTML;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>callAPI('generateReportPdf', { printContent: printContent }, function(res) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (res.success) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>var byteCharacters = atob(res.base64);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>var byteNumbers = new Array(byteCharacters.length);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>for (var i = 0; i &lt; byteCharacters.length; i++) { byteNumbers[i] = byteCharacters.charCodeAt(i); }</p>
-<p class="p1"><span class="Apple-converted-space">          </span>var byteArray = new Uint8Array(byteNumbers);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>var blob = new Blob([byteArray], { type: 'application/pdf' });</p>
-<p class="p1"><span class="Apple-converted-space">          </span>var blobUrl = URL.createObjectURL(blob);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>var link = document.createElement('a'); link.href = blobUrl; link.download = res.filename; document.body.appendChild(link); link.click();</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.body.removeChild(link); setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 1000);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>showToast('success', 'Laporan PDF Berhasil Diunduh!');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>popNotification('GAGAL MEMBUAT PDF', res.message, 'error');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function previewBukti(event) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const file = event.target.files[0];<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!file) { compressedImageBase64 = ""; isAiValid = false; document.getElementById('buktiPreviewName').innerText = ""; return; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showStatus('msgKasir', '⏳ AI sedang memindai bukti transfer...', 'info');<span class="Apple-converted-space"> </span></p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>Tesseract.recognize(file, 'ind', { logger: m =&gt; {} } ).then(({ data: { text } }) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>var teksHurufBesar = text.toUpperCase().replace(/\s+/g, ' ');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>var aiPesan = "";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>var cekNominal = teksHurufBesar.includes('375');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (cekNominal &amp;&amp; cekNamaRekening) { isAiValid = true; aiPesan = "&lt;br&gt;&lt;span style='color:#1877f2; font-size:10px; font-weight:bold;'&gt;🤖 Terdeteksi Indikasi Bukti Transfer VALID&lt;/span&gt;"; }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>else { isAiValid = false; aiPesan = "&lt;br&gt;&lt;span style='color:#c5221f; font-size:10px; font-weight:bold;'&gt;🤖 Indikasi bukti transfer TIDAK VALID&lt;/span&gt;"; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('buktiPreviewName').innerHTML = "&lt;span style='color:#27ae60;'&gt;✅ Foto dilampirkan!&lt;/span&gt;" + aiPesan; hideStatus('msgKasir');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}).catch(err =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "&lt;span style='color:#27ae60;'&gt;✅ Foto dilampirkan!&lt;/span&gt;&lt;br&gt;&lt;span style='color:#c5221f; font-size:10px; font-weight:bold;'&gt;🤖 Indikasi bukti transfer TIDAK VALID&lt;/span&gt;"; hideStatus('msgKasir');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const reader = new FileReader();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>reader.onload = function(e) {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const img = new Image();<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>img.onload = function() {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">          </span>let width = img.width; let height = img.height; const maxDim = 800;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (width &gt; maxDim || height &gt; maxDim) { if (width &gt; height) { height = Math.round((height * maxDim) / width); width = maxDim; } else { width = Math.round((width * maxDim) / height); height = maxDim; } }</p>
-<p class="p1"><span class="Apple-converted-space">          </span>canvas.width = width; canvas.height = height; ctx.drawImage(img, 0, 0, width, height);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>compressedImageBase64 = canvas.toDataURL("image/jpeg", 0.6);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}; img.src = e.target.result;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}; reader.readAsDataURL(file);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function prosesAktivasi() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var id = document.getElementById('inputPaspor').value; var nama = document.getElementById('namaCust').value;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var hp = document.getElementById('noHpCust').value; var channel = document.getElementById('channelBeli').value;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var bank = document.getElementById('bankTujuan').value;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Harap lengkapi semua data termasuk Bank Tujuan!');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(!compressedImageBase64) return showToast('warning', 'Wajib melampirkan foto bukti!');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (isAiValid) { eksekusiAktivasi(id, nama, hp, channel, bank); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Swal.fire({</p>
-<p class="p1"><span class="Apple-converted-space">          </span>title: 'Otorisasi Bukti Transfer', text: 'AI mengindikasikan Bukti Transfer TIDAK VALID. Masukkan PIN Otorisasi Kasir / Manager untuk melanjutkan:',</p>
-<p class="p1"><span class="Apple-converted-space">          </span>input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' },</p>
-<p class="p1"><span class="Apple-converted-space">          </span>showCancelButton: true, confirmButtonText: 'Lanjutkan Aktivasi', cancelButtonText: 'Batal', confirmButtonColor: '#e67e22', heightAuto: false</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}).then((result) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank); } else { showToast('error', 'PIN Otorisasi Salah! Aktivasi Ditolak.'); } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function eksekusiAktivasi(id, nama, hp, channel, bank) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showStatus('msgKasir', '⏳ Mengaktifkan paspor...', 'info');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>callAPI('activatePassport', { id: id, nama: nama, hp: hp, channel: channel, bank: bank, compressedImageBase64: compressedImageBase64 }, function(res) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>hideStatus('msgKasir');</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if(res.success) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('formKasirArea').style.display = 'none'; document.getElementById('notaArea').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('notaId').innerText = res.receipt.id; document.getElementById('notaNama').innerText = res.receipt.nama;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('notaTanggal').innerText = res.receipt.tanggal; document.getElementById('notaChannel').innerText = res.receipt.channel;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('notaBank').innerText = res.receipt.bank; document.getElementById('notaTotal').innerText = res.receipt.harga;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>showToast('success', 'Aktivasi Berhasil!'); loadDashboardData();<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>} else { popNotification('AKTIVASI DITOLAK', res.message, 'error'); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function unduhNotaPDF() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var element = document.getElementById('notaKertas');<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>var idPaspor = document.getElementById('notaId').innerText;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var opt = { margin: 0.3, filename: 'Nota_AmalZone_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };</p>
-<p class="p1"><span class="Apple-converted-space">      </span>html2pdf().set(opt).from(element).save();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function resetKasir() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('inputPaspor').value = ''; document.getElementById('namaCust').value = ''; document.getElementById('noHpCust').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(allowedChannels.length &gt; 1) { document.getElementById('channelBeli').value = ''; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; compressedImageBase64 = ""; isAiValid = false;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// ==========================================</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// LOGIKA SCANNER (HYBRID BEBAS BINGKAI)</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// ==========================================</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function bukaLiveScanner() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const petugas = document.getElementById('namaPetugas').value;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!petugas) return showToast('warning', 'Harap isi Nama Petugas &amp; Unit terlebih dahulu!');</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('btnBukaKamera').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('reader').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('btnTutupKamera').style.display = 'block';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!html5QrcodeScanner) { html5QrcodeScanner = new Html5Qrcode("reader"); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>Html5Qrcode.getCameras().then(devices =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (devices &amp;&amp; devices.length) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>let cameraId = devices[0].id;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>for (let i = 0; i &lt; devices.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (devices[i].label.toLowerCase().includes('back') || devices[i].label.toLowerCase().includes('belakang') || devices[i].label.toLowerCase().includes('environment')) { cameraId = devices[i].id; break; }</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>html5QrcodeScanner.start(</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cameraId, { fps: 10, qrbox: { width: 250, height: 250 } },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>(decodedText, decodedResult) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">              </span>tutupLiveScanner(); showStatus('msgPetugas', '⏳ Memeriksa data voucher...', 'info');</p>
-<p class="p1"><span class="Apple-converted-space">              </span>callAPI('scanVoucher', { voucher: decodedText, petugas: petugas }, function(res) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>hideStatus('msgPetugas');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(res.success) { popNotification('TIKET BERHASIL!', res.message, 'success'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('TIKET SUDAH TERPAKAI!', res.message, 'error'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>else { popNotification('BELUM DIAKTIFKAN', res.message, 'warning'); }</p>
-<p class="p1"><span class="Apple-converted-space">              </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>},</p>
-<p class="p1"><span class="Apple-converted-space">            </span>(errorMessage) =&gt; { }</p>
-<p class="p1"><span class="Apple-converted-space">          </span>).catch((err) =&gt; { showToast('error', 'Kamera Live diblokir sistem. Silakan gunakan tombol FOTO MANUAL.'); tutupLiveScanner(); });</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else { showToast('error', 'Kamera fisik tidak ditemukan. Gunakan FOTO MANUAL.'); tutupLiveScanner(); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}).catch(err =&gt; { showToast('error', 'Akses ditolak. Silakan gunakan tombol FOTO MANUAL.'); tutupLiveScanner(); });</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function tutupLiveScanner() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (html5QrcodeScanner &amp;&amp; html5QrcodeScanner.isScanning) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>html5QrcodeScanner.stop().then(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}).catch(err =&gt; console.error(err));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function scanQRFromFileFallback(event) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const file = event.target.files[0]; if (!file) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const petugas = document.getElementById('namaPetugas').value; if (!petugas) { showToast('warning', 'Harap isi Petugas!'); event.target.value = ''; return; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showStatus('msgPetugas', '⏳ Memproses foto QR...', 'info');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const reader = new FileReader();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>reader.onload = function(e) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const img = new Image(); img.onload = function() {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">          </span>let width = img.width; let height = img.height; const maxDim = 800;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (width &gt; maxDim || height &gt; maxDim) { if (width &gt; height) { height = Math.round((height * maxDim) / width); width = maxDim; } else { width = Math.round((width * maxDim) / height); height = maxDim; } }</p>
-<p class="p1"><span class="Apple-converted-space">          </span>canvas.width = width; canvas.height = height; ctx.drawImage(img, 0, 0, width, height);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const imageData = ctx.getImageData(0, 0, width, height); const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "dontInvert" });</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (code &amp;&amp; code.data) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>showStatus('msgPetugas', '⏳ Memeriksa data: ' + code.data + '...', 'info');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>callAPI('scanVoucher', { voucher: code.data, petugas: petugas }, function(res) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>hideStatus('msgPetugas');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(res.success) { popNotification('TIKET BERHASIL!', res.message, 'success'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('TIKET SUDAH TERPAKAI!', res.message, 'error'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>else { popNotification('BELUM DIAKTIFKAN', res.message, 'warning'); }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">          </span>} else { hideStatus('msgPetugas'); popNotification('QR TIDAK TERDETEKSI', 'Pastikan foto fokus pada QR Code.', 'error'); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}; img.src = e.target.result;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}; reader.readAsDataURL(file); event.target.value = '';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function prosesKlaimManual() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var petugas = document.getElementById('namaPetugas').value; var voucher = document.getElementById('inputVoucherManual').value;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(!petugas || !voucher) return showToast('warning', 'Harap isi Petugas &amp; Kode Voucher!');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>showStatus('msgPetugas', '⏳ Memeriksa voucher...', 'info');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(res) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>hideStatus('msgPetugas');</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if(res.success) { popNotification('TIKET BERHASIL!', res.message, 'success'); document.getElementById('inputVoucherManual').value = ''; }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('TIKET SUDAH TERPAKAI!', res.message, 'error'); }<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>else { popNotification('BELUM DIAKTIFKAN', res.message, 'warning'); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+  <div id="loginCard" class="card" style="margin: auto;">
+    <div class="app-header" style="margin-bottom: 20px;">
+      <h1>WISATA AMAL ZONE</h1>
+      <p>Portal Paspor & Voucher Digital</p>
+    </div>
+    <div class="card-title">Akses Keamanan</div>
+    <div class="input-group">
+      <label style="text-align: center;">Masukkan PIN Anda</label>
+      <input type="password" id="inputPin" class="input-field pin-input" placeholder="••••" inputmode="numeric" maxlength="4">
+    </div>
+    <button class="btn btn-login" onclick="cekPin()">Masuk</button>
+  </div>
+
+  <div id="mainContent">
+    <div class="app-header">
+      <h1>WISATA AMAL ZONE</h1>
+      <p>Portal Paspor & Voucher Digital</p>
+    </div>
+
+    <!-- MENU BERANDA -->
+    <div id="homeCard" class="card" style="display:none;">
+      <div class="card-title" id="homeTitle">Pilih Menu Transaksi</div>
+      <button class="btn btn-kasir" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;">💼 Menu Penjualan & Aktivasi</button>
+      <button class="btn btn-petugas" id="btnMenuPetugas" onclick="showMenu('petugas')" style="display:none;">📷 Menu Petugas (Scan QR)</button>
+      <button class="btn btn-cek" id="btnMenuCek" onclick="showMenu('cek')" style="display:none;">🔍 Cek Riwayat Paspor</button>
+      <button class="btn btn-laporan" id="btnMenuLaporan" onclick="showMenu('laporan')" style="display:none;">📊 Laporan Manager</button>
+      <button class="btn btn-secondary" style="margin-top: 15px; color:#c5221f;" onclick="logout()">🔒 Keluar (Logout)</button>
+    </div>
+
+    <!-- MENU CEK PASPOR -->
+    <div id="cekCard" class="card" style="display:none;">
+      <div class="card-title">🔍 Cek Riwayat Paspor</div>
+      <div class="input-group">
+        <label>Nomor ID Paspor</label>
+        <input type="text" id="inputCekPaspor" class="input-field" placeholder="Contoh: 0926001">
+      </div>
+      <button class="btn btn-cek" onclick="prosesCekData()">Cari Data</button>
+      
+      <div id="loadingCek" style="display:none; text-align:center; font-size:11px; padding:8px; color:#65676b;">⏳ Mencari data di sistem...</div>
+      
+      <div id="hasilCek" style="display:none; margin-top:15px; padding:10px; border:1px solid #e4e6eb; border-radius:8px; background:#fafafa;">
+        <div style="font-size:12px; font-weight:bold; margin-bottom:10px; text-align:center;">Pemilik: <span id="namaPemilikCek" style="color:#1b365d; font-size:14px;"></span></div>
+        <div style="font-size:10px; font-weight:bold; color:#c5221f; margin-bottom:4px;">❌ SUDAH DIPAKAI (KLAIM):</div>
+        <table class="report-table" id="tabelKlaim" style="margin-bottom:12px;"></table>
+        <div style="font-size:10px; font-weight:bold; color:#137333; margin-bottom:4px;">✅ BELUM DIPAKAI (READY):</div>
+        <table class="report-table" id="tabelSisa" style="margin-bottom:15px;"></table>
+
+        <div class="divider"></div>
+        <div style="font-size:10px; font-weight:bold; color:#1b365d; margin-bottom:8px; text-align:center;">📜 SALINAN NOTA DIGITAL:</div>
+        
+        <div class="receipt-box" id="notaKertasCek" style="margin-bottom:10px;">
+          <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
+          <div class="receipt-sub">WISATA AMAL ZONE</div>
+          <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaIdCek"></strong></div>
+          <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNamaCek"></strong></div>
+          <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannelCek"></strong></div>
+          <div class="receipt-total"><span>TOTAL DIBAYAR</span><strong>Rp375.000</strong></div>
+          <div style="text-align:center; font-size:9px; color:#888; margin-top:10px;">LUNAS - Salinan Sistem</div>
+        </div>
+        <button class="btn" onclick="unduhNotaPDFCek()" style="background:#8e44ad; color:#fff; margin-bottom:8px;">📄 Unduh Salinan Nota (PDF)</button>
+      </div>
+      <button class="btn btn-secondary" onclick="showMenu('home')" style="margin-top:10px;">⬅️ Kembali ke Beranda</button>
+    </div>
+
+    <!-- MENU KASIR -->
+    <div id="kasirCard" class="card" style="display:none;">
+      <div class="card-title">💼 Penjualan & Aktivasi Paspor</div>
+      <div id="formKasirArea">
+        <div class="input-group"><label>Nomor ID Paspor</label><input type="text" id="inputPaspor" class="input-field" placeholder="Contoh: 0926001"></div>
+        <div class="input-group"><label>Nama Customer</label><input type="text" id="namaCust" class="input-field" placeholder="Misal: Bapak Andi"></div>
+        <div class="input-group"><label>Nomor HP Customer</label><input type="number" id="noHpCust" class="input-field" placeholder="Misal: 08123456789"></div>
+        <div class="input-group"><label>Channel Sales</label><select id="channelBeli" class="input-field"></select></div>
+        
+        <div class="input-group">
+          <label>Bank Tujuan Transfer</label>
+          <select id="bankTujuan" class="input-field" onchange="tampilInfoRekening()">
+            <option value="">-- Pilih Bank Tujuan Transfer --</option>
+            <option value="BCA">BCA - 1711499666</option>
+            <option value="BSI">BSI - 1577733337</option>
+          </select>
+        </div>
+        <div id="infoRekeningBox" style="display:none; font-size:10px; padding:6px; background:#e7f3ff; border:1px solid #b8daff; border-radius:6px; margin-bottom:8px; text-align:center; color:#1b365d; font-weight:bold; line-height:1.4;"></div>
+
+        <div class="input-group">
+          <label>Upload Bukti Pembayaran (Wajib)</label>
+          <label for="buktiUpload" class="btn btn-secondary" style="background:#e7f3ff; color:#1877f2; border:1px solid #b8daff;" id="labelUploadBtn">📸 Pilih Foto Bukti Transfer</label>
+          <input type="file" id="buktiUpload" accept="image/*" onchange="previewBukti(event)">
+          <div id="buktiPreviewName" style="font-size:10px; text-align:center; margin-top:4px; font-weight:bold; line-height:1.4;"></div>
+        </div>
+        <button class="btn btn-kasir" onclick="prosesAktivasi()" style="margin-top:12px;">Aktifkan Paspor</button>
+        
+        <div class="divider"></div>
+        <div style="font-size:10px; font-weight:700; color:#1b365d; margin-bottom:6px; text-align:left;">🕒 AKTIVASI TERBARU:</div>
+        <div id="widgetKasirTerbaru" style="font-size:11px; text-align:left; max-height:140px; overflow-y:auto; background:#fafafa; border:1px solid #e4e6eb; border-radius:6px; padding:6px;">
+          <div style="text-align:center; color:#888;">⏳ Memuat data...</div>
+        </div>
+      </div>
+
+      <div id="notaArea" style="display:none;">
+        <div class="receipt-box" id="notaKertas">
+          <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
+          <div class="receipt-sub">WISATA AMAL ZONE</div>
+          <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaId"></strong></div>
+          <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNama"></strong></div>
+          <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggal"></strong></div>
+          <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannel"></strong></div>
+          <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBank"></strong></div>
+          <div class="receipt-total"><span>TOTAL DIBAYAR</span><strong id="notaTotal"></strong></div>
+          <div style="text-align:center; font-size:9px; color:#888; margin-top:10px;">LUNAS - Paspor Resmi Diaktifkan</div>
+        </div>
+        <button class="btn" onclick="unduhNotaPDF()" style="background:#8e44ad; color:#fff; margin-bottom:8px;">📄 Unduh Nota (PDF)</button>
+        <button class="btn btn-petugas" onclick="resetKasir()">Selesai & Transaksi Baru</button>
+      </div>
+      <div id="msgKasir" class="status-box"></div>
+      <button class="btn btn-secondary" onclick="showMenu('home')">⬅️ Kembali ke Beranda</button>
+    </div>
+
+    <!-- MENU PETUGAS (LIVE SCANNER) -->
+    <div id="petugasCard" class="card" style="display:none;">
+      <div class="card-title">📷 Penukaran Voucher Wisata</div>
+      <div class="input-group"><label>Nama Petugas & Unit</label><input type="text" id="namaPetugas" class="input-field" placeholder="Misal: Budi - Wahana Air"></div>
+      
+      <!-- Opsi 1: Live Scanner (Super Cepat) -->
+      <button class="btn btn-scan" id="btnBukaKamera" onclick="bukaLiveScanner()" style="background:#e67e22;">🔴 LIVE SCAN (Otomatis)</button>
+      
+      <div id="reader" style="display: none;"></div>
+      <button class="btn btn-secondary" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:10px; color:#c5221f;">❌ Tutup Live Kamera</button>
+
+      <div style="text-align:center; font-size:11px; margin: 8px 0; color:#888;">--- ATAU ---</div>
+
+      <!-- Opsi 2: Upload/Jepret Foto Manual -->
+      <label for="fileInputFallback" class="btn btn-scan" style="background:#34495e; padding:10px; font-size:12px;">📸 FOTO MANUAL (Kamera Asli HP)</label>
+      <input type="file" id="fileInputFallback" accept="image/*" capture="environment" onchange="scanQRFromFileFallback(event)">
+
+      <div class="divider"></div>
+      <div class="input-group"><label>Atau Ketik Kode Manual</label><input type="text" id="inputVoucherManual" class="input-field" placeholder="Contoh: 0926001-R1"></div>
+      <button class="btn btn-klaim" onclick="prosesKlaimManual()">Klaim Manual</button>
+      <div id="msgPetugas" class="status-box"></div>
+      <button class="btn btn-secondary" onclick="showMenu('home')">⬅️ Kembali ke Beranda</button>
+    </div>
+
+    <!-- MENU LAPORAN MANAGER -->
+    <div id="laporanCard" class="card" style="display:none;">
+      <div class="card-title">📊 Executive Dashboard</div>
+      
+      <div class="input-group" style="margin-bottom: 10px;">
+        <label>🗓️ Periode Bulan Laporan:</label>
+        <select id="filterBulan" class="input-field" onchange="loadDashboardData()" style="background:#e7f3ff; border-color:#1877f2; color:#1b365d; font-weight:bold;">
+          <option value="ALL">🗓️ Semua Bulan (All Time)</option>
+        </select>
+      </div>
+
+      <div id="loadingLaporan" style="text-align:center; padding:8px; font-size:11px; color:#65676b;">⏳ Memuat data...</div>
+      <div id="contentLaporan" style="display:none;">
+        
+        <div class="omzet-box">
+          <div class="omzet-label">Total Omzet Penjualan</div><div class="omzet-number" id="statOmzet">Rp0</div>
+          <div class="divider" style="background:rgba(255,255,255,0.2); margin: 6px 0;"></div>
+          <div style="display:flex; justify-content:space-around; font-size:11px; margin-bottom:4px;">
+            <div>🔵 <b>BCA:</b> <span id="statOmzetBca" style="color:#2ecc71; font-weight:bold;">Rp0</span> (<span id="statCountBca">0</span>)</div>
+            <div>🟢 <b>BSI:</b> <span id="statOmzetBsi" style="color:#2ecc71; font-weight:bold;">Rp0</span> (<span id="statCountBsi">0</span>)</div>
+          </div>
+          <div class="divider" style="background:rgba(255,255,255,0.2); margin: 6px 0;"></div>
+          <div class="omzet-label">Total Nilai Benefit Diklaim</div><div class="omzet-number" style="color:#f1c40f;" id="statKlaim">Rp0</div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-box"><div class="stat-label">Paspor Terjual</div><div class="stat-number" id="statPasporAktif" style="color:#27ae60;">0</div></div>
+          <div class="stat-box"><div class="stat-label">Tiket Terpakai</div><div class="stat-number" id="statTiketUsed" style="color:#1877f2;">0</div></div>
+        </div>
+        <div class="divider"></div>
+
+        <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:#1b365d; margin-bottom:4px;">📋 DAFTAR PASPOR TERJUAL / AKTIF:</label>
+        <input type="text" id="searchPasporAktif" class="input-field" placeholder="🔍 Cari ID / Nama / Channel / Bank..." onkeyup="filterTabelPasporAktif()" style="margin-bottom:8px; font-size:11px; padding:6px 8px; text-align:left;">
+
+        <div style="max-height: 220px; overflow-y: auto; border: 1px solid #e4e6eb; border-radius: 6px; margin-bottom:12px;">
+          <table class="report-table" id="tabelPasporAktif">
+            <thead>
+              <tr style="position:sticky; top:0; background:#f0f2f5;">
+                <th>ID & Nama</th>
+                <th>Channel/Bank</th>
+                <th>Sisa Tiket</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyPasporAktif"></tbody>
+          </table>
+        </div>
+
+        <div class="divider"></div>
+        <label style="display:block; text-align:left; font-size:10px; font-weight:700; margin-bottom:4px;">📈 REKAP PENJUALAN PER CHANNEL:</label>
+        <table class="report-table"><thead><tr><th>Channel Sales</th><th>Total Paspor</th></tr></thead><tbody id="tbodyChannel"></tbody></table>
+        <div class="divider"></div>
+        <label style="display:block; text-align:left; font-size:10px; font-weight:700; margin-bottom:4px;">📌 REKAP KLAIM PER UNIT WISATA:</label>
+        <table class="report-table"><thead><tr><th>Unit Wisata</th><th>Terpakai</th><th>Ready</th><th>Nilai Klaim</th></tr></thead><tbody id="tbodyUnit"></tbody></table>
+        
+        <button class="btn" style="background:#2c3e50; color:#fff; margin-top:15px; font-size:12px;" onclick="mintaPinDownloadAwandra()">🔒 Cetak Laporan PDF (Awandra Group)</button>
+      </div>
+      <button class="btn btn-kasir" style="padding:7px; font-size:11px; margin-top:8px;" onclick="loadDashboardData()">🔄 Refresh Data</button>
+      <button class="btn btn-secondary" onclick="showMenu('home')">⬅️ Kembali ke Beranda</button>
+    </div>
+  </div>
+
+  <!-- TEMPLATE LAPORAN PDF (DISembunyikan) -->
+  <div id="printArea" style="display: none;">
+    <div style="text-align:center; margin-bottom:15px;">
+      <h2 style="margin:0; font-size:18px; font-weight:800; color:#1b365d;">LAPORAN AUDIT FINANCE & OPERASIONAL</h2>
+      <h4 style="margin:4px 0; color:#555; font-size:13px;">WISATA AMAL ZONE - AWANDRA GROUP</h4>
+      <p style="margin:0; font-size:10px; color:#888;" id="printTanggal"></p>
+      <p style="margin:2px 0 0 0; font-size:11px; font-weight:bold; color:#1b365d;" id="printPeriodeBulan"></p>
+    </div>
+    <hr style="border:1px solid #1b365d; margin-bottom:15px;">
+    
+    <div style="margin-bottom:15px;">
+      <h3 style="font-size:12px; margin-bottom:6px; color:#1b365d;">A. RINGKASAN KEUANGAN KONSOLIDASI</h3>
+      <table style="font-size:11px;">
+        <tr>
+          <td style="width:60%; background:#f8f9fa; font-weight:bold;">Total Pemasukan Transfer (Penjualan Paspor)</td>
+          <td style="font-weight:bold; color:#27ae60; text-align:right;" id="printOmzet"></td>
+        </tr>
+        <tr>
+          <td style="padding-left:15px; font-size:10px; color:#555;">• Pemasukan via Bank BCA</td>
+          <td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBca"></td>
+        </tr>
+        <tr>
+          <td style="padding-left:15px; font-size:10px; color:#555;">• Pemasukan via Bank BSI</td>
+          <td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBsi"></td>
+        </tr>
+        <tr>
+          <td style="background:#f8f9fa; font-weight:bold;">Total Nilai Benefit Wahana Diklaim</td>
+          <td style="font-weight:bold; color:#c0392b; text-align:right;" id="printKlaim"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="margin-bottom:15px;">
+      <h3 style="font-size:12px; margin-bottom:6px; color:#1b365d;">B. RINCIAN TRANSFER MASUK (PENJUALAN PASPOR)</h3>
+      <table style="font-size:10px;">
+        <thead>
+          <tr style="background:#1b365d; color:#fff;">
+            <th style="text-align:center; width:22%;">Waktu & Hari Pembelian</th>
+            <th style="text-align:center; width:12%;">ID Paspor</th>
+            <th style="text-align:left; width:24%;">Nama Pelanggan</th>
+            <th style="text-align:center; width:16%;">Channel Pembelian</th>
+            <th style="text-align:center; width:10%;">Bank Tujuan</th>
+            <th style="text-align:right; width:16%;">Nominal Transfer</th>
+          </tr>
+        </thead>
+        <tbody id="printTbodyPenjualan"></tbody>
+      </table>
+    </div>
+
+    <div style="margin-bottom:15px;">
+      <h3 style="font-size:12px; margin-bottom:6px; color:#1b365d;">C. RINCIAN DETIL BENEFIT WAHANA YANG DIKLAIM</h3>
+      <table style="font-size:9px;">
+        <thead>
+          <tr style="background:#27ae60; color:#fff;">
+            <th style="text-align:center; width:15%;">Waktu Klaim</th>
+            <th style="text-align:center; width:12%;">ID Paspor</th>
+            <th style="text-align:left; width:18%;">Nama Pelanggan</th>
+            <th style="text-align:left; width:15%;">Unit Wahana</th>
+            <th style="text-align:left; width:20%;">Rincian Benefit</th>
+            <th style="text-align:left; width:10%;">Petugas</th>
+            <th style="text-align:right; width:10%;">Nilai Benefit</th>
+          </tr>
+        </thead>
+        <tbody id="printTbodyKlaimDetail"></tbody>
+      </table>
+    </div>
+    
+    <div style="margin-top:20px; font-size:10px; text-align:right;">
+      Dibuat oleh Sistem Terintegrasi Amal Zone<br>
+      <i>Dokumen ini sah untuk keperluan rekonsiliasi Audit Finance Awandra Group.</i>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // API URL GOOGLE APPS SCRIPT ANDA
+    // ==========================================
+    const API_URL = "https://script.google.com/macros/s/AKfycbztM5KoUy_cxJGmF7a5IlKCe9gqVXW9_pJzgBYD0FQ46ZCzHtd7Kg7Sa-Rmi76IBb8c_w/exec";
+
+    // FUNGSI KOMUNIKASI SERVER MODERN (PENGGANTI google.script.run)
+    function callAPI(action, payload, onSuccess) {
+      payload.action = action;
+      fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(data => onSuccess(data))
+      .catch(error => {
+        console.error('Error:', error);
+        Swal.fire('Koneksi Gagal', 'Gagal menghubungi server database.', 'error');
+        hideStatus('msgKasir'); hideStatus('msgPetugas');
+        document.getElementById('loadingCek').style.display = 'none';
+        document.getElementById('loadingLaporan').style.display = 'none';
+      });
+    }
+
+    const PIN_KASIR_ALL = "2020"; const PIN_PETUGAS = "3030"; const PIN_MANAGER = "9090";
+    const PIN_KASIR_MK = "4040"; const PIN_KASIR_AL = "5050"; const PIN_KASIR_MH = "6060"; 
+    const PIN_DOWNLOAD_FINANCE = "1919"; 
+    const PIN_OVERRIDE_KASIR = "1212"; 
+
+    const ALL_CHANNELS = ["Canvassing", "Ulam Singkil", "Keramba", "Kopi Deal", "Murraya Hill", "Alila", "Mak Kundil"];
+    
+    let roleAktif = ""; let allowedChannels = []; let compressedImageBase64 = "";
+    let allPasporAktifData = []; 
+    let isAiValid = false; 
+    let html5QrcodeScanner = null;
+
+    document.getElementById("inputPin").addEventListener("keypress", function(event) { if (event.key === "Enter") { event.preventDefault(); cekPin(); } });
+
+    function cekPin() {
+      var pin = document.getElementById('inputPin').value;
+      if(pin === PIN_KASIR_ALL) { roleAktif = "kasir"; allowedChannels = ALL_CHANNELS; loginSukses('home'); } 
+      else if (pin === PIN_MANAGER) { roleAktif = "manager"; allowedChannels = ALL_CHANNELS; loginSukses('home'); } 
+      else if (pin === PIN_KASIR_MK) { roleAktif = "kasir"; allowedChannels = ["Mak Kundil"]; loginSukses('home'); } 
+      else if (pin === PIN_KASIR_AL) { roleAktif = "kasir"; allowedChannels = ["Alila"]; loginSukses('home'); } 
+      else if (pin === PIN_KASIR_MH) { roleAktif = "kasir"; allowedChannels = ["Murraya Hill"]; loginSukses('home'); } 
+      else if (pin === PIN_PETUGAS) { roleAktif = "petugas"; allowedChannels = []; loginSukses('home'); } 
+      else { showToast('error', 'PIN Salah! Akses Ditolak.'); document.getElementById('inputPin').value = ''; }
+    }
+
+    function setupDropdownChannel() {
+      var select = document.getElementById("channelBeli"); select.innerHTML = ''; 
+      if (allowedChannels.length > 1) {
+        select.innerHTML = '<option value="">-- Pilih Channel --</option>';
+        for(var i = 0; i < allowedChannels.length; i++) { select.innerHTML += '<option value="' + allowedChannels[i] + '">' + allowedChannels[i] + '</option>'; }
+        select.disabled = false;
+      } else if (allowedChannels.length === 1) {
+        select.innerHTML = '<option value="' + allowedChannels[0] + '">' + allowedChannels[0] + '</option>';
+        select.value = allowedChannels[0]; select.disabled = true; 
+      }
+    }
+
+    function tampilInfoRekening() {
+      var bank = document.getElementById("bankTujuan").value;
+      var box = document.getElementById("infoRekeningBox");
+      if (bank === "BCA") { box.innerHTML = "💳 Rekening BCA: <b>1711499666</b><br>a/n KARYA GUNA SEMESTA CV"; box.style.display = "block"; } 
+      else if (bank === "BSI") { box.innerHTML = "💳 Rekening BSI: <b>1577733337</b><br>a/n CV KARYA GUNA SEMESTA"; box.style.display = "block"; } 
+      else { box.style.display = "none"; }
+    }
+
+    function loginSukses(menuAwal) {
+      document.body.style.justifyContent = "flex-start"; document.getElementById('loginCard').style.display = 'none'; document.getElementById('mainContent').style.display = 'flex';
+      document.getElementById('btnMenuKasir').style.display = 'none'; document.getElementById('btnMenuPetugas').style.display = 'none';
+      document.getElementById('btnMenuLaporan').style.display = 'none'; document.getElementById('btnMenuCek').style.display = 'none';
+
+      if (roleAktif === "manager") {
+        document.getElementById('btnMenuKasir').style.display = 'block'; document.getElementById('btnMenuPetugas').style.display = 'block';
+        document.getElementById('btnMenuCek').style.display = 'block'; document.getElementById('btnMenuLaporan').style.display = 'block';
+      } else if (roleAktif === "kasir") { document.getElementById('btnMenuKasir').style.display = 'block';
+      } else if (roleAktif === "petugas") { document.getElementById('btnMenuPetugas').style.display = 'block'; }
+      
+      if(roleAktif === "kasir" || roleAktif === "manager") setupDropdownChannel();
+      showMenu(menuAwal);
+    }
+
+    function logout() {
+      roleAktif = ""; allowedChannels = []; document.getElementById('inputPin').value = '';
+      document.getElementById('mainContent').style.display = 'none'; showMenu('none');
+      document.body.style.justifyContent = "center"; document.getElementById('loginCard').style.display = 'block';
+      showToast('info', 'Anda telah keluar.');
+    }
+
+    function showMenu(menu) {
+      tutupLiveScanner();
+      
+      document.getElementById('homeCard').style.display = 'none'; document.getElementById('kasirCard').style.display = 'none';
+      document.getElementById('petugasCard').style.display = 'none'; document.getElementById('laporanCard').style.display = 'none'; document.getElementById('cekCard').style.display = 'none';
+      
+      if(menu === 'kasir') { document.getElementById('kasirCard').style.display = 'block'; resetKasir(); }
+      else if(menu === 'petugas') document.getElementById('petugasCard').style.display = 'block';
+      else if(menu === 'laporan') { document.getElementById('laporanCard').style.display = 'block'; loadDashboardData(); }
+      else if(menu === 'cek') { document.getElementById('cekCard').style.display = 'block'; document.getElementById('hasilCek').style.display = 'none'; }
+      else if(menu === 'home') document.getElementById('homeCard').style.display = 'block';
+      hideStatus('msgKasir'); hideStatus('msgPetugas');
+    }
+
+    function showStatus(elementId, text, type) { var el = document.getElementById(elementId); el.innerHTML = text; el.className = 'status-box status-' + type; el.style.display = 'block'; }
+    function hideStatus(elementId) { document.getElementById(elementId).style.display = 'none'; }
+    function showToast(icon, message) { Swal.fire({ toast: true, position: 'top', icon: icon, title: message, showConfirmButton: false, timer: 2500, customClass: { popup: 'swal2-popup' } }); }
+    function popNotification(title, text, icon) { Swal.fire({ title: title, text: text, icon: icon, position: 'top', confirmButtonText: 'OK / Lanjut', confirmButtonColor: icon === 'success' ? '#27ae60' : '#c5221f', heightAuto: false }); }
+
+    function prosesCekData() {
+      var id = document.getElementById('inputCekPaspor').value;
+      if(!id) return showToast('warning', 'Harap ketik ID Paspor!');
+      document.getElementById('loadingCek').style.display = 'block'; document.getElementById('hasilCek').style.display = 'none';
+      
+      callAPI('checkPassportData', { id: id }, function(res) {
+          document.getElementById('loadingCek').style.display = 'none';
+          if(!res.success) { popNotification('TIDAK DITEMUKAN', res.message, 'warning'); } else {
+            document.getElementById('hasilCek').style.display = 'block'; document.getElementById('namaPemilikCek').innerText = res.customerName;
+            var htmlKlaim = '';
+            if(res.listKlaim.length === 0) { htmlKlaim = '<tr><td style="text-align:center; color:#888;">Belum ada yang dipakai</td></tr>';
+            } else { for(var i=0; i<res.listKlaim.length; i++) { var item = res.listKlaim[i]; htmlKlaim += '<tr><td><b>' + item.unit + '</b> - ' + item.benefit + '<br><span style="font-size:9px; color:#666;">🕒 ' + item.waktu + ' | 👤 Petugas: ' + item.petugas + '</span></td></tr>'; } }
+            document.getElementById('tabelKlaim').innerHTML = htmlKlaim;
+            var htmlSisa = '';
+            if(res.listSisa.length === 0) { htmlSisa = '<tr><td style="text-align:center; color:#888;">Semua tiket sudah habis dipakai</td></tr>';
+            } else { for(var j=0; j<res.listSisa.length; j++) { var itemSisa = res.listSisa[j]; htmlSisa += '<tr><td><b>' + itemSisa.unit + '</b> - ' + itemSisa.benefit + '</td></tr>'; } }
+            document.getElementById('tabelSisa').innerHTML = htmlSisa;
+            document.getElementById('notaIdCek').innerText = id; document.getElementById('notaNamaCek').innerText = res.customerName; document.getElementById('notaChannelCek').innerText = res.channelBeli;
+          }
+      });
+    }
+
+    function unduhNotaPDFCek() {
+      var element = document.getElementById('notaKertasCek'); 
+      var idPaspor = document.getElementById('notaIdCek').innerText;
+      var opt = { 
+        margin: 0.3, 
+        filename: 'Salinan_Nota_AmalZone_' + idPaspor + '.pdf', 
+        image: { type: 'jpeg', quality: 1 }, 
+        html2canvas: { scale: 3, scrollY: 0, useCORS: true }, 
+        jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } 
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+
+    function loadDashboardData() {
+      var selBulan = document.getElementById("filterBulan") ? document.getElementById("filterBulan").value : "ALL";
+      document.getElementById('loadingLaporan').style.display = 'block'; document.getElementById('contentLaporan').style.display = 'none';
+      
+      callAPI('getDashboardData', { selBulan: selBulan }, function(data) {
+          document.getElementById('loadingLaporan').style.display = 'none'; document.getElementById('contentLaporan').style.display = 'block';
+          
+          var selectEl = document.getElementById("filterBulan");
+          var currentVal = data.selectedMonth;
+          selectEl.innerHTML = '<option value="ALL">🗓️ Semua Bulan (All Time)</option>';
+          if (data.availableMonths) {
+            for (var key in data.availableMonths) {
+              var opt = document.createElement("option");
+              opt.value = key;
+              opt.innerText = "🗓️ " + data.availableMonths[key];
+              if (key === currentVal) opt.selected = true;
+              selectEl.appendChild(opt);
+            }
+          }
+
+          document.getElementById('statOmzet').innerText = data.totalOmzetFormatted; 
+          document.getElementById('statOmzetBca').innerText = data.bcaOmzetFormatted;
+          document.getElementById('statCountBca').innerText = data.bcaCount + " paspor";
+          document.getElementById('statOmzetBsi').innerText = data.bsiOmzetFormatted;
+          document.getElementById('statCountBsi').innerText = data.bsiCount + " paspor";
+
+          document.getElementById('statKlaim').innerText = data.totalKlaimFormatted;
+          document.getElementById('statPasporAktif').innerText = data.countPasporAktif; document.getElementById('statTiketUsed').innerText = data.countUsed;
+          
+          var htmlChannel = ''; for (var c in data.channelStats) { htmlChannel += '<tr><td><b>' + c + '</b></td><td><span class="badge-channel" style="background:#fce8e6; color:#c5221f; padding:2px 5px; border-radius:4px; font-size:9px; font-weight:700;">' + data.channelStats[c] + ' Paspor</span></td></tr>'; }
+          if(htmlChannel === '') htmlChannel = '<tr><td colspan="2" style="text-align:center;">Belum ada penjualan</td></tr>'; document.getElementById('tbodyChannel').innerHTML = htmlChannel;
+          
+          var htmlUnit = '';
+          for (var u in data.unitStats) {
+            var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            htmlUnit += '<tr><td><b>' + u + '</b></td><td><span class="badge-used">' + data.unitStats[u].used + '</span></td><td><span class="badge-ready">' + data.unitStats[u].ready + '</span></td><td style="font-weight:700; color:#27ae60;">' + nilaiKlaimRupiah + '</td></tr>';
+          }
+          document.getElementById('tbodyUnit').innerHTML = htmlUnit;
+
+          allPasporAktifData = data.listPasporAktif || [];
+          renderTabelPasporAktif(allPasporAktifData);
+          renderWidgetKasirTerbaru(allPasporAktifData);
+
+          document.getElementById('printOmzet').innerText = data.totalOmzetFormatted;
+          document.getElementById('printOmzetBca').innerText = data.bcaOmzetFormatted + " (" + data.bcaCount + " Paspor)";
+          document.getElementById('printOmzetBsi').innerText = data.bsiOmzetFormatted + " (" + data.bsiCount + " Paspor)";
+          document.getElementById('printKlaim').innerText = data.totalKlaimFormatted;
+          
+          var dateStr = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+          document.getElementById('printTanggal').innerText = "Tanggal Cetak: " + dateStr;
+          
+          var filterText = selectEl.options[selectEl.selectedIndex] ? selectEl.options[selectEl.selectedIndex].text : "Semua Bulan";
+          document.getElementById('printPeriodeBulan').innerText = "Periode Laporan: " + filterText.replace("🗓️ ", "");
+
+          var htmlPenjualan = '';
+          for(var i=0; i<data.listPenjualan.length; i++) {
+             var item = data.listPenjualan[i];
+             var stringWaktuPembelian = item.waktuPembelian || "-"; 
+             htmlPenjualan += '<tr>' +
+               '<td style="padding:5px; text-align:center; font-weight:bold; color:#555;">' + stringWaktuPembelian + '</td>' + 
+               '<td style="padding:5px; text-align:center;">' + item.id + '</td>' +
+               '<td style="padding:5px;">' + item.nama + '</td>' +
+               '<td style="padding:5px; text-align:center;">' + item.channel + '</td>' +
+               '<td style="padding:5px; text-align:center; font-weight:bold;">' + item.bank + '</td>' +
+               '<td style="padding:5px; text-align:right;">Rp 375.000</td>' +
+             '</tr>';
+          }
+          if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center; padding:8px;">Belum ada data transfer/penjualan pada periode ini.</td></tr>';
+          document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
+
+          var htmlKlaimDetail = '';
+          for(var j=0; j<data.listDetailKlaim.length; j++) {
+             var k = data.listDetailKlaim[j];
+             htmlKlaimDetail += '<tr><td style="padding:4px; text-align:center;">' + k.waktu + '</td><td style="padding:4px; text-align:center;">' + k.id + '</td><td style="padding:4px;">' + k.nama + '</td><td style="padding:4px;">' + k.unit + '</td><td style="padding:4px;">' + k.benefit + '</td><td style="padding:4px;">' + k.petugas + '</td><td style="padding:4px; text-align:right; font-weight:bold;">' + k.nilai + '</td></tr>';
+          }
+          if(htmlKlaimDetail === '') htmlKlaimDetail = '<tr><td colspan="7" style="text-align:center; padding:8px;">Belum ada klaim benefit pada periode ini.</td></tr>';
+          document.getElementById('printTbodyKlaimDetail').innerHTML = htmlKlaimDetail;
+      });
+    }
+
+    function renderTabelPasporAktif(list) {
+      var html = '';
+      if (!list || list.length === 0) {
+        html = '<tr><td colspan="4" style="text-align:center; color:#888; padding:10px;">Tidak ada paspor terjual pada periode ini</td></tr>';
+      } else {
+        for (var i = 0; i < list.length; i++) {
+          var item = list[i];
+          var badgeStatus = '';
+          if (item.readyCount > 0) { badgeStatus = '<span class="badge-ready">' + item.readyCount + '/' + item.totalTiket + ' Ready</span>'; } 
+          else { badgeStatus = '<span class="badge-used">Habis (' + item.usedCount + ' Used)</span>'; }
+
+          html += '<tr>' +
+            '<td><b>' + item.id + '</b><br><span style="font-size:10px; color:#555;">' + item.nama + '</span></td>' +
+            '<td>' + item.channel + '<br><b style="color:#1b365d; font-size:9px;">' + item.bank + '</b></td>' +
+            '<td>' + badgeStatus + '</td>' +
+            '<td><button class="btn btn-cek" style="padding:3px 6px; font-size:9px; margin:0;" onclick="langsungCekPaspor(\'' + item.rawId + '\')">🔍 Detail</button></td>' +
+          '</tr>';
+        }
+      }
+      document.getElementById('tbodyPasporAktif').innerHTML = html;
+    }
+
+    function filterTabelPasporAktif() {
+      var query = document.getElementById('searchPasporAktif').value.toLowerCase();
+      var filtered = allPasporAktifData.filter(function(item) {
+        return item.id.toLowerCase().includes(query) || item.nama.toLowerCase().includes(query) || item.channel.toLowerCase().includes(query) || item.bank.toLowerCase().includes(query);
+      });
+      renderTabelPasporAktif(filtered);
+    }
+
+    function renderWidgetKasirTerbaru(list) {
+      var el = document.getElementById('widgetKasirTerbaru');
+      if (!el) return;
+      if (!list || list.length === 0) { el.innerHTML = '<div style="text-align:center; color:#888; padding:5px;">Belum ada aktivasi</div>'; return; }
+      var recent = list.slice().reverse().slice(0, 5);
+      var html = '';
+      for (var i = 0; i < recent.length; i++) {
+        var item = recent[i];
+        html += '<div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding:4px 0;">' +
+          '<div><b>' + item.id + '</b> - ' + item.nama + ' <span style="font-size:9px; color:#888;">(' + item.channel + ' | ' + item.bank + ')</span></div>' +
+          '<div><button class="btn btn-cek" style="padding:2px 5px; font-size:9px; margin:0;" onclick="langsungCekPaspor(\'' + item.rawId + '\')">🔍 Cek</button></div>' +
+        '</div>';
+      }
+      el.innerHTML = html;
+    }
+
+    function langsungCekPaspor(idPaspor) { showMenu('cek'); document.getElementById('inputCekPaspor').value = idPaspor; prosesCekData(); }
+
+    function mintaPinDownloadAwandra() {
+      Swal.fire({
+        title: 'Verifikasi Otorisasi', text: 'Masukkan PIN Khusus Manager Finance / Marketing:', input: 'password',
+        inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' },
+        showCancelButton: true, confirmButtonText: 'Unduh PDF', cancelButtonText: 'Batal', confirmButtonColor: '#1b365d', heightAuto: false
+      }).then((result) => {
+        if (result.isConfirmed) { if (result.value === PIN_DOWNLOAD_FINANCE) { unduhLaporanAwandra(); } else { showToast('error', 'PIN Otorisasi Salah! Unduhan Ditolak.'); } }
+      });
+    }
+
+    function unduhLaporanAwandra() {
+      showToast('info', '⏳ Membuat PDF di Server Google...');
+      var printContent = document.getElementById('printArea').innerHTML;
+
+      callAPI('generateReportPdf', { printContent: printContent }, function(res) {
+        if (res.success) {
+          var byteCharacters = atob(res.base64);
+          var byteNumbers = new Array(byteCharacters.length);
+          for (var i = 0; i < byteCharacters.length; i++) { byteNumbers[i] = byteCharacters.charCodeAt(i); }
+          var byteArray = new Uint8Array(byteNumbers);
+          var blob = new Blob([byteArray], { type: 'application/pdf' });
+          var blobUrl = URL.createObjectURL(blob);
+          var link = document.createElement('a'); link.href = blobUrl; link.download = res.filename; document.body.appendChild(link); link.click();
+          document.body.removeChild(link); setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 1000);
+          showToast('success', 'Laporan PDF Berhasil Diunduh!');
+        } else {
+          popNotification('GAGAL MEMBUAT PDF', res.message, 'error');
+        }
+      });
+    }
+
+    function previewBukti(event) {
+      const file = event.target.files[0]; 
+      if (!file) { compressedImageBase64 = ""; isAiValid = false; document.getElementById('buktiPreviewName').innerText = ""; return; }
+      showStatus('msgKasir', '⏳ AI sedang memindai bukti transfer...', 'info'); 
+      
+      Tesseract.recognize(file, 'ind', { logger: m => {} } ).then(({ data: { text } }) => {
+        var teksHurufBesar = text.toUpperCase().replace(/\s+/g, ' ');
+        var aiPesan = "";
+        var cekNominal = teksHurufBesar.includes('375');
+        var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');
+        
+        if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:#1877f2; font-size:10px; font-weight:bold;'>🤖 Terdeteksi Indikasi Bukti Transfer VALID</span>"; } 
+        else { isAiValid = false; aiPesan = "<br><span style='color:#c5221f; font-size:10px; font-weight:bold;'>🤖 Indikasi bukti transfer TIDAK VALID</span>"; }
+        
+        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:#27ae60;'>✅ Foto dilampirkan!</span>" + aiPesan; hideStatus('msgKasir');
+      }).catch(err => {
+        isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:#27ae60;'>✅ Foto dilampirkan!</span><br><span style='color:#c5221f; font-size:10px; font-weight:bold;'>🤖 Indikasi bukti transfer TIDAK VALID</span>"; hideStatus('msgKasir');
+      });
+
+      const reader = new FileReader();
+      reader.onload = function(e) { 
+        const img = new Image(); 
+        img.onload = function() {
+          const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');
+          let width = img.width; let height = img.height; const maxDim = 800;
+          if (width > maxDim || height > maxDim) { if (width > height) { height = Math.round((height * maxDim) / width); width = maxDim; } else { width = Math.round((width * maxDim) / height); height = maxDim; } }
+          canvas.width = width; canvas.height = height; ctx.drawImage(img, 0, 0, width, height);
+          compressedImageBase64 = canvas.toDataURL("image/jpeg", 0.6); 
+        }; img.src = e.target.result;
+      }; reader.readAsDataURL(file);
+    }
+
+    function prosesAktivasi() {
+      var id = document.getElementById('inputPaspor').value; var nama = document.getElementById('namaCust').value;
+      var hp = document.getElementById('noHpCust').value; var channel = document.getElementById('channelBeli').value;
+      var bank = document.getElementById('bankTujuan').value;
+
+      if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Harap lengkapi semua data termasuk Bank Tujuan!');
+      if(!compressedImageBase64) return showToast('warning', 'Wajib melampirkan foto bukti!');
+
+      if (isAiValid) { eksekusiAktivasi(id, nama, hp, channel, bank); } 
+      else {
+        Swal.fire({
+          title: 'Otorisasi Bukti Transfer', text: 'AI mengindikasikan Bukti Transfer TIDAK VALID. Masukkan PIN Otorisasi Kasir / Manager untuk melanjutkan:',
+          input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' },
+          showCancelButton: true, confirmButtonText: 'Lanjutkan Aktivasi', cancelButtonText: 'Batal', confirmButtonColor: '#e67e22', heightAuto: false
+        }).then((result) => {
+          if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank); } else { showToast('error', 'PIN Otorisasi Salah! Aktivasi Ditolak.'); } }
+        });
+      }
+    }
+
+    function eksekusiAktivasi(id, nama, hp, channel, bank) {
+      showStatus('msgKasir', '⏳ Mengaktifkan paspor...', 'info');
+      callAPI('activatePassport', { id: id, nama: nama, hp: hp, channel: channel, bank: bank, compressedImageBase64: compressedImageBase64 }, function(res) {
+          hideStatus('msgKasir');
+          if(res.success) {
+            document.getElementById('formKasirArea').style.display = 'none'; document.getElementById('notaArea').style.display = 'block';
+            document.getElementById('notaId').innerText = res.receipt.id; document.getElementById('notaNama').innerText = res.receipt.nama;
+            document.getElementById('notaTanggal').innerText = res.receipt.tanggal; document.getElementById('notaChannel').innerText = res.receipt.channel;
+            document.getElementById('notaBank').innerText = res.receipt.bank; document.getElementById('notaTotal').innerText = res.receipt.harga; 
+            showToast('success', 'Aktivasi Berhasil!'); loadDashboardData(); 
+          } else { popNotification('AKTIVASI DITOLAK', res.message, 'error'); }
+      });
+    }
+
+    function unduhNotaPDF() {
+      var element = document.getElementById('notaKertas'); 
+      var idPaspor = document.getElementById('notaId').innerText;
+      var opt = { margin: 0.3, filename: 'Nota_AmalZone_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
+      html2pdf().set(opt).from(element).save();
+    }
+
+    function resetKasir() {
+      document.getElementById('inputPaspor').value = ''; document.getElementById('namaCust').value = ''; document.getElementById('noHpCust').value = '';
+      if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; }
+      document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none';
+      document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; compressedImageBase64 = ""; isAiValid = false;
+      document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir');
+    }
+
+    // ==========================================
+    // LOGIKA SCANNER (HYBRID BEBAS BINGKAI)
+    // ==========================================
+    
+    function bukaLiveScanner() {
+      const petugas = document.getElementById('namaPetugas').value; 
+      if (!petugas) return showToast('warning', 'Harap isi Nama Petugas & Unit terlebih dahulu!');
+      
+      document.getElementById('btnBukaKamera').style.display = 'none';
+      document.getElementById('reader').style.display = 'block';
+      document.getElementById('btnTutupKamera').style.display = 'block';
+
+      if (!html5QrcodeScanner) { html5QrcodeScanner = new Html5Qrcode("reader"); }
+
+      Html5Qrcode.getCameras().then(devices => {
+        if (devices && devices.length) {
+          let cameraId = devices[0].id;
+          for (let i = 0; i < devices.length; i++) {
+            if (devices[i].label.toLowerCase().includes('back') || devices[i].label.toLowerCase().includes('belakang') || devices[i].label.toLowerCase().includes('environment')) { cameraId = devices[i].id; break; }
+          }
+          html5QrcodeScanner.start(
+            cameraId, { fps: 10, qrbox: { width: 250, height: 250 } },
+            (decodedText, decodedResult) => {
+              tutupLiveScanner(); showStatus('msgPetugas', '⏳ Memeriksa data voucher...', 'info');
+              callAPI('scanVoucher', { voucher: decodedText, petugas: petugas }, function(res) {
+                hideStatus('msgPetugas');
+                if(res.success) { popNotification('TIKET BERHASIL!', res.message, 'success'); } 
+                else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('TIKET SUDAH TERPAKAI!', res.message, 'error'); } 
+                else { popNotification('BELUM DIAKTIFKAN', res.message, 'warning'); }
+              });
+            },
+            (errorMessage) => { }
+          ).catch((err) => { showToast('error', 'Kamera Live diblokir sistem. Silakan gunakan tombol FOTO MANUAL.'); tutupLiveScanner(); });
+        } else { showToast('error', 'Kamera fisik tidak ditemukan. Gunakan FOTO MANUAL.'); tutupLiveScanner(); }
+      }).catch(err => { showToast('error', 'Akses ditolak. Silakan gunakan tombol FOTO MANUAL.'); tutupLiveScanner(); });
+    }
+
+    function tutupLiveScanner() {
+      if (html5QrcodeScanner && html5QrcodeScanner.isScanning) {
+        html5QrcodeScanner.stop().then(() => {
+          document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block';
+        }).catch(err => console.error(err));
+      } else {
+        document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block';
+      }
+    }
+
+    function scanQRFromFileFallback(event) {
+      const file = event.target.files[0]; if (!file) return;
+      const petugas = document.getElementById('namaPetugas').value; if (!petugas) { showToast('warning', 'Harap isi Petugas!'); event.target.value = ''; return; }
+      showStatus('msgPetugas', '⏳ Memproses foto QR...', 'info');
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image(); img.onload = function() {
+          const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');
+          let width = img.width; let height = img.height; const maxDim = 800;
+          if (width > maxDim || height > maxDim) { if (width > height) { height = Math.round((height * maxDim) / width); width = maxDim; } else { width = Math.round((width * maxDim) / height); height = maxDim; } }
+          canvas.width = width; canvas.height = height; ctx.drawImage(img, 0, 0, width, height);
+          const imageData = ctx.getImageData(0, 0, width, height); const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "dontInvert" });
+          if (code && code.data) {
+            showStatus('msgPetugas', '⏳ Memeriksa data: ' + code.data + '...', 'info');
+            callAPI('scanVoucher', { voucher: code.data, petugas: petugas }, function(res) {
+                hideStatus('msgPetugas');
+                if(res.success) { popNotification('TIKET BERHASIL!', res.message, 'success'); } 
+                else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('TIKET SUDAH TERPAKAI!', res.message, 'error'); } 
+                else { popNotification('BELUM DIAKTIFKAN', res.message, 'warning'); }
+            });
+          } else { hideStatus('msgPetugas'); popNotification('QR TIDAK TERDETEKSI', 'Pastikan foto fokus pada QR Code.', 'error'); }
+        }; img.src = e.target.result;
+      }; reader.readAsDataURL(file); event.target.value = '';
+    }
+
+    function prosesKlaimManual() {
+      var petugas = document.getElementById('namaPetugas').value; var voucher = document.getElementById('inputVoucherManual').value;
+      if(!petugas || !voucher) return showToast('warning', 'Harap isi Petugas & Kode Voucher!');
+      showStatus('msgPetugas', '⏳ Memeriksa voucher...', 'info');
+      callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(res) {
+          hideStatus('msgPetugas');
+          if(res.success) { popNotification('TIKET BERHASIL!', res.message, 'success'); document.getElementById('inputVoucherManual').value = ''; } 
+          else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('TIKET SUDAH TERPAKAI!', res.message, 'error'); } 
+          else { popNotification('BELUM DIAKTIFKAN', res.message, 'warning'); }
+      });
+    }
+  </script>
 </body>
 </html>
