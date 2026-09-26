@@ -289,12 +289,13 @@
             <div class="receipt-sub">WISATA AMAL ZONE</div>
             <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaIdCek"></strong></div>
             <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNamaCek"></strong></div>
-            <!-- TAMBAHAN BARIS NOTA AGAR SAMA -->
             <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggalCek"></strong></div>
             <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannelCek"></strong></div>
             <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBankCek"></strong></div>
             
-            <div class="receipt-total"><span>Total Dibayar</span><strong>Rp375.000</strong></div>
+            <!-- UPDATE HARGA DI NOTA PENCARIAN -->
+            <div class="receipt-total"><span>Total Dibayar</span><strong>Rp377.000</strong></div>
+            
             <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Lunas - Salinan Sistem</div>
           </div>
           <button class="btn btn-menu" style="max-width:450px; margin: 0 auto; justify-content:center; display:flex;" onclick="unduhNotaPDFCek()">Unduh Salinan PDF</button>
@@ -354,7 +355,10 @@
             <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggal"></strong></div>
             <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannel"></strong></div>
             <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBank"></strong></div>
-            <div class="receipt-total"><span>Total Dibayar</span><strong id="notaTotal"></strong></div>
+            
+            <!-- UPDATE HARGA DI NOTA AKTIVASI -->
+            <div class="receipt-total"><span>Total Dibayar</span><strong id="notaTotal">Rp377.000</strong></div>
+            
             <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Lunas - Paspor Aktif</div>
           </div>
           <button class="btn btn-main" style="max-width:450px; margin: 0 auto 12px auto; display:block;" onclick="unduhNotaPDF()">Unduh Nota PDF</button>
@@ -714,12 +718,10 @@
             }
             document.getElementById('tabelSisa').innerHTML = htmlSisa;
 
-            /* UPDATE NOTA SALINAN AGAR LENGKAP */
             document.getElementById('notaIdCek').innerText = id; 
             document.getElementById('notaNamaCek').innerText = res.customerName; 
             document.getElementById('notaChannelCek').innerText = res.channelBeli;
             
-            // Penambahan pengisian untuk Waktu dan Bank
             document.getElementById('notaTanggalCek').innerText = res.waktuBeli || res.tanggalBeli || "Sesuai Riwayat Sistem";
             document.getElementById('notaBankCek').innerText = res.bankBeli || res.bank || "-";
           }
@@ -757,7 +759,11 @@
           var filterText = selectEl.options[selectEl.selectedIndex] ? selectEl.options[selectEl.selectedIndex].text : "Semua Bulan"; document.getElementById('printPeriodeBulan').innerText = "Periode Laporan: " + filterText;
 
           var htmlPenjualan = '';
-          for(var i=0; i<data.listPenjualan.length; i++) { var item = data.listPenjualan[i]; htmlPenjualan += '<tr><td style="padding:5px; text-align:center;">' + (item.waktuPembelian || "-") + '</td><td style="padding:5px; text-align:center;">' + item.id + '</td><td style="padding:5px;">' + item.nama + '</td><td style="padding:5px; text-align:center;">' + item.channel + '</td><td style="padding:5px; text-align:center;">' + item.bank + '</td><td style="padding:5px; text-align:right;">Rp 375.000</td></tr>'; }
+          for(var i=0; i<data.listPenjualan.length; i++) { 
+            var item = data.listPenjualan[i]; 
+            // UPDATE HARGA DI LAPORAN PDF
+            htmlPenjualan += '<tr><td style="padding:5px; text-align:center;">' + (item.waktuPembelian || "-") + '</td><td style="padding:5px; text-align:center;">' + item.id + '</td><td style="padding:5px;">' + item.nama + '</td><td style="padding:5px; text-align:center;">' + item.channel + '</td><td style="padding:5px; text-align:center;">' + item.bank + '</td><td style="padding:5px; text-align:right;">Rp 377.000</td></tr>'; 
+          }
           if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center; padding:8px;">Kosong.</td></tr>'; document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
 
           var htmlKlaimDetail = '';
@@ -818,7 +824,11 @@
       showStatus('msgKasir', 'Sistem memindai bukti transfer...'); 
       Tesseract.recognize(file, 'ind', { logger: m => {} } ).then(({ data: { text } }) => {
         var teksHurufBesar = text.toUpperCase().replace(/\s+/g, ' '); var aiPesan = "";
-        var cekNominal = teksHurufBesar.includes('375'); var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');
+        
+        // UPDATE AI OCR DETEKSI ANGKA KE 377
+        var cekNominal = teksHurufBesar.includes('377'); 
+        
+        var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');
         if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:var(--teal-main); font-size:11px; font-weight:800;'>Dokumen Valid Terdeteksi</span>"; } else { isAiValid = false; aiPesan = "<br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Dokumen Tidak Sesuai Kriteria</span>"; }
         document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap Diupload</span>" + aiPesan; hideStatus('msgKasir');
       }).catch(err => {
@@ -851,7 +861,11 @@
           hideStatus('msgKasir');
           if(res.success) {
             document.getElementById('formKasirArea').style.display = 'none'; document.getElementById('notaArea').style.display = 'block';
-            document.getElementById('notaId').innerText = res.receipt.id; document.getElementById('notaNama').innerText = res.receipt.nama; document.getElementById('notaTanggal').innerText = res.receipt.tanggal; document.getElementById('notaChannel').innerText = res.receipt.channel; document.getElementById('notaBank').innerText = res.receipt.bank; document.getElementById('notaTotal').innerText = res.receipt.harga; 
+            document.getElementById('notaId').innerText = res.receipt.id; document.getElementById('notaNama').innerText = res.receipt.nama; document.getElementById('notaTanggal').innerText = res.receipt.tanggal; document.getElementById('notaChannel').innerText = res.receipt.channel; document.getElementById('notaBank').innerText = res.receipt.bank; 
+            
+            // Harga statis dari sistem
+            document.getElementById('notaTotal').innerText = "Rp377.000"; 
+            
             showToast('success', 'Aktivasi Berhasil'); loadDashboardData(); 
           } else { popNotification('Aktivasi Ditolak', res.message, 'error'); }
       });
