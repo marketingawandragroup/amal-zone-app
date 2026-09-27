@@ -59,6 +59,7 @@
       font-size: 13px; font-weight: 600; line-height: 1.5; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.4);
     }
 
+    /* FOOTER NAV SLIDER DI PALING BAWAH */
     .slider-footer {
       position: absolute; bottom: 0; left: 0; width: 100%; z-index: 10;
       padding: 0 24px 30px 24px; background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
@@ -79,7 +80,7 @@
     .slider-copyright { text-align: center; color: rgba(255, 255, 255, 0.8); font-size: 11px; font-weight: 700; margin-top: 16px; letter-spacing: 0.5px; }
 
     /* =========================================
-       ✨ 2. PIN KEYPAD SCREEN (TERANG & KONTRAS) ✨
+       ✨ 2. PIN KEYPAD SCREEN ✨
        ========================================= */
     #loginCard {
       width: 100%; min-height: 100vh; display: flex; flex-direction: column;
@@ -279,26 +280,39 @@
       <div class="slide-bg" style="background-image: url('slide1.jpg');"></div>
       <div class="slide-overlay"></div>
       <div class="slide-content">
-        <div class="slider-header-logo"><img src="logo-paspor.png" alt="Tourism Passport" onerror="this.style.display='none'"></div>
+        <div class="slider-header-logo">
+          <img src="logo-paspor.png" alt="Tourism Passport" onerror="this.style.display='none'">
+        </div>
         <div class="slider-body-text">
           <div class="slider-title">One Passport, Multiple Experience</div>
-          <div class="slider-desc-box">Jelaskan manfaat dan keuntungan paspor agar tamu memahami nilai yang mereka dapatkan.</div>
+          <div class="slider-desc-box">
+            Jelaskan manfaat dan keuntungan paspor agar tamu memahami nilai yang mereka dapatkan.
+          </div>
         </div>
       </div>
     </div>
+
     <div class="slide-wrapper" id="slide2">
       <div class="slide-bg" style="background-image: url('slide2.jpg');"></div>
       <div class="slide-overlay"></div>
       <div class="slide-content">
-        <div class="slider-header-logo"><img src="logo-paspor.png" alt="Tourism Passport" onerror="this.style.display='none'"></div>
+        <div class="slider-header-logo">
+          <img src="logo-paspor.png" alt="Tourism Passport" onerror="this.style.display='none'">
+        </div>
         <div class="slider-body-text">
           <div class="slider-title">One Passport, Multiple Experience</div>
-          <div class="slider-desc-box">Jangan hanya melayani claim, tetapi bantu tamu merasakan pengalaman terbaik selama berada di Amal Zone.</div>
+          <div class="slider-desc-box">
+            Jangan hanya melayani claim, tetapi bantu tamu merasakan pengalaman terbaik selama berada di Amal Zone.
+          </div>
         </div>
       </div>
     </div>
+
     <div class="slider-footer">
-      <div class="dots-container"><div class="dot active" onclick="switchSlide(0)"></div><div class="dot" onclick="switchSlide(1)"></div></div>
+      <div class="dots-container">
+        <div class="dot active" onclick="switchSlide(0)"></div>
+        <div class="dot" onclick="switchSlide(1)"></div>
+      </div>
       <button class="btn-get-started" onclick="finishOnboarding()">Get Started</button>
       <div class="slider-copyright">Marketing Awandra Group<br>2026</div>
     </div>
@@ -312,23 +326,42 @@
     <div class="login-header">
       <div class="login-logo-group">
         <img src="logo-amalzone.png" alt="Amal Zone" onerror="this.style.display='none'">
-        <div class="login-header-text"><h2>WISATA AMAL ZONE</h2><p>Sistem Integrasi Paspor Wisata Amal Zone</p></div>
-      </div>
-    </div>
-    <div class="login-center-area">
-      <div class="passport-brand-logo"><img src="logo-paspor.png" alt="Tourism Passport" onerror="this.style.display='none'"></div>
-      <div class="pin-card">
-        <div class="pin-card-title">AKSES KEAMANAN</div><div class="pin-card-sub">Masukan PIN anda</div>
-        <div class="pin-dots-wrapper">
-          <div class="pin-dot-circle" id="dot0"></div><div class="pin-dot-circle" id="dot1"></div>
-          <div class="pin-dot-circle" id="dot2"></div><div class="pin-dot-circle" id="dot3"></div>
+        <div class="login-header-text">
+          <h2>WISATA AMAL ZONE</h2>
+          <p>Sistem Integrasi Paspor Wisata Amal Zone</p>
         </div>
       </div>
+    </div>
+
+    <div class="login-center-area">
+      <div class="passport-brand-logo">
+        <img src="logo-paspor.png" alt="Tourism Passport" onerror="this.style.display='none'">
+      </div>
+
+      <div class="pin-card">
+        <div class="pin-card-title">AKSES KEAMANAN</div>
+        <div class="pin-card-sub">Masukan PIN anda</div>
+        <div class="pin-dots-wrapper">
+          <div class="pin-dot-circle" id="dot0"></div>
+          <div class="pin-dot-circle" id="dot1"></div>
+          <div class="pin-dot-circle" id="dot2"></div>
+          <div class="pin-dot-circle" id="dot3"></div>
+        </div>
+      </div>
+
       <div class="keypad-grid">
-        <button class="keypad-btn" onclick="pressKey('1')">1</button><button class="keypad-btn" onclick="pressKey('2')">2</button><button class="keypad-btn" onclick="pressKey('3')">3</button>
-        <button class="keypad-btn" onclick="pressKey('4')">4</button><button class="keypad-btn" onclick="pressKey('5')">5</button><button class="keypad-btn" onclick="pressKey('6')">6</button>
-        <button class="keypad-btn" onclick="pressKey('7')">7</button><button class="keypad-btn" onclick="pressKey('8')">8</button><button class="keypad-btn" onclick="pressKey('9')">9</button>
-        <button class="keypad-btn btn-action" onclick="resetPinBuffer()">C</button><button class="keypad-btn" onclick="pressKey('0')">0</button><button class="keypad-btn btn-action" onclick="pressDelete()">⌫</button>
+        <button class="keypad-btn" onclick="pressKey('1')">1</button>
+        <button class="keypad-btn" onclick="pressKey('2')">2</button>
+        <button class="keypad-btn" onclick="pressKey('3')">3</button>
+        <button class="keypad-btn" onclick="pressKey('4')">4</button>
+        <button class="keypad-btn" onclick="pressKey('5')">5</button>
+        <button class="keypad-btn" onclick="pressKey('6')">6</button>
+        <button class="keypad-btn" onclick="pressKey('7')">7</button>
+        <button class="keypad-btn" onclick="pressKey('8')">8</button>
+        <button class="keypad-btn" onclick="pressKey('9')">9</button>
+        <button class="keypad-btn btn-action" onclick="resetPinBuffer()">C</button>
+        <button class="keypad-btn" onclick="pressKey('0')">0</button>
+        <button class="keypad-btn btn-action" onclick="pressDelete()">⌫</button>
       </div>
     </div>
   </div>
@@ -341,7 +374,10 @@
   <div id="mainContent">
     <div class="app-header">
       <img src="logo-amalzone.png" alt="Amal Zone" onerror="this.style.display='none'">
-      <div class="app-header-text"><h1>AMAL ZONE</h1><p id="teksSapaan">Portal Operasional</p></div>
+      <div class="app-header-text">
+        <h1>AMAL ZONE</h1>
+        <p id="teksSapaan">Portal Operasional</p>
+      </div>
     </div>
 
     <!-- MENU BERANDA -->
@@ -372,6 +408,7 @@
         <div id="loadingCek" style="display:none; text-align:center; font-size:13px; padding:12px; color:var(--text-muted); font-weight:600;">Mencari jejak perjalanan...</div>
         
         <div id="hasilCek" style="display:none; margin-top:20px;">
+          
           <div class="passport-card-3d">
             <img class="passport-card-bg" src="desain-paspor.png" alt="Desain Paspor" onerror="this.style.display='none'">
             <div class="passport-card-content">
@@ -385,6 +422,7 @@
               <div style="font-size:12px; font-weight:800; color:var(--navy-main); margin-bottom:12px; letter-spacing:0.5px;">RIWAYAT PERJALANAN (KLAIM):</div>
               <div class="journey-container" id="timelineKlaim"></div>
             </div>
+
             <div>
               <div style="font-size:12px; font-weight:800; color:var(--teal-main); margin-bottom:12px; letter-spacing:0.5px;">SISA TIKET WAHANA (READY):</div>
               <div id="tabelSisa" style="margin-bottom:24px;"></div>
@@ -402,7 +440,9 @@
             <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggalCek"></strong></div>
             <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannelCek"></strong></div>
             <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBankCek"></strong></div>
+            
             <div class="receipt-total"><span>Total Dibayar</span><strong>Rp377.000</strong></div>
+            
             <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Lunas - Salinan Sistem</div>
           </div>
           <button class="btn btn-menu" style="max-width:450px; margin: 0 auto; justify-content:center; display:flex;" onclick="unduhNotaPDFCek()">Unduh Salinan PDF</button>
@@ -415,6 +455,7 @@
       <div class="card">
         <div class="card-title">Sales & Aktivasi Paspor</div>
         <div id="formKasirArea">
+          
           <div class="grid-2-col">
             <div>
               <div class="input-group"><label>Nomor ID Paspor</label><input type="text" id="inputPaspor" class="input-field" placeholder="Contoh: 0926001"></div>
@@ -432,6 +473,7 @@
                 </select>
               </div>
               <div id="infoRekeningBox" class="status-info status-box"></div>
+
               <div class="input-group" style="margin-top: 20px; margin-bottom:0;">
                 <label>Bukti Pembayaran</label>
                 <label for="buktiUpload" class="btn btn-menu" style="justify-content:center; margin-bottom:0;" id="labelUploadBtn">Lampirkan Foto Transfer</label>
@@ -460,7 +502,9 @@
             <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggal"></strong></div>
             <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannel"></strong></div>
             <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBank"></strong></div>
+            
             <div class="receipt-total"><span>Total Dibayar</span><strong id="notaTotal">Rp377.000</strong></div>
+            
             <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Lunas - Paspor Aktif</div>
           </div>
           <button class="btn btn-main" style="max-width:450px; margin: 0 auto 12px auto; display:block;" onclick="unduhNotaPDF()">Unduh Nota PDF</button>
@@ -470,7 +514,7 @@
       </div>
     </div>
 
-    <!-- MENU PETUGAS (DENGAN KONFIRMASI) -->
+    <!-- MENU PETUGAS -->
     <div id="petugasCard" class="card-container" style="display:none;">
       <div class="card card-narrow">
         <div class="card-title">Penukaran Voucher</div>
@@ -506,13 +550,17 @@
         <div id="loadingLaporan" style="text-align:center; padding:12px; font-size:13px; color:var(--text-muted); font-weight:600;">Mengambil rekapitulasi data...</div>
         
         <div id="contentLaporan" style="display:none;">
+          
           <div class="grid-2-col">
             <div style="padding-top: 15px;">
               <div class="wallet-container">
-                <div class="wallet-flap-2"></div><div class="wallet-flap-1"></div>
+                <div class="wallet-flap-2"></div>
+                <div class="wallet-flap-1"></div>
+                
                 <div style="position:relative; z-index:5;">
                   <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:rgba(255,255,255,0.7); letter-spacing:1px;">Total Omzet Penjualan</div>
                   <div id="statOmzet" style="font-size:32px; font-weight:800; margin-top:4px;">Rp0</div>
+                  
                   <div style="display:flex; justify-content:space-between; margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.1); font-size:12px; font-weight:600;">
                     <div>BCA: <span id="statOmzetBca" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
                     <div>BSI: <span id="statOmzetBsi" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
@@ -520,13 +568,16 @@
                 </div>
               </div>
             </div>
+            
             <div>
               <div class="stat-grid" style="height:100%;">
                 <div class="stat-box" style="display:flex; flex-direction:column; justify-content:center;">
-                  <div class="stat-number" id="statPasporAktif" style="color:var(--teal-main); font-size:28px;">0</div><div class="stat-label">Paspor Terjual</div>
+                  <div class="stat-number" id="statPasporAktif" style="color:var(--teal-main); font-size:28px;">0</div>
+                  <div class="stat-label">Paspor Terjual</div>
                 </div>
                 <div class="stat-box" style="display:flex; flex-direction:column; justify-content:center;">
-                  <div class="stat-number" id="statTiketUsed" style="font-size:28px;">0</div><div class="stat-label">Tiket Terpakai</div>
+                  <div class="stat-number" id="statTiketUsed" style="font-size:28px;">0</div>
+                  <div class="stat-label">Tiket Terpakai</div>
                 </div>
               </div>
             </div>
@@ -537,13 +588,21 @@
           </div>
 
           <div class="divider"></div>
+          
           <div class="input-group">
             <label>Daftar Paspor Aktif</label>
             <input type="text" id="searchPasporAktif" class="input-field" placeholder="Cari ID, Nama, Channel..." onkeyup="filterTabelPasporAktif()">
           </div>
+
           <div style="max-height: 300px; overflow-y: auto; border: 2px solid #e2e8f0; border-radius: 20px; margin-bottom:24px;">
             <table class="report-table" id="tabelPasporAktif">
-              <thead><tr style="position:sticky; top:0; background:#f8fafc; z-index:1;"><th>Paspor</th><th>Channel</th><th>Status</th></tr></thead>
+              <thead>
+                <tr style="position:sticky; top:0; background:#f8fafc; z-index:1;">
+                  <th>Paspor</th>
+                  <th>Channel</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
               <tbody id="tbodyPasporAktif"></tbody>
             </table>
           </div>
@@ -571,8 +630,7 @@
     <div class="nav-item" id="nav_home" onclick="showMenu('home')">
       <span class="nav-icon">⌂</span> Beranda
     </div>
-    <!-- TOMBOL SCANNER DIBERIKAN ID AGAR BISA DIHILANGKAN UNTUK KASIR -->
-    <div id="btnScanFloating" class="floating-scan-btn" onclick="showMenu('petugas')" title="Scan Barcode">
+    <div class="floating-scan-btn" onclick="showMenu('petugas')" title="Scan Barcode">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
     </div>
     <div class="nav-item" id="nav_cek" onclick="showMenu('cek')">
@@ -596,31 +654,50 @@
     <div style="margin-bottom:15px;">
       <h3 style="font-size:12px; margin-bottom:6px; color:#193354;">A. RINGKASAN KEUANGAN</h3>
       <table style="font-size:11px;">
-        <tr><td style="width:60%; background:#f8fafc; font-weight:bold;">Total Omzet (Penjualan Paspor)</td><td style="font-weight:bold; color:#58b4ba; text-align:right;" id="printOmzet"></td></tr>
-        <tr><td style="padding-left:15px; font-size:10px; color:#7f8c8d;">• Masuk via BCA</td><td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBca"></td></tr>
-        <tr><td style="padding-left:15px; font-size:10px; color:#7f8c8d;">• Masuk via BSI</td><td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBsi"></td></tr>
-        <tr><td style="background:#f8fafc; font-weight:bold;">Nilai Benefit Wahana Terdestribusi</td><td style="font-weight:bold; color:#e11d48; text-align:right;" id="printKlaim"></td></tr>
+        <tr>
+          <td style="width:60%; background:#f8fafc; font-weight:bold;">Total Omzet (Penjualan Paspor)</td>
+          <td style="font-weight:bold; color:#58b4ba; text-align:right;" id="printOmzet"></td>
+        </tr>
+        <tr>
+          <td style="padding-left:15px; font-size:10px; color:#7f8c8d;">• Masuk via BCA</td>
+          <td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBca"></td>
+        </tr>
+        <tr>
+          <td style="padding-left:15px; font-size:10px; color:#7f8c8d;">• Masuk via BSI</td>
+          <td style="font-size:10px; text-align:right; font-weight:bold;" id="printOmzetBsi"></td>
+        </tr>
+        <tr>
+          <td style="background:#f8fafc; font-weight:bold;">Nilai Benefit Wahana Terdestribusi</td>
+          <td style="font-weight:bold; color:#e11d48; text-align:right;" id="printKlaim"></td>
+        </tr>
       </table>
     </div>
 
     <div style="margin-bottom:15px;">
       <h3 style="font-size:12px; margin-bottom:6px; color:#193354;">B. RINCIAN TRANSFER MASUK</h3>
       <table style="font-size:10px;">
-        <thead><tr style="background:#f0f4f8; color:#193354;"><th style="text-align:center; width:22%;">Waktu Pembelian</th><th style="text-align:center; width:12%;">ID Paspor</th><th style="text-align:left; width:24%;">Nama Pelanggan</th><th style="text-align:center; width:16%;">Channel</th><th style="text-align:center; width:10%;">Bank</th><th style="text-align:right; width:16%;">Nominal</th></tr></thead>
+        <thead>
+          <tr style="background:#f0f4f8; color:#193354;">
+            <th style="text-align:center; width:22%;">Waktu Pembelian</th>
+            <th style="text-align:center; width:12%;">ID Paspor</th>
+            <th style="text-align:left; width:24%;">Nama Pelanggan</th>
+            <th style="text-align:center; width:16%;">Channel</th>
+            <th style="text-align:center; width:10%;">Bank</th>
+            <th style="text-align:right; width:16%;">Nominal</th>
+          </tr>
+        </thead>
         <tbody id="printTbodyPenjualan"></tbody>
       </table>
     </div>
 
-    <div style="margin-bottom:15px;">
-      <h3 style="font-size:12px; margin-bottom:6px; color:#193354;">C. RINCIAN BENEFIT DIKLAIM</h3>
-      <table style="font-size:9px;">
-        <thead><tr style="background:#f0f4f8; color:#193354;"><th style="text-align:center; width:15%;">Waktu Klaim</th><th style="text-align:center; width:12%;">ID Paspor</th><th style="text-align:left; width:18%;">Pelanggan</th><th style="text-align:left; width:15%;">Wahana</th><th style="text-align:left; width:20%;">Rincian</th><th style="text-align:left; width:10%;">Petugas</th><th style="text-align:right; width:10%;">Nilai</th></tr></thead>
-        <tbody id="printTbodyKlaimDetail"></tbody>
-      </table>
-    </div>
+    <!-- AREA CETAK TABEL KLAIM DINAMIS PER UNIT -->
+    <div id="printKlaimContainer" style="margin-bottom:15px;"></div>
 
     <div style="margin-top: 25px; border-top: 1px dashed #e2e8f0; padding-top: 10px; text-align: center;">
-      <p style="font-size: 8px; font-weight: bold; font-style: italic; color: #7f8c8d; margin: 0; line-height: 1.4;">Dokumen ini dihasilkan secara otomatis oleh Sistem Terintegrasi Wisata Amal Zone.<br>Dokumen ini sah sebagai rujukan pengecekan data operasional dan rekonsiliasi oleh Dept. Finance & Dept. Marketing Awandra Group.</p>
+      <p style="font-size: 8px; font-weight: bold; font-style: italic; color: #7f8c8d; margin: 0; line-height: 1.4;">
+        Dokumen ini dihasilkan secara otomatis oleh Sistem Terintegrasi Wisata Amal Zone.<br>
+        Dokumen ini sah sebagai rujukan pengecekan data operasional dan rekonsiliasi oleh Dept. Finance & Dept. Marketing Awandra Group.
+      </p>
     </div>
   </div>
 
@@ -639,28 +716,102 @@
       });
     }
 
-    let currentSlide = 0; const slides = [document.getElementById('slide1'), document.getElementById('slide2')]; const dots = document.querySelectorAll('.dot'); let autoSlideTimer = null;
-    function startAutoSlide() { stopAutoSlide(); autoSlideTimer = setInterval(() => { let nextIndex = (currentSlide + 1) % slides.length; switchSlide(nextIndex); }, 3000); }
-    function stopAutoSlide() { if (autoSlideTimer) clearInterval(autoSlideTimer); }
-    function switchSlide(index) { slides.forEach((slide, i) => { if (i === index) slide.classList.add('active'); else slide.classList.remove('active'); }); dots.forEach((dot, i) => { if (i === index) dot.classList.add('active'); else dot.classList.remove('active'); }); currentSlide = index; startAutoSlide(); }
-    function finishOnboarding() { stopAutoSlide(); const sliderScreen = document.getElementById('sliderScreen'); sliderScreen.style.transition = 'opacity 0.4s ease'; sliderScreen.style.opacity = '0'; setTimeout(() => { sliderScreen.style.display = 'none'; }, 400); }
-    let touchStartX = 0; let touchEndX = 0; const sliderContainer = document.getElementById('sliderScreen');
+    /* LOGIKA SLIDER OTOMATIS (3 DETIK) */
+    let currentSlide = 0;
+    const slides = [document.getElementById('slide1'), document.getElementById('slide2')];
+    const dots = document.querySelectorAll('.dot');
+    let autoSlideTimer = null;
+
+    function startAutoSlide() {
+      stopAutoSlide();
+      autoSlideTimer = setInterval(() => {
+        let nextIndex = (currentSlide + 1) % slides.length;
+        switchSlide(nextIndex);
+      }, 3000);
+    }
+
+    function stopAutoSlide() {
+      if (autoSlideTimer) clearInterval(autoSlideTimer);
+    }
+
+    function switchSlide(index) {
+      slides.forEach((slide, i) => {
+        if (i === index) slide.classList.add('active');
+        else slide.classList.remove('active');
+      });
+      dots.forEach((dot, i) => {
+        if (i === index) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+      currentSlide = index;
+      startAutoSlide(); // Reset timer setiap ada interaksi
+    }
+
+    function finishOnboarding() {
+      stopAutoSlide();
+      const sliderScreen = document.getElementById('sliderScreen');
+      sliderScreen.style.transition = 'opacity 0.4s ease';
+      sliderScreen.style.opacity = '0';
+      setTimeout(() => { sliderScreen.style.display = 'none'; }, 400);
+    }
+
+    // SLIDE DENGAN USAPAN JARI (SWIPE)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const sliderContainer = document.getElementById('sliderScreen');
     sliderContainer.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, false);
-    sliderContainer.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; if (touchEndX < touchStartX - 40) { if (currentSlide < slides.length - 1) switchSlide(currentSlide + 1); } if (touchEndX > touchStartX + 40) { if (currentSlide > 0) switchSlide(currentSlide - 1); } }, false);
+    sliderContainer.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 40) {
+        if (currentSlide < slides.length - 1) switchSlide(currentSlide + 1);
+      }
+      if (touchEndX > touchStartX + 40) {
+        if (currentSlide > 0) switchSlide(currentSlide - 1);
+      }
+    }, false);
+
+    // JALANKAN AUTO SLIDE SAAT HALAMAN DIBUKA
     startAutoSlide();
 
+    /* LOGIKA KEYPAD PIN DIGITAL */
     let pinBuffer = "";
     const PIN_KASIR_ALL = "2020"; const PIN_PETUGAS = "3030"; const PIN_MANAGER = "9090";
     const PIN_KASIR_MK = "4040"; const PIN_KASIR_AL = "5050"; const PIN_KASIR_MH = "6060"; 
     const PIN_DOWNLOAD_FINANCE = "1919"; const PIN_OVERRIDE_KASIR = "1212"; 
     const ALL_CHANNELS = ["Canvassing", "Ulam Singkil", "Keramba", "Kopi Deal", "Murraya Hill", "Alila", "Mak Kundil"];
 
-    function updatePinDots() { for (let i = 0; i < 4; i++) { const dot = document.getElementById('dot' + i); if (i < pinBuffer.length) dot.classList.add('active'); else dot.classList.remove('active'); } }
-    function pressKey(num) { if (pinBuffer.length < 4) { pinBuffer += num; updatePinDots(); if (pinBuffer.length === 4) { setTimeout(cekPin, 150); } } }
-    function pressDelete() { if (pinBuffer.length > 0) { pinBuffer = pinBuffer.slice(0, -1); updatePinDots(); } }
-    function resetPinBuffer() { pinBuffer = ""; updatePinDots(); }
+    function updatePinDots() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById('dot' + i);
+        if (i < pinBuffer.length) dot.classList.add('active');
+        else dot.classList.remove('active');
+      }
+    }
 
-    let roleAktif = ""; let allowedChannels = []; let compressedImageBase64 = ""; let allPasporAktifData = []; let isAiValid = false; let html5QrcodeScanner = null;
+    function pressKey(num) {
+      if (pinBuffer.length < 4) {
+        pinBuffer += num;
+        updatePinDots();
+        if (pinBuffer.length === 4) {
+          setTimeout(cekPin, 150);
+        }
+      }
+    }
+
+    function pressDelete() {
+      if (pinBuffer.length > 0) {
+        pinBuffer = pinBuffer.slice(0, -1);
+        updatePinDots();
+      }
+    }
+
+    function resetPinBuffer() {
+      pinBuffer = "";
+      updatePinDots();
+    }
+
+    let roleAktif = ""; let allowedChannels = []; let compressedImageBase64 = "";
+    let allPasporAktifData = []; let isAiValid = false; let html5QrcodeScanner = null;
 
     function cekPin() {
       var pin = pinBuffer;
@@ -670,7 +821,10 @@
       else if (pin === PIN_KASIR_AL) { roleAktif = "kasir"; allowedChannels = ["Alila"]; loginSukses('home'); } 
       else if (pin === PIN_KASIR_MH) { roleAktif = "kasir"; allowedChannels = ["Murraya Hill"]; loginSukses('home'); } 
       else if (pin === PIN_PETUGAS) { roleAktif = "petugas"; allowedChannels = []; loginSukses('home'); } 
-      else { showToast('error', 'PIN Akses Ditolak'); resetPinBuffer(); }
+      else { 
+        showToast('error', 'PIN Akses Ditolak'); 
+        resetPinBuffer();
+      }
     }
 
     function setupDropdownChannel() {
@@ -687,45 +841,67 @@
     }
 
     function loginSukses(menuAwal) {
-      document.getElementById('loginCard').style.display = 'none'; document.getElementById('mainContent').style.display = 'flex'; document.getElementById('bottomNav').style.display = 'flex';
+      document.getElementById('loginCard').style.display = 'none'; 
+      document.getElementById('mainContent').style.display = 'flex';
+      document.getElementById('bottomNav').style.display = 'flex';
+      
       document.getElementById('btnMenuKasir').style.display = 'none'; document.getElementById('btnMenuPetugas').style.display = 'none'; document.getElementById('btnMenuLaporan').style.display = 'none'; 
       
-      // BLOKIR TOMBOL SCANNER JIKA KASIR
-      document.getElementById('btnScanFloating').style.display = (roleAktif === "kasir") ? 'none' : 'flex';
-
       let teksRole = "Petugas Lapangan";
-      if (roleAktif === "manager") { teksRole = "Executive Manager"; document.getElementById('btnMenuKasir').style.display = 'flex'; document.getElementById('btnMenuPetugas').style.display = 'flex'; document.getElementById('btnMenuLaporan').style.display = 'flex'; } 
-      else if (roleAktif === "kasir") { teksRole = "Akses Sales & Aktivasi"; document.getElementById('btnMenuKasir').style.display = 'flex'; } 
-      else if (roleAktif === "petugas") { document.getElementById('btnMenuPetugas').style.display = 'flex'; }
+      if (roleAktif === "manager") { 
+        teksRole = "Executive Manager";
+        document.getElementById('btnMenuKasir').style.display = 'flex'; document.getElementById('btnMenuPetugas').style.display = 'flex'; document.getElementById('btnMenuLaporan').style.display = 'flex';
+      } else if (roleAktif === "kasir") { 
+        teksRole = "Akses Sales & Aktivasi"; 
+        document.getElementById('btnMenuKasir').style.display = 'flex';
+      } else if (roleAktif === "petugas") { 
+        document.getElementById('btnMenuPetugas').style.display = 'flex'; 
+      }
       
       document.getElementById('teksSapaan').innerText = "Akses: " + teksRole;
       if(roleAktif === "kasir" || roleAktif === "manager") setupDropdownChannel(); 
       showMenu(menuAwal);
     }
 
-    function logout() { roleAktif = ""; allowedChannels = []; resetPinBuffer(); document.getElementById('mainContent').style.display = 'none'; document.getElementById('bottomNav').style.display = 'none'; document.getElementById('loginCard').style.display = 'flex'; showToast('info', 'Anda berhasil keluar.'); }
-    function updateNavState(menu) { document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); let activeId = ''; if(menu === 'home' || menu === 'kasir' || menu === 'laporan') activeId = 'nav_home'; else if(menu === 'cek') activeId = 'nav_cek'; if(activeId) document.getElementById(activeId).classList.add('active'); }
+    function logout() {
+      roleAktif = ""; allowedChannels = []; resetPinBuffer();
+      document.getElementById('mainContent').style.display = 'none'; 
+      document.getElementById('bottomNav').style.display = 'none';
+      document.getElementById('loginCard').style.display = 'flex';
+      showToast('info', 'Anda berhasil keluar.');
+    }
+
+    function updateNavState(menu) {
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      let activeId = '';
+      if(menu === 'home' || menu === 'kasir' || menu === 'laporan') activeId = 'nav_home';
+      else if(menu === 'cek') activeId = 'nav_cek';
+      if(activeId) document.getElementById(activeId).classList.add('active');
+    }
 
     function showMenu(menu) {
-      if(menu === 'petugas' && roleAktif === 'kasir') { return showToast('error', 'Akses Scanner Ditolak.'); }
-
       tutupLiveScanner();
-      document.getElementById('homeCard').style.display = 'none'; document.getElementById('kasirCard').style.display = 'none'; document.getElementById('petugasCard').style.display = 'none'; document.getElementById('laporanCard').style.display = 'none'; document.getElementById('cekCard').style.display = 'none';
+      document.getElementById('homeCard').style.display = 'none'; document.getElementById('kasirCard').style.display = 'none';
+      document.getElementById('petugasCard').style.display = 'none'; document.getElementById('laporanCard').style.display = 'none'; document.getElementById('cekCard').style.display = 'none';
+      
       if(menu === 'kasir') { document.getElementById('kasirCard').style.display = 'flex'; resetKasir(); }
       else if(menu === 'petugas') document.getElementById('petugasCard').style.display = 'flex';
       else if(menu === 'laporan') { document.getElementById('laporanCard').style.display = 'flex'; loadDashboardData(); }
       else if(menu === 'cek') { document.getElementById('cekCard').style.display = 'flex'; document.getElementById('hasilCek').style.display = 'none'; }
       else if(menu === 'home') document.getElementById('homeCard').style.display = 'flex';
       
-      updateNavState(menu); hideStatus('msgKasir'); hideStatus('msgPetugas');
+      updateNavState(menu);
+      hideStatus('msgKasir'); hideStatus('msgPetugas');
+      
       const activeCard = document.querySelector('.card[style*="display: flex"]');
       if(activeCard) { activeCard.style.animation = 'none'; activeCard.offsetHeight; activeCard.style.animation = 'fadeSlideUp 0.4s ease-out'; }
     }
 
     function showStatus(elementId, text) { var el = document.getElementById(elementId); el.innerHTML = text; el.style.display = 'block'; }
     function hideStatus(elementId) { document.getElementById(elementId).style.display = 'none'; }
+    
     function showToast(icon, message) { Swal.fire({ toast: true, position: 'top', icon: icon, title: message, showConfirmButton: false, timer: 2500, customClass: { popup: 'swal-soft' } }); }
-    function popNotification(title, text, icon) { Swal.fire({ title: title, html: text, icon: icon, position: 'top', confirmButtonText: 'Tutup', confirmButtonColor: '#58b4ba', heightAuto: false, customClass: { popup: 'swal-soft' } }); }
+    function popNotification(title, text, icon) { Swal.fire({ title: title, text: text, icon: icon, position: 'top', confirmButtonText: 'Tutup', confirmButtonColor: '#58b4ba', heightAuto: false, customClass: { popup: 'swal-soft' } }); }
 
     function prosesCekData() {
       var id = document.getElementById('inputCekPaspor').value;
@@ -734,25 +910,49 @@
       callAPI('checkPassportData', { id: id }, function(res) {
           document.getElementById('loadingCek').style.display = 'none';
           if(!res.success) { popNotification('Tidak Ditemukan', res.message, 'warning'); } else {
-            document.getElementById('hasilCek').style.display = 'block'; document.getElementById('namaPemilikCek').innerText = res.customerName; document.getElementById('notaIdCekLabel').innerText = id;
+            document.getElementById('hasilCek').style.display = 'block'; 
+            document.getElementById('namaPemilikCek').innerText = res.customerName;
+            document.getElementById('notaIdCekLabel').innerText = id;
+            
             var htmlKlaim = '';
-            if(res.listKlaim.length === 0) { htmlKlaim = '<div style="text-align:center; color:var(--text-muted); font-size:12px; margin:24px 0; background:#f8fafc; padding:16px; border-radius:16px;">Belum ada riwayat perjalanan wisata.</div>'; } else { 
+            if(res.listKlaim.length === 0) { 
+              htmlKlaim = '<div style="text-align:center; color:var(--text-muted); font-size:12px; margin:24px 0; background:#f8fafc; padding:16px; border-radius:16px;">Belum ada riwayat perjalanan wisata.</div>';
+            } else { 
               htmlKlaim += '<div class="journey-item"><div class="journey-dot" style="background:var(--navy-main);"></div><div class="journey-line"></div><div class="journey-title">Aktivasi Paspor</div><div class="journey-desc">Channel: ' + res.channelBeli + '</div></div>';
-              for(var i=0; i<res.listKlaim.length; i++) { var item = res.listKlaim[i]; htmlKlaim += '<div class="journey-item"><div class="journey-dot"></div><div class="journey-line"></div><div class="journey-title">' + item.unit + '</div><div class="journey-desc">' + item.benefit + '</div><div class="journey-time">' + item.waktu + ' • Petugas: ' + item.petugas + '</div></div>'; } 
+              
+              for(var i=0; i<res.listKlaim.length; i++) { 
+                var item = res.listKlaim[i]; 
+                htmlKlaim += '<div class="journey-item"><div class="journey-dot"></div><div class="journey-line"></div><div class="journey-title">' + item.unit + '</div><div class="journey-desc">' + item.benefit + '</div><div class="journey-time">' + item.waktu + ' • Petugas: ' + item.petugas + '</div></div>'; 
+              } 
+              
               htmlKlaim += '<div class="journey-item"><div class="journey-dot" style="background:#15803d; box-shadow: 0 0 0 3px rgba(21,128,61,0.2);"></div><div class="journey-title" style="color:#15803d;">Posisi Saat Ini</div></div>';
-            } document.getElementById('timelineKlaim').innerHTML = htmlKlaim;
+            }
+            document.getElementById('timelineKlaim').innerHTML = htmlKlaim;
 
             var htmlSisa = '';
-            if(res.listSisa.length === 0) { htmlSisa = '<div style="text-align:center; color:#e11d48; font-size:12px; margin:10px 0; font-weight:700;">Semua tiket telah habis digunakan.</div>'; } else { 
-              for(var j=0; j<res.listSisa.length; j++) { var itemSisa = res.listSisa[j]; htmlSisa += '<div class="ticket-chip"><div><strong>' + itemSisa.unit + '</strong><br><small style="color:var(--text-muted); font-size:11px;">' + itemSisa.benefit + '</small></div><span>READY</span></div>'; } 
-            } document.getElementById('tabelSisa').innerHTML = htmlSisa;
+            if(res.listSisa.length === 0) { htmlSisa = '<div style="text-align:center; color:#e11d48; font-size:12px; margin:10px 0; font-weight:700;">Semua tiket telah habis digunakan.</div>';
+            } else { 
+              for(var j=0; j<res.listSisa.length; j++) { 
+                var itemSisa = res.listSisa[j]; 
+                htmlSisa += '<div class="ticket-chip"><div><strong>' + itemSisa.unit + '</strong><br><small style="color:var(--text-muted); font-size:11px;">' + itemSisa.benefit + '</small></div><span>READY</span></div>'; 
+              } 
+            }
+            document.getElementById('tabelSisa').innerHTML = htmlSisa;
 
-            document.getElementById('notaIdCek').innerText = id; document.getElementById('notaNamaCek').innerText = res.customerName; document.getElementById('notaChannelCek').innerText = res.channelBeli; document.getElementById('notaTanggalCek').innerText = res.waktuBeli || res.tanggalBeli || "Sesuai Riwayat Sistem"; document.getElementById('notaBankCek').innerText = res.bankBeli || res.bank || "-";
+            document.getElementById('notaIdCek').innerText = id; 
+            document.getElementById('notaNamaCek').innerText = res.customerName; 
+            document.getElementById('notaChannelCek').innerText = res.channelBeli;
+            document.getElementById('notaTanggalCek').innerText = res.waktuBeli || res.tanggalBeli || "Sesuai Riwayat Sistem";
+            document.getElementById('notaBankCek').innerText = res.bankBeli || res.bank || "-";
           }
       });
     }
 
-    function unduhNotaPDFCek() { var element = document.getElementById('notaKertasCek'); var idPaspor = document.getElementById('notaIdCek').innerText; var opt = { margin: 0.3, filename: 'Salinan_Nota_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } }; html2pdf().set(opt).from(element).save(); }
+    function unduhNotaPDFCek() {
+      var element = document.getElementById('notaKertasCek'); var idPaspor = document.getElementById('notaIdCek').innerText;
+      var opt = { margin: 0.3, filename: 'Salinan_Nota_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
+      html2pdf().set(opt).from(element).save();
+    }
 
     function loadDashboardData() {
       var selBulan = document.getElementById("filterBulan").value;
@@ -761,99 +961,191 @@
           document.getElementById('loadingLaporan').style.display = 'none'; document.getElementById('contentLaporan').style.display = 'block';
           var selectEl = document.getElementById("filterBulan"); var currentVal = data.selectedMonth; selectEl.innerHTML = '<option value="ALL">Semua Bulan</option>';
           if (data.availableMonths) { for (var key in data.availableMonths) { var opt = document.createElement("option"); opt.value = key; opt.innerText = data.availableMonths[key]; if (key === currentVal) opt.selected = true; selectEl.appendChild(opt); } }
-          document.getElementById('statOmzet').innerText = data.totalOmzetFormatted; document.getElementById('statOmzetBca').innerText = data.bcaOmzetFormatted; document.getElementById('statOmzetBsi').innerText = data.bsiOmzetFormatted; document.getElementById('statKlaim').innerText = data.totalKlaimFormatted; document.getElementById('statPasporAktif').innerText = data.countPasporAktif; document.getElementById('statTiketUsed').innerText = data.countUsed;
+
+          document.getElementById('statOmzet').innerText = data.totalOmzetFormatted; document.getElementById('statOmzetBca').innerText = data.bcaOmzetFormatted; document.getElementById('statOmzetBsi').innerText = data.bsiOmzetFormatted;
+          document.getElementById('statKlaim').innerText = data.totalKlaimFormatted; document.getElementById('statPasporAktif').innerText = data.countPasporAktif; document.getElementById('statTiketUsed').innerText = data.countUsed;
           
           var htmlChannel = ''; for (var c in data.channelStats) { htmlChannel += '<tr><td>' + c + '</td><td style="text-align:right;">' + data.channelStats[c] + '</td></tr>'; }
           if(htmlChannel === '') htmlChannel = '<tr><td colspan="2" style="text-align:center;">Belum ada penjualan</td></tr>'; document.getElementById('tbodyChannel').innerHTML = htmlChannel;
-          var htmlUnit = ''; for (var u in data.unitStats) { var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); htmlUnit += '<tr><td>' + u + '</td><td>' + data.unitStats[u].used + '</td><td style="color:var(--teal-main);">' + nilaiKlaimRupiah + '</td></tr>'; } document.getElementById('tbodyUnit').innerHTML = htmlUnit;
           
+          var htmlUnit = '';
+          for (var u in data.unitStats) { var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); htmlUnit += '<tr><td>' + u + '</td><td>' + data.unitStats[u].used + '</td><td style="color:var(--teal-main);">' + nilaiKlaimRupiah + '</td></tr>'; }
+          document.getElementById('tbodyUnit').innerHTML = htmlUnit;
+
           allPasporAktifData = data.listPasporAktif || []; renderTabelPasporAktif(allPasporAktifData); renderWidgetKasirTerbaru(allPasporAktifData);
+
           document.getElementById('printOmzet').innerText = data.totalOmzetFormatted; document.getElementById('printOmzetBca').innerText = data.bcaOmzetFormatted + " (" + data.bcaCount + ")"; document.getElementById('printOmzetBsi').innerText = data.bsiOmzetFormatted + " (" + data.bsiCount + ")"; document.getElementById('printKlaim').innerText = data.totalKlaimFormatted;
           var dateStr = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); document.getElementById('printTanggal').innerText = "Tanggal Cetak: " + dateStr;
           var filterText = selectEl.options[selectEl.selectedIndex] ? selectEl.options[selectEl.selectedIndex].text : "Semua Bulan"; document.getElementById('printPeriodeBulan').innerText = "Periode Laporan: " + filterText;
-          var htmlPenjualan = ''; for(var i=0; i<data.listPenjualan.length; i++) { var item = data.listPenjualan[i]; htmlPenjualan += '<tr><td style="padding:5px; text-align:center;">' + (item.waktuPembelian || "-") + '</td><td style="padding:5px; text-align:center;">' + item.id + '</td><td style="padding:5px;">' + item.nama + '</td><td style="padding:5px; text-align:center;">' + item.channel + '</td><td style="padding:5px; text-align:center;">' + item.bank + '</td><td style="padding:5px; text-align:right;">Rp 377.000</td></tr>'; } if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center; padding:8px;">Kosong.</td></tr>'; document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
-          var htmlKlaimDetail = ''; for(var j=0; j<data.listDetailKlaim.length; j++) { var k = data.listDetailKlaim[j]; htmlKlaimDetail += '<tr><td style="padding:4px; text-align:center;">' + k.waktu + '</td><td style="padding:4px; text-align:center;">' + k.id + '</td><td style="padding:4px;">' + k.nama + '</td><td style="padding:4px;">' + k.unit + '</td><td style="padding:4px;">' + k.benefit + '</td><td style="padding:4px;">' + k.petugas + '</td><td style="padding:4px; text-align:right; font-weight:bold;">' + k.nilai + '</td></tr>'; } if(htmlKlaimDetail === '') htmlKlaimDetail = '<tr><td colspan="7" style="text-align:center; padding:8px;">Kosong.</td></tr>'; document.getElementById('printTbodyKlaimDetail').innerHTML = htmlKlaimDetail;
+
+          var htmlPenjualan = '';
+          for(var i=0; i<data.listPenjualan.length; i++) { 
+            var item = data.listPenjualan[i]; 
+            htmlPenjualan += '<tr><td style="text-align:center;">' + (item.waktuPembelian || "-") + '</td><td style="text-align:center;">' + item.id + '</td><td>' + item.nama + '</td><td style="text-align:center;">' + item.channel + '</td><td style="text-align:center;">' + item.bank + '</td><td style="text-align:right;">Rp 377.000</td></tr>'; 
+          }
+          if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center;">Kosong.</td></tr>'; document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
+
+          // ==========================================
+          // MENGELOMPOKKAN TABEL KLAIM BERDASARKAN UNIT WAHANA
+          // ==========================================
+          var groupedKlaim = {};
+          for(var j=0; j<data.listDetailKlaim.length; j++) { 
+            var k = data.listDetailKlaim[j]; 
+            if(!groupedKlaim[k.unit]) groupedKlaim[k.unit] = [];
+            groupedKlaim[k.unit].push(k);
+          }
+
+          var htmlKlaimContainer = '<h3 style="font-size:12px; margin-bottom:6px; color:#193354;">C. RINCIAN BENEFIT DIKLAIM (PER UNIT)</h3>';
+          var hasKlaim = false;
+          
+          for(var unitName in groupedKlaim) {
+            hasKlaim = true;
+            htmlKlaimContainer += '<h4 style="text-align:left; font-size:11px; color:#58b4ba; margin-top:14px; margin-bottom:4px; text-transform:uppercase;">UNIT: ' + unitName + '</h4>';
+            htmlKlaimContainer += '<table>';
+            // Kolom "Wahana" Dihapus agar lebih lega (karena nama unit sudah jadi judul di atasnya)
+            htmlKlaimContainer += '<thead><tr style="background:#f0f4f8; color:#193354;"><th style="text-align:center; width:15%;">Waktu Klaim</th><th style="text-align:center; width:12%;">ID Paspor</th><th style="text-align:left; width:22%;">Nama Pelanggan</th><th style="text-align:left; width:26%;">Rincian Benefit</th><th style="text-align:left; width:15%;">Petugas</th><th style="text-align:right; width:10%;">Nilai</th></tr></thead><tbody>';
+            
+            for(var i=0; i<groupedKlaim[unitName].length; i++) {
+              var k = groupedKlaim[unitName][i];
+              htmlKlaimContainer += '<tr><td style="text-align:center;">' + k.waktu + '</td><td style="text-align:center;">' + k.id + '</td><td>' + k.nama + '</td><td>' + k.benefit + '</td><td>' + k.petugas + '</td><td style="text-align:right; font-weight:bold;">' + k.nilai + '</td></tr>';
+            }
+            htmlKlaimContainer += '</tbody></table>';
+          }
+
+          if(!hasKlaim) {
+            htmlKlaimContainer += '<div style="text-align:center; padding:10px; font-size:10px; color:#7f8c8d;">Belum ada tiket yang diklaim.</div>';
+          }
+          
+          document.getElementById('printKlaimContainer').innerHTML = htmlKlaimContainer;
       });
     }
 
-    function renderTabelPasporAktif(list) { var html = ''; if (!list || list.length === 0) { html = '<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding:10px;">Tidak ada data</td></tr>'; } else { for (var i = 0; i < list.length; i++) { var item = list[i]; var badgeStatus = ''; if (item.readyCount > 0) { badgeStatus = '<span class="badge-ready">' + item.readyCount + '/' + item.totalTiket + '</span>'; } else { badgeStatus = '<span class="badge-used">Habis</span>'; } html += '<tr onclick="langsungCekPaspor(\'' + item.rawId + '\')" style="cursor:pointer;"><td><strong style="color:var(--navy-main);">' + item.id + '</strong><br><span style="font-size:10px; color:var(--text-muted);">' + item.nama + '</span></td><td>' + item.channel + '</td><td>' + badgeStatus + '</td></tr>'; } } document.getElementById('tbodyPasporAktif').innerHTML = html; }
-    function filterTabelPasporAktif() { var query = document.getElementById('searchPasporAktif').value.toLowerCase(); var filtered = allPasporAktifData.filter(function(item) { return item.id.toLowerCase().includes(query) || item.nama.toLowerCase().includes(query) || item.channel.toLowerCase().includes(query) || item.bank.toLowerCase().includes(query); }); renderTabelPasporAktif(filtered); }
-    function renderWidgetKasirTerbaru(list) { var el = document.getElementById('widgetKasirTerbaru'); if (!el) return; if (!list || list.length === 0) { el.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:10px; background:#f8fafc; border-radius:12px;">Belum ada aktivasi</div>'; return; } var recent = list.slice().reverse().slice(0, 5); var html = ''; for (var i = 0; i < recent.length; i++) { var item = recent[i]; html += '<div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:12px 0; cursor:pointer;" onclick="langsungCekPaspor(\'' + item.rawId + '\')"><div><b style="color:var(--navy-main); font-size:14px;">' + item.id + '</b> - ' + item.nama + ' <br><span style="font-size:11px; color:var(--text-muted); font-weight:600;">' + item.channel + ' | ' + item.bank + '</span></div><div style="color:var(--teal-main); font-size:18px;">›</div></div>'; } el.innerHTML = html; }
+    function renderTabelPasporAktif(list) {
+      var html = '';
+      if (!list || list.length === 0) { html = '<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding:10px;">Tidak ada data</td></tr>'; } else {
+        for (var i = 0; i < list.length; i++) {
+          var item = list[i]; var badgeStatus = '';
+          if (item.readyCount > 0) { badgeStatus = '<span class="badge-ready">' + item.readyCount + '/' + item.totalTiket + '</span>'; } else { badgeStatus = '<span class="badge-used">Habis</span>'; }
+          html += '<tr onclick="langsungCekPaspor(\'' + item.rawId + '\')" style="cursor:pointer;"><td><strong style="color:var(--navy-main);">' + item.id + '</strong><br><span style="font-size:10px; color:var(--text-muted);">' + item.nama + '</span></td><td>' + item.channel + '</td><td>' + badgeStatus + '</td></tr>';
+        }
+      } document.getElementById('tbodyPasporAktif').innerHTML = html;
+    }
+
+    function filterTabelPasporAktif() {
+      var query = document.getElementById('searchPasporAktif').value.toLowerCase();
+      var filtered = allPasporAktifData.filter(function(item) { return item.id.toLowerCase().includes(query) || item.nama.toLowerCase().includes(query) || item.channel.toLowerCase().includes(query) || item.bank.toLowerCase().includes(query); });
+      renderTabelPasporAktif(filtered);
+    }
+
+    function renderWidgetKasirTerbaru(list) {
+      var el = document.getElementById('widgetKasirTerbaru'); if (!el) return;
+      if (!list || list.length === 0) { el.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:10px; background:#f8fafc; border-radius:12px;">Belum ada aktivasi</div>'; return; }
+      var recent = list.slice().reverse().slice(0, 5); var html = '';
+      for (var i = 0; i < recent.length; i++) {
+        var item = recent[i];
+        html += '<div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:12px 0; cursor:pointer;" onclick="langsungCekPaspor(\'' + item.rawId + '\')"><div><b style="color:var(--navy-main); font-size:14px;">' + item.id + '</b> - ' + item.nama + ' <br><span style="font-size:11px; color:var(--text-muted); font-weight:600;">' + item.channel + ' | ' + item.bank + '</span></div><div style="color:var(--teal-main); font-size:18px;">›</div></div>';
+      } el.innerHTML = html;
+    }
+
     function langsungCekPaspor(idPaspor) { showMenu('cek'); document.getElementById('inputCekPaspor').value = idPaspor; prosesCekData(); }
 
-    function mintaPinDownloadAwandra() { Swal.fire({ title: 'Verifikasi Keamanan', text: 'Masukkan PIN Otorisasi Laporan:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Unduh PDF', cancelButtonText: 'Batal', confirmButtonColor: '#58b4ba', customClass: { popup: 'swal-soft' }, heightAuto: false }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_DOWNLOAD_FINANCE) { unduhLaporanAwandra(); } else { showToast('error', 'PIN Tidak Valid.'); } } }); }
-    function unduhLaporanAwandra() { showToast('info', 'Membuat PDF di Server...'); var printContent = document.getElementById('printArea').innerHTML; callAPI('generateReportPdf', { printContent: printContent }, function(res) { if (res.success) { var byteCharacters = atob(res.base64); var byteNumbers = new Array(byteCharacters.length); for (var i = 0; i < byteCharacters.length; i++) { byteNumbers[i] = byteCharacters.charCodeAt(i); } var byteArray = new Uint8Array(byteNumbers); var blob = new Blob([byteArray], { type: 'application/pdf' }); var blobUrl = URL.createObjectURL(blob); var link = document.createElement('a'); link.href = blobUrl; link.download = res.filename; document.body.appendChild(link); link.click(); document.body.removeChild(link); setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 1000); showToast('success', 'PDF Berhasil Diunduh'); } else { popNotification('Gagal Membuat PDF', res.message, 'error'); } }); }
+    function mintaPinDownloadAwandra() {
+      Swal.fire({
+        title: 'Verifikasi Keamanan', text: 'Masukkan PIN Otorisasi Laporan:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Unduh PDF', cancelButtonText: 'Batal', confirmButtonColor: '#58b4ba', customClass: { popup: 'swal-soft' }, heightAuto: false
+      }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_DOWNLOAD_FINANCE) { unduhLaporanAwandra(); } else { showToast('error', 'PIN Tidak Valid.'); } } });
+    }
+
+    function unduhLaporanAwandra() {
+      showToast('info', 'Membuat PDF di Server...'); var printContent = document.getElementById('printArea').innerHTML;
+      callAPI('generateReportPdf', { printContent: printContent }, function(res) {
+        if (res.success) {
+          var byteCharacters = atob(res.base64); var byteNumbers = new Array(byteCharacters.length);
+          for (var i = 0; i < byteCharacters.length; i++) { byteNumbers[i] = byteCharacters.charCodeAt(i); }
+          var byteArray = new Uint8Array(byteNumbers); var blob = new Blob([byteArray], { type: 'application/pdf' }); var blobUrl = URL.createObjectURL(blob);
+          var link = document.createElement('a'); link.href = blobUrl; link.download = res.filename; document.body.appendChild(link); link.click(); document.body.removeChild(link); setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 1000); showToast('success', 'PDF Berhasil Diunduh');
+        } else { popNotification('Gagal Membuat PDF', res.message, 'error'); }
+      });
+    }
 
     function previewBukti(event) {
       const file = event.target.files[0]; if (!file) { compressedImageBase64 = ""; isAiValid = false; document.getElementById('buktiPreviewName').innerText = ""; return; }
       showStatus('msgKasir', 'Sistem memindai bukti transfer...'); 
       Tesseract.recognize(file, 'ind', { logger: m => {} } ).then(({ data: { text } }) => {
-        var teksHurufBesar = text.toUpperCase().replace(/\s+/g, ' '); var aiPesan = ""; var cekNominal = teksHurufBesar.includes('377'); var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');
+        var teksHurufBesar = text.toUpperCase().replace(/\s+/g, ' '); var aiPesan = "";
+        var cekNominal = teksHurufBesar.includes('377'); 
+        var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');
         if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:var(--teal-main); font-size:11px; font-weight:800;'>Dokumen Valid Terdeteksi</span>"; } else { isAiValid = false; aiPesan = "<br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Dokumen Tidak Sesuai Kriteria</span>"; }
         document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap Diupload</span>" + aiPesan; hideStatus('msgKasir');
-      }).catch(err => { isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap</span><br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Gagal memvalidasi dokumen secara AI</span>"; hideStatus('msgKasir'); });
+      }).catch(err => {
+        isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap</span><br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Gagal memvalidasi dokumen secara AI</span>"; hideStatus('msgKasir');
+      });
       const reader = new FileReader();
-      reader.onload = function(e) { const img = new Image(); img.onload = function() { const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d'); let width = img.width; let height = img.height; const maxDim = 800; if (width > maxDim || height > maxDim) { if (width > height) { height = Math.round((height * maxDim) / width); width = maxDim; } else { width = Math.round((width * maxDim) / height); height = maxDim; } } canvas.width = width; canvas.height = height; ctx.drawImage(img, 0, 0, width, height); compressedImageBase64 = canvas.toDataURL("image/jpeg", 0.6); }; img.src = e.target.result; }; reader.readAsDataURL(file);
+      reader.onload = function(e) { 
+        const img = new Image(); img.onload = function() {
+          const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');
+          let width = img.width; let height = img.height; const maxDim = 800;
+          if (width > maxDim || height > maxDim) { if (width > height) { height = Math.round((height * maxDim) / width); width = maxDim; } else { width = Math.round((width * maxDim) / height); height = maxDim; } }
+          canvas.width = width; canvas.height = height; ctx.drawImage(img, 0, 0, width, height); compressedImageBase64 = canvas.toDataURL("image/jpeg", 0.6); 
+        }; img.src = e.target.result;
+      }; reader.readAsDataURL(file);
     }
 
     function prosesAktivasi() {
       var id = document.getElementById('inputPaspor').value; var nama = document.getElementById('namaCust').value; var hp = document.getElementById('noHpCust').value; var channel = document.getElementById('channelBeli').value; var bank = document.getElementById('bankTujuan').value;
       if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Lengkapi seluruh data transaksi.'); if(!compressedImageBase64) return showToast('warning', 'Lampirkan foto bukti transfer.');
       if (isAiValid) { eksekusiAktivasi(id, nama, hp, channel, bank); } else {
-        Swal.fire({ title: 'Otorisasi Manual', text: 'Sistem meragukan bukti transfer. Masukkan PIN Otorisasi untuk memaksa aktivasi:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Lanjutkan', cancelButtonText: 'Batal', confirmButtonColor: '#58b4ba', customClass: { popup: 'swal-soft' }, heightAuto: false }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank); } else { showToast('error', 'PIN Tidak Valid. Ditolak.'); } } });
+        Swal.fire({
+          title: 'Otorisasi Manual', text: 'Sistem meragukan bukti transfer. Masukkan PIN Otorisasi untuk memaksa aktivasi:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Lanjutkan', cancelButtonText: 'Batal', confirmButtonColor: '#58b4ba', customClass: { popup: 'swal-soft' }, heightAuto: false
+        }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank); } else { showToast('error', 'PIN Tidak Valid. Ditolak.'); } } });
       }
     }
 
     function eksekusiAktivasi(id, nama, hp, channel, bank) {
-      showStatus('msgKasir', 'Menghubungkan ke server...'); callAPI('activatePassport', { id: id, nama: nama, hp: hp, channel: channel, bank: bank, compressedImageBase64: compressedImageBase64 }, function(res) {
+      showStatus('msgKasir', 'Menghubungkan ke server...');
+      callAPI('activatePassport', { id: id, nama: nama, hp: hp, channel: channel, bank: bank, compressedImageBase64: compressedImageBase64 }, function(res) {
           hideStatus('msgKasir');
           if(res.success) {
             document.getElementById('formKasirArea').style.display = 'none'; document.getElementById('notaArea').style.display = 'block';
-            document.getElementById('notaId').innerText = res.receipt.id; document.getElementById('notaNama').innerText = res.receipt.nama; document.getElementById('notaTanggal').innerText = res.receipt.tanggal; document.getElementById('notaChannel').innerText = res.receipt.channel; document.getElementById('notaBank').innerText = res.receipt.bank; document.getElementById('notaTotal').innerText = "Rp377.000"; 
+            document.getElementById('notaId').innerText = res.receipt.id; document.getElementById('notaNama').innerText = res.receipt.nama; document.getElementById('notaTanggal').innerText = res.receipt.tanggal; document.getElementById('notaChannel').innerText = res.receipt.channel; document.getElementById('notaBank').innerText = res.receipt.bank; 
+            document.getElementById('notaTotal').innerText = "Rp377.000"; 
             showToast('success', 'Aktivasi Berhasil'); loadDashboardData(); 
           } else { popNotification('Aktivasi Ditolak', res.message, 'error'); }
       });
     }
 
-    function unduhNotaPDF() { var element = document.getElementById('notaKertas'); var idPaspor = document.getElementById('notaId').innerText; var opt = { margin: 0.3, filename: 'Nota_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } }; html2pdf().set(opt).from(element).save(); }
-    function resetKasir() { document.getElementById('inputPaspor').value = ''; document.getElementById('namaCust').value = ''; document.getElementById('noHpCust').value = ''; if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; } document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none'; document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; compressedImageBase64 = ""; isAiValid = false; document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir'); }
+    function unduhNotaPDF() {
+      var element = document.getElementById('notaKertas'); var idPaspor = document.getElementById('notaId').innerText;
+      var opt = { margin: 0.3, filename: 'Nota_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
+      html2pdf().set(opt).from(element).save();
+    }
 
-    // 3. MEKANISME KONFIRMASI PETUGAS DARI KAMERA
+    function resetKasir() {
+      document.getElementById('inputPaspor').value = ''; document.getElementById('namaCust').value = ''; document.getElementById('noHpCust').value = ''; if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; } document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none'; document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; compressedImageBase64 = ""; isAiValid = false; document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir');
+    }
+
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
       if (!petugas) return showToast('warning', 'Identitas Petugas wajib diisi.');
-      document.getElementById('btnBukaKamera').style.display = 'none'; document.getElementById('reader').style.display = 'block'; document.getElementById('btnTutupKamera').style.display = 'block';
+      
+      document.getElementById('btnBukaKamera').style.display = 'none';
+      document.getElementById('reader').style.display = 'block';
+      document.getElementById('btnTutupKamera').style.display = 'block';
+
       if (!html5QrcodeScanner) { html5QrcodeScanner = new Html5Qrcode("reader"); }
 
       Html5Qrcode.getCameras().then(devices => {
         if (devices && devices.length) {
           let cameraId = devices[0].id;
-          for (let i = 0; i < devices.length; i++) { if (devices[i].label.toLowerCase().includes('back') || devices[i].label.toLowerCase().includes('belakang') || devices[i].label.toLowerCase().includes('environment')) { cameraId = devices[i].id; break; } }
-          
+          for (let i = 0; i < devices.length; i++) {
+            if (devices[i].label.toLowerCase().includes('back') || devices[i].label.toLowerCase().includes('belakang') || devices[i].label.toLowerCase().includes('environment')) { cameraId = devices[i].id; break; }
+          }
           html5QrcodeScanner.start(
             cameraId, { fps: 10, qrbox: { width: 250, height: 250 } },
             (decodedText, decodedResult) => {
-              tutupLiveScanner(); showStatus('msgPetugas', 'Mengecek voucher...');
-              
-              // Cek Info Voucher Sebelum Klaim
-              callAPI('checkVoucherInfo', { voucher: decodedText }, function(res) {
+              tutupLiveScanner(); showStatus('msgPetugas', 'Validasi server...');
+              callAPI('scanVoucher', { voucher: decodedText, petugas: petugas }, function(res) {
                 hideStatus('msgPetugas');
-                if(res.success) { 
-                    Swal.fire({
-                        title: 'Konfirmasi Penukaran',
-                        html: `Atas Nama: <b style="color:var(--navy-main);">${res.namaCust}</b><br>Wahana: <b style="color:var(--navy-main);">${res.unit}</b><br>Benefit: <b style="color:var(--teal-main); font-size:16px;">${res.benefit}</b><br><br>Gunakan voucher ini?`,
-                        icon: 'question', showCancelButton: true, confirmButtonText: 'Oke, Gunakan', cancelButtonText: 'Batal', confirmButtonColor: '#58b4ba', cancelButtonColor: '#e11d48', customClass: { popup: 'swal-soft' }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            showStatus('msgPetugas', 'Memproses klaim...');
-                            callAPI('scanVoucher', { voucher: decodedText, petugas: petugas }, function(resClaim) {
-                                hideStatus('msgPetugas');
-                                if(resClaim.success) { popNotification('Klaim Berhasil', resClaim.message, 'success'); } 
-                                else { popNotification('Gagal', resClaim.message, 'error'); }
-                            });
-                        } else { showToast('info', 'Penukaran dibatalkan'); }
-                    });
-                } 
+                if(res.success) { popNotification('Tiket Valid', res.message, 'success'); } 
                 else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('Tiket Terpakai', res.message, 'error'); } 
                 else { popNotification('Tidak Valid', res.message, 'warning'); }
               });
@@ -866,34 +1158,21 @@
 
     function tutupLiveScanner() {
       if (html5QrcodeScanner && html5QrcodeScanner.isScanning) {
-        html5QrcodeScanner.stop().then(() => { document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block'; }).catch(err => console.error(err));
-      } else { document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block'; }
+        html5QrcodeScanner.stop().then(() => {
+          document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block';
+        }).catch(err => console.error(err));
+      } else {
+        document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block';
+      }
     }
 
-    // 4. MEKANISME KONFIRMASI PETUGAS DARI KODE MANUAL
     function prosesKlaimManual() {
       var petugas = document.getElementById('namaPetugas').value; var voucher = document.getElementById('inputVoucherManual').value;
       if(!petugas || !voucher) return showToast('warning', 'Petugas & Kode wajib diisi.');
-      
-      showStatus('msgPetugas', 'Mengecek voucher...');
-      callAPI('checkVoucherInfo', { voucher: voucher }, function(res) {
+      showStatus('msgPetugas', 'Validasi server...');
+      callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(res) {
           hideStatus('msgPetugas');
-          if(res.success) { 
-              Swal.fire({
-                  title: 'Konfirmasi Penukaran',
-                  html: `Atas Nama: <b style="color:var(--navy-main);">${res.namaCust}</b><br>Wahana: <b style="color:var(--navy-main);">${res.unit}</b><br>Benefit: <b style="color:var(--teal-main); font-size:16px;">${res.benefit}</b><br><br>Gunakan voucher ini?`,
-                  icon: 'question', showCancelButton: true, confirmButtonText: 'Oke, Gunakan', cancelButtonText: 'Batal', confirmButtonColor: '#58b4ba', cancelButtonColor: '#e11d48', customClass: { popup: 'swal-soft' }
-              }).then((result) => {
-                  if (result.isConfirmed) {
-                      showStatus('msgPetugas', 'Memproses klaim...');
-                      callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(resClaim) {
-                          hideStatus('msgPetugas');
-                          if(resClaim.success) { popNotification('Klaim Berhasil', resClaim.message, 'success'); document.getElementById('inputVoucherManual').value = ''; } 
-                          else { popNotification('Gagal', resClaim.message, 'error'); }
-                      });
-                  } else { showToast('info', 'Penukaran dibatalkan'); }
-              });
-          } 
+          if(res.success) { popNotification('Tiket Valid', res.message, 'success'); document.getElementById('inputVoucherManual').value = ''; } 
           else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('Tiket Terpakai', res.message, 'error'); } 
           else { popNotification('Tidak Valid', res.message, 'warning'); }
       });
