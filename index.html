@@ -1203,7 +1203,7 @@
     }
 
     // ==========================================
-    // SCANNER CAMERA - MENGGUNAKAN LOGIKA ORIGINAL (TERBUKTI BERHASIL)
+    // SCANNER NATIVE AI (ANTI-GAGAL UNTUK QR CODE PUTIH & KECIL)
     // ==========================================
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
@@ -1214,14 +1214,27 @@
       document.getElementById('btnTutupKamera').style.display = 'block';
 
       if (!html5QrcodeScanner) { 
-        html5QrcodeScanner = new Html5Qrcode("reader"); 
+        // KUNCI 1: Mengaktifkan "Native Barcode Detector" (AI Bawaan Android/iOS)
+        // AI ini sangat ahli membaca QR Code warna putih (Inverted QR)
+        html5QrcodeScanner = new Html5Qrcode("reader", {
+          experimentalFeatures: {
+            useBarCodeDetectorIfSupported: true
+          }
+        }); 
       }
+
+      // KUNCI 2: qrbox (kotak pembidik) DIHAPUS TOTAL!
+      // Agar kamera memindai seluruh layar penuh, tidak peduli QR-nya ada di ujung kanan/kiri.
+      const scanConfig = { 
+        fps: 15, 
+        disableFlip: false 
+      }; 
 
       Html5Qrcode.getCameras().then(devices => {
         if (devices && devices.length) {
           let cameraId = devices[0].id;
           
-          // Logika pintar bawaan Anda untuk mencari lensa utama secara akurat
+          // Logika pencarian Lensa Utama (Kamera Belakang)
           for (let i = 0; i < devices.length; i++) {
             if (devices[i].label.toLowerCase().includes('back') || 
                 devices[i].label.toLowerCase().includes('belakang') || 
@@ -1233,15 +1246,13 @@
           
           html5QrcodeScanner.start(
             cameraId, 
-            { fps: 10, qrbox: { width: 250, height: 250 } },
+            scanConfig,
             (decodedText, decodedResult) => {
               tutupLiveScanner(); 
-              
-              // Ini bagian barunya: memanggil pop-up notifikasi sebelum klaim
-              konfirmasiKlaim(decodedText, petugas);
+              konfirmasiKlaim(decodedText, petugas); 
             },
             (errorMessage) => { 
-              // Abaikan
+              // Proses AI sedang membaca, abaikan error log
             }
           ).catch((err) => { 
             showToast('error', 'Kamera diblokir perangkat.'); 
