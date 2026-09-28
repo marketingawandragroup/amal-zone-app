@@ -483,7 +483,6 @@
             </div>
           </div>
 
-          <!-- PERUBAHAN: Menambahkan id="btnAktifkanPaspor" -->
           <button id="btnAktifkanPaspor" class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:20px; transition: all 0.3s ease;">Aktifkan Paspor</button>
           
           <div class="divider"></div>
@@ -1076,7 +1075,7 @@
     }
 
     // ==========================================
-    // PERUBAHAN: LOGIKA AI MENGUNCI TOMBOL
+    // LOGIKA AI MENGUNCI TOMBOL
     // ==========================================
     function previewBukti(event) {
       const file = event.target.files[0]; 
@@ -1194,7 +1193,6 @@
       document.getElementById('notaArea').style.display = 'none'; 
       hideStatus('msgKasir');
 
-      // PERUBAHAN: Kembalikan tombol ke warna hijau saat transaksi baru
       const btnAktivasi = document.getElementById('btnAktifkanPaspor');
       if (btnAktivasi) {
         btnAktivasi.disabled = false;
@@ -1205,7 +1203,7 @@
     }
 
     // ==========================================
-    // PERBAIKAN: SCANNER LEBIH SENSITIF & AUTO-FOCUS
+    // SCANNER LEBIH SENSITIF & AUTO-FOCUS
     // ==========================================
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
@@ -1219,10 +1217,7 @@
         html5QrcodeScanner = new Html5Qrcode("reader"); 
       }
 
-      // Menggunakan "environment" memaksa HP memilih Kamera Utama (Primary) yang ada Auto-Focus
       const cameraConfig = { facingMode: "environment" };
-      
-      // fps dinaikkan agar lebih responsif. qrbox dihapus agar area scan menjadi Full Screen
       const scanConfig = { fps: 15 }; 
 
       html5QrcodeScanner.start(
@@ -1230,11 +1225,9 @@
         scanConfig,
         (decodedText, decodedResult) => {
           tutupLiveScanner(); 
-          konfirmasiKlaim(decodedText, petugas); // Panggil pop-up konfirmasi
+          konfirmasiKlaim(decodedText, petugas); 
         },
-        (errorMessage) => { 
-          // Abaikan error ini, karena scanner terus memunculkan error sampai barcode ditemukan
-        }
+        (errorMessage) => { }
       ).catch((err) => { 
         showToast('error', 'Kamera gagal diakses atau diblokir perangkat.'); 
         tutupLiveScanner(); 
@@ -1244,7 +1237,7 @@
     function tutupLiveScanner() {
       if (html5QrcodeScanner && html5QrcodeScanner.isScanning) {
         html5QrcodeScanner.stop().then(() => {
-          html5QrcodeScanner.clear(); // Bersihkan memori video
+          html5QrcodeScanner.clear(); 
           document.getElementById('reader').style.display = 'none'; 
           document.getElementById('btnTutupKamera').style.display = 'none'; 
           document.getElementById('btnBukaKamera').style.display = 'block';
@@ -1256,7 +1249,38 @@
       }
     }
 
-    const API_URL = "[https://script.google.com/macros/s/.../exec](https://script.google.com/macros/s/.../exec)"
+    function konfirmasiKlaim(voucher, petugas) {
+      Swal.fire({
+        title: 'Konfirmasi Penukaran',
+        html: 'Tiket yang terdeteksi adalah <b>' + voucher + '</b>.<br><br>Ingin memproses klaim untuk tiket ini?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Iya, Klaim',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#58b4ba',
+        cancelButtonColor: '#e11d48',
+        customClass: { popup: 'swal-soft' },
+        heightAuto: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+          showStatus('msgPetugas', 'Validasi server...');
+          callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(res) {
+            hideStatus('msgPetugas');
+            if(res.success) { 
+              popNotification('Tiket Valid', res.message, 'success'); 
+            } 
+            else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { 
+              popNotification('Tiket Terpakai', res.message, 'error'); 
+            } 
+            else { 
+              popNotification('Tidak Valid', res.message, 'warning'); 
+            }
+          });
+        } else {
+          showToast('info', 'Penukaran dibatalkan');
+        }
+      });
+    }
 
     function prosesKlaimManual() {
       var petugas = document.getElementById('namaPetugas').value; 
