@@ -1205,41 +1205,8 @@
     }
 
     // ==========================================
-    // PERUBAHAN: FUNGSI KONFIRMASI KLAIM DINAMIS
+    // PERBAIKAN: SCANNER LEBIH SENSITIF & AUTO-FOCUS
     // ==========================================
-    function konfirmasiKlaim(voucher, petugas) {
-      Swal.fire({
-        title: 'Konfirmasi Penukaran',
-        html: 'Tiket yang terdeteksi adalah <b>' + voucher + '</b>.<br><br>Ingin memproses klaim untuk tiket ini?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Iya, Klaim',
-        cancelButtonText: 'Batal',
-        confirmButtonColor: '#58b4ba',
-        cancelButtonColor: '#e11d48',
-        customClass: { popup: 'swal-soft' },
-        heightAuto: false
-      }).then((result) => {
-        if (result.isConfirmed) {
-          showStatus('msgPetugas', 'Validasi server...');
-          callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(res) {
-            hideStatus('msgPetugas');
-            if(res.success) { 
-              popNotification('Tiket Valid', res.message, 'success'); 
-            } 
-            else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { 
-              popNotification('Tiket Terpakai', res.message, 'error'); 
-            } 
-            else { 
-              popNotification('Tidak Valid', res.message, 'warning'); 
-            }
-          });
-        } else {
-          showToast('info', 'Penukaran dibatalkan');
-        }
-      });
-    }
-
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
       if (!petugas) return showToast('warning', 'Identitas Petugas wajib diisi.');
@@ -1248,35 +1215,48 @@
       document.getElementById('reader').style.display = 'block';
       document.getElementById('btnTutupKamera').style.display = 'block';
 
-      if (!html5QrcodeScanner) { html5QrcodeScanner = new Html5Qrcode("reader"); }
+      if (!html5QrcodeScanner) { 
+        html5QrcodeScanner = new Html5Qrcode("reader"); 
+      }
 
-      Html5Qrcode.getCameras().then(devices => {
-        if (devices && devices.length) {
-          let cameraId = devices[0].id;
-          for (let i = 0; i < devices.length; i++) {
-            if (devices[i].label.toLowerCase().includes('back') || devices[i].label.toLowerCase().includes('belakang') || devices[i].label.toLowerCase().includes('environment')) { cameraId = devices[i].id; break; }
-          }
-          html5QrcodeScanner.start(
-            cameraId, { fps: 10, qrbox: { width: 250, height: 250 } },
-            (decodedText, decodedResult) => {
-              tutupLiveScanner(); 
-              konfirmasiKlaim(decodedText, petugas);
-            },
-            (errorMessage) => { }
-          ).catch((err) => { showToast('error', 'Kamera diblokir perangkat.'); tutupLiveScanner(); });
-        } else { showToast('error', 'Modul kamera tidak ditemukan.'); tutupLiveScanner(); }
-      }).catch(err => { showToast('error', 'Akses kamera ditolak.'); tutupLiveScanner(); });
+      // Menggunakan "environment" memaksa HP memilih Kamera Utama (Primary) yang ada Auto-Focus
+      const cameraConfig = { facingMode: "environment" };
+      
+      // fps dinaikkan agar lebih responsif. qrbox dihapus agar area scan menjadi Full Screen
+      const scanConfig = { fps: 15 }; 
+
+      html5QrcodeScanner.start(
+        cameraConfig, 
+        scanConfig,
+        (decodedText, decodedResult) => {
+          tutupLiveScanner(); 
+          konfirmasiKlaim(decodedText, petugas); // Panggil pop-up konfirmasi
+        },
+        (errorMessage) => { 
+          // Abaikan error ini, karena scanner terus memunculkan error sampai barcode ditemukan
+        }
+      ).catch((err) => { 
+        showToast('error', 'Kamera gagal diakses atau diblokir perangkat.'); 
+        tutupLiveScanner(); 
+      });
     }
 
     function tutupLiveScanner() {
       if (html5QrcodeScanner && html5QrcodeScanner.isScanning) {
         html5QrcodeScanner.stop().then(() => {
-          document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block';
+          html5QrcodeScanner.clear(); // Bersihkan memori video
+          document.getElementById('reader').style.display = 'none'; 
+          document.getElementById('btnTutupKamera').style.display = 'none'; 
+          document.getElementById('btnBukaKamera').style.display = 'block';
         }).catch(err => console.error(err));
       } else {
-        document.getElementById('reader').style.display = 'none'; document.getElementById('btnTutupKamera').style.display = 'none'; document.getElementById('btnBukaKamera').style.display = 'block';
+        document.getElementById('reader').style.display = 'none'; 
+        document.getElementById('btnTutupKamera').style.display = 'none'; 
+        document.getElementById('btnBukaKamera').style.display = 'block';
       }
     }
+
+    const API_URL = "[https://script.google.com/macros/s/.../exec](https://script.google.com/macros/s/.../exec)"
 
     function prosesKlaimManual() {
       var petugas = document.getElementById('namaPetugas').value; 
