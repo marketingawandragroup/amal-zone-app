@@ -854,9 +854,12 @@
     }
 
     // ==========================================
-    // MENU PETUGAS (KODE KAMERA ORIGINAL SUPER CEPAT)
-    // + ALUR HALAMAN KONFIRMASI BARU
+    // LOGIKA SCANNER SUPER SAKTI (MENGGUNAKAN NATIVE jsQR)
+    // Solusi final untuk membaca QR Hitam & Putih bersamaan!
     // ==========================================
+    
+    let liveStream = null;
+    let scanAnimationFrame = null;
 
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
@@ -866,59 +869,81 @@
       document.getElementById('reader').style.display = 'block';
       document.getElementById('btnTutupKamera').style.display = 'block';
 
-      if (!html5QrcodeScanner) { html5QrcodeScanner = new Html5Qrcode("reader"); }
+      // 1. Kita buat layar kamera secara Mandiri agar bebas dari "bug" library lain
+      document.getElementById('reader').innerHTML = `
+        <video id="customScanVideo" style="width: 100%; border-radius: 20px; object-fit: cover;" playsinline></video>
+        <canvas id="customScanCanvas" style="display:none;"></canvas>
+      `;
+      
+      const video = document.getElementById('customScanVideo');
+      const canvas = document.getElementById('customScanCanvas');
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-      // LOGIKA KAMERA ORIGINAL ANDA
-      Html5Qrcode.getCameras().then(devices => {
-        if (devices && devices.length) {
-          let cameraId = devices[0].id;
-          for (let i = 0; i < devices.length; i++) {
-            if (devices[i].label.toLowerCase().includes('back') || 
-                devices[i].label.toLowerCase().includes('belakang') || 
-                devices[i].label.toLowerCase().includes('environment')) { 
-                cameraId = devices[i].id; 
-                break; 
-            }
-          }
-          
-          html5QrcodeScanner.start(
-            cameraId, 
-            { fps: 10, qrbox: { width: 250, height: 250 } },
-            (decodedText, decodedResult) => {
-              // 1. Kamera langsung ditutup agar memori HP kembali normal
-              tutupLiveScanner(); 
-              
-              // 2. Tampilkan Card Halaman Konfirmasi Tiket
-              bukaHalamanKonfirmasi(decodedText, petugas);
-            },
-            (errorMessage) => { }
-          ).catch((err) => { 
-            showToast('error', 'Kamera diblokir perangkat.'); 
-            tutupLiveScanner(); 
-          });
-        } else { 
-          showToast('error', 'Modul kamera tidak ditemukan.'); 
-          tutupLiveScanner(); 
+      // 2. Akses Lensa Utama Kamera Belakang HP Anda
+      navigator.mediaDevices.enumerateDevices().then(devices => {
+        let videoDevices = devices.filter(device => device.kind === 'videoinput');
+        let backCamera = videoDevices.find(device => 
+            device.label.toLowerCase().includes('back') || 
+            device.label.toLowerCase().includes('belakang') || 
+            device.label.toLowerCase().includes('environment')
+        );
+        
+        let constraints = { video: { facingMode: "environment" } };
+        if (backCamera) {
+           constraints = { video: { deviceId: { exact: backCamera.deviceId } } };
         }
-      }).catch(err => { 
-        showToast('error', 'Akses kamera ditolak.'); 
-        tutupLiveScanner(); 
+
+        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+          liveStream = stream;
+          video.srcObject = stream;
+          video.setAttribute("playsinline", true); // Wajib untuk iPhone/iOS
+          video.play();
+          scanAnimationFrame = requestAnimationFrame(tick);
+        }).catch(err => {
+          showToast('error', 'Akses kamera ditolak sistem.');
+          tutupLiveScanner();
+        });
       });
+
+      // 3. Mesin AI jsQR yang memindai video setiap milidetik
+      function tick() {
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          
+          let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          
+          // ✨ INI KUNCI MAGIC-NYA ✨
+          // attemptBoth = Mencari QR Hitam (Resto) & Putih (Wahana) secara instan!
+          let code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: "attemptBoth"
+          });
+          
+          if (code && code.data) {
+             tutupLiveScanner();
+             bukaHalamanKonfirmasi(code.data, petugas);
+             return; // Hentikan kamera karena QR sudah ditemukan
+          }
+        }
+        scanAnimationFrame = requestAnimationFrame(tick);
+      }
     }
 
     function tutupLiveScanner() {
-      if (html5QrcodeScanner && html5QrcodeScanner.isScanning) {
-        html5QrcodeScanner.stop().then(() => {
-          html5QrcodeScanner.clear(); 
-          document.getElementById('reader').style.display = 'none'; 
-          document.getElementById('btnTutupKamera').style.display = 'none'; 
-          document.getElementById('btnBukaKamera').style.display = 'block';
-        }).catch(err => console.error(err));
-      } else {
-        document.getElementById('reader').style.display = 'none'; 
-        document.getElementById('btnTutupKamera').style.display = 'none'; 
-        document.getElementById('btnBukaKamera').style.display = 'block';
+      // Matikan mesin scanning AI
+      if (scanAnimationFrame) cancelAnimationFrame(scanAnimationFrame);
+      
+      // Matikan lampu/lensa kamera fisik HP
+      if (liveStream) {
+        liveStream.getTracks().forEach(track => track.stop());
+        liveStream = null;
       }
+      
+      document.getElementById('reader').innerHTML = ''; // Bersihkan layar
+      document.getElementById('reader').style.display = 'none'; 
+      document.getElementById('btnTutupKamera').style.display = 'none'; 
+      document.getElementById('btnBukaKamera').style.display = 'block';
     }
 
     function prosesKlaimManual() {
