@@ -483,7 +483,8 @@
             </div>
           </div>
 
-          <button class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:20px;">Aktifkan Paspor</button>
+          <!-- PERUBAHAN: Menambahkan id="btnAktifkanPaspor" -->
+          <button id="btnAktifkanPaspor" class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:20px; transition: all 0.3s ease;">Aktifkan Paspor</button>
           
           <div class="divider"></div>
           <div style="font-size:12px; font-weight:800; color:var(--navy-main); margin-bottom:12px;">Aktivasi Sales Terakhir:</div>
@@ -630,7 +631,6 @@
     <div class="nav-item" id="nav_home" onclick="showMenu('home')">
       <span class="nav-icon">⌂</span> Beranda
     </div>
-    <!-- TOMBOL SCANNER DENGAN ID BARU -->
     <div class="floating-scan-btn" id="nav_scan" onclick="showMenu('petugas')" title="Scan Barcode">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
     </div>
@@ -691,7 +691,6 @@
       </table>
     </div>
 
-    <!-- AREA CETAK TABEL KLAIM DINAMIS PER UNIT -->
     <div id="printKlaimContainer" style="margin-bottom:15px;"></div>
 
     <div style="margin-top: 25px; border-top: 1px dashed #e2e8f0; padding-top: 10px; text-align: center;">
@@ -756,7 +755,6 @@
       setTimeout(() => { sliderScreen.style.display = 'none'; }, 400);
     }
 
-    // SLIDE DENGAN USAPAN JARI (SWIPE)
     let touchStartX = 0;
     let touchEndX = 0;
     const sliderContainer = document.getElementById('sliderScreen');
@@ -771,7 +769,6 @@
       }
     }, false);
 
-    // JALANKAN AUTO SLIDE SAAT HALAMAN DIBUKA
     startAutoSlide();
 
     /* LOGIKA KEYPAD PIN DIGITAL */
@@ -850,7 +847,6 @@
       document.getElementById('btnMenuPetugas').style.display = 'none'; 
       document.getElementById('btnMenuLaporan').style.display = 'none'; 
       
-      // LOGIKA KEAMANAN: HILANGKAN TOMBOL SCAN SECARA DEFAULT
       document.getElementById('nav_scan').style.display = 'none';
       
       let teksRole = "Petugas Lapangan";
@@ -859,14 +855,13 @@
         document.getElementById('btnMenuKasir').style.display = 'flex'; 
         document.getElementById('btnMenuPetugas').style.display = 'flex'; 
         document.getElementById('btnMenuLaporan').style.display = 'flex';
-        document.getElementById('nav_scan').style.display = 'flex'; // Munculkan scan untuk Manager
+        document.getElementById('nav_scan').style.display = 'flex'; 
       } else if (roleAktif === "kasir") { 
         teksRole = "Akses Sales & Aktivasi"; 
         document.getElementById('btnMenuKasir').style.display = 'flex';
-        // Tombol nav_scan TETAP HILANG (display: none)
       } else if (roleAktif === "petugas") { 
         document.getElementById('btnMenuPetugas').style.display = 'flex'; 
-        document.getElementById('nav_scan').style.display = 'flex'; // Munculkan scan untuk Petugas Wahana
+        document.getElementById('nav_scan').style.display = 'flex'; 
       }
       
       document.getElementById('teksSapaan').innerText = "Akses: " + teksRole;
@@ -891,7 +886,6 @@
     }
 
     function showMenu(menu) {
-      // PENGHALANG PAKSA JIKA ADA YANG MENCOBA AKSES MENU PETUGAS/SCAN (By URL, By Inspect Element)
       if(menu === 'petugas' && roleAktif === 'kasir') {
         Swal.fire({ title: 'Akses Ditolak!', text: 'Menu khusus petugas wahana. Sales tidak diizinkan mengakses scanner.', icon: 'error', confirmButtonColor: '#e11d48', customClass: { popup: 'swal-soft' }, heightAuto: false });
         return;
@@ -1081,18 +1075,71 @@
       });
     }
 
+    // ==========================================
+    // PERUBAHAN: LOGIKA AI MENGUNCI TOMBOL
+    // ==========================================
     function previewBukti(event) {
-      const file = event.target.files[0]; if (!file) { compressedImageBase64 = ""; isAiValid = false; document.getElementById('buktiPreviewName').innerText = ""; return; }
+      const file = event.target.files[0]; 
+      const btnAktivasi = document.getElementById('btnAktifkanPaspor');
+
+      if (!file) { 
+        compressedImageBase64 = ""; isAiValid = false; document.getElementById('buktiPreviewName').innerText = ""; 
+        return; 
+      }
+      
+      // 1. Kunci tombol saat AI mulai memindai
+      if (btnAktivasi) {
+        btnAktivasi.disabled = true;
+        btnAktivasi.innerText = "⏳ AI Sedang Memeriksa Bukti...";
+        btnAktivasi.style.background = "#94a3b8";
+        btnAktivasi.style.cursor = "not-allowed";
+      }
+
       showStatus('msgKasir', 'Sistem memindai bukti transfer...'); 
+      
       Tesseract.recognize(file, 'ind', { logger: m => {} } ).then(({ data: { text } }) => {
         var teksHurufBesar = text.toUpperCase().replace(/\s+/g, ' '); var aiPesan = "";
         var cekNominal = teksHurufBesar.includes('377'); 
         var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');
-        if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:var(--teal-main); font-size:11px; font-weight:800;'>Dokumen Valid Terdeteksi</span>"; } else { isAiValid = false; aiPesan = "<br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Dokumen Tidak Sesuai Kriteria</span>"; }
-        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap Diupload</span>" + aiPesan; hideStatus('msgKasir');
+        
+        if (cekNominal && cekNamaRekening) { 
+          isAiValid = true; 
+          aiPesan = "<br><span style='color:var(--teal-main); font-size:11px; font-weight:800;'>Dokumen Valid Terdeteksi</span>"; 
+        } else { 
+          isAiValid = false; 
+          aiPesan = "<br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Dokumen Tidak Sesuai Kriteria</span>"; 
+        }
+        
+        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap Diupload</span>" + aiPesan; 
+        hideStatus('msgKasir');
+        
+        // 2. Buka tombol setelah AI selesai (Hijau jika Valid, Merah jika Gagal)
+        if (btnAktivasi) {
+          btnAktivasi.disabled = false;
+          if (isAiValid) {
+            btnAktivasi.innerText = "Aktifkan Paspor";
+            btnAktivasi.style.background = "var(--teal-main)";
+          } else {
+            btnAktivasi.innerText = "Aktifkan (Otorisasi Manual)";
+            btnAktivasi.style.background = "#e11d48";
+          }
+          btnAktivasi.style.cursor = "pointer";
+        }
+
       }).catch(err => {
-        isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap</span><br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Gagal memvalidasi dokumen secara AI</span>"; hideStatus('msgKasir');
+        isAiValid = false; 
+        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--navy-main); font-weight:800;'>Foto Siap</span><br><span style='color:#e11d48; font-size:11px; font-weight:800;'>Gagal memvalidasi dokumen secara AI</span>"; 
+        hideStatus('msgKasir');
+        
+        // 2 (Error). Buka tombol merah jika terjadi error pembacaan
+        if (btnAktivasi) {
+          btnAktivasi.disabled = false;
+          btnAktivasi.innerText = "Aktifkan (Otorisasi Manual)";
+          btnAktivasi.style.background = "#e11d48";
+          btnAktivasi.style.cursor = "pointer";
+        }
       });
+
       const reader = new FileReader();
       reader.onload = function(e) { 
         const img = new Image(); img.onload = function() {
@@ -1134,20 +1181,40 @@
     }
 
     function resetKasir() {
-      document.getElementById('inputPaspor').value = ''; document.getElementById('namaCust').value = ''; document.getElementById('noHpCust').value = ''; if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; } document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none'; document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; compressedImageBase64 = ""; isAiValid = false; document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir');
+      document.getElementById('inputPaspor').value = ''; 
+      document.getElementById('namaCust').value = ''; 
+      document.getElementById('noHpCust').value = ''; 
+      if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; } 
+      document.getElementById('bankTujuan').value = ''; 
+      document.getElementById('infoRekeningBox').style.display = 'none'; 
+      document.getElementById('buktiUpload').value = ''; 
+      document.getElementById('buktiPreviewName').innerHTML = ''; 
+      compressedImageBase64 = ""; isAiValid = false; 
+      document.getElementById('formKasirArea').style.display = 'block'; 
+      document.getElementById('notaArea').style.display = 'none'; 
+      hideStatus('msgKasir');
+
+      // PERUBAHAN: Kembalikan tombol ke warna hijau saat transaksi baru
+      const btnAktivasi = document.getElementById('btnAktifkanPaspor');
+      if (btnAktivasi) {
+        btnAktivasi.disabled = false;
+        btnAktivasi.innerText = "Aktifkan Paspor";
+        btnAktivasi.style.background = "var(--teal-main)";
+        btnAktivasi.style.cursor = "pointer";
+      }
     }
 
     // ==========================================
-    // FUNGSI KONFIRMASI KLAIM TIKET BARU
+    // PERUBAHAN: FUNGSI KONFIRMASI KLAIM DINAMIS
     // ==========================================
     function konfirmasiKlaim(voucher, petugas) {
       Swal.fire({
         title: 'Konfirmasi Penukaran',
-        text: 'Anda yakin ingin menukarkan tiket ini?',
+        html: 'Tiket yang terdeteksi adalah <b>' + voucher + '</b>.<br><br>Ingin memproses klaim untuk tiket ini?',
         icon: 'question',
         showCancelButton: true,
-        confirmButtonText: 'Oke, Lanjutkan',
-        cancelButtonText: 'Batalkan',
+        confirmButtonText: 'Iya, Klaim',
+        cancelButtonText: 'Batal',
         confirmButtonColor: '#58b4ba',
         cancelButtonColor: '#e11d48',
         customClass: { popup: 'swal-soft' },
@@ -1193,7 +1260,6 @@
             cameraId, { fps: 10, qrbox: { width: 250, height: 250 } },
             (decodedText, decodedResult) => {
               tutupLiveScanner(); 
-              // Panggil fungsi konfirmasi (bukan langsung claim)
               konfirmasiKlaim(decodedText, petugas);
             },
             (errorMessage) => { }
@@ -1217,8 +1283,8 @@
       var voucher = document.getElementById('inputVoucherManual').value;
       if(!petugas || !voucher) return showToast('warning', 'Petugas & Kode wajib diisi.');
       
-      document.getElementById('inputVoucherManual').value = ''; // Kosongkan form setelah ditekan
-      konfirmasiKlaim(voucher, petugas); // Panggil fungsi konfirmasi
+      document.getElementById('inputVoucherManual').value = ''; 
+      konfirmasiKlaim(voucher, petugas); 
     }
   </script>
 </body>
