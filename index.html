@@ -225,7 +225,7 @@
     #buktiUpload { display: none; }
     #mainContent { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: flex-start; }
     #reader { border-radius: 24px; overflow: hidden; margin-top: 10px; border: 3px solid var(--teal-main); box-shadow: 0 10px 25px rgba(88, 180, 186, 0.2); }
-    #reader video { object-fit: cover; }
+    #reader video { width: 100% !important; object-fit: contain !important; }
 
     .bottom-nav { 
       position: fixed; bottom: 0; left: 0; width: 100%; 
@@ -268,7 +268,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 </head>
 <body>
 
