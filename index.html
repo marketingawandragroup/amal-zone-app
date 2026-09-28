@@ -387,19 +387,21 @@
     </div>
 
     <!-- MENU PETUGAS (LIVE SCANNER) -->
-    <div id="petugasCard" class="card card-narrow" style="display:none;">
-      <div class="card-title">📷 Penukaran Voucher Wisata</div>
-      <div class="input-group"><label>Nama Petugas & Unit</label><input type="text" id="namaPetugas" class="input-field" placeholder="Misal: Budi - Wahana Air"></div>
-      
-      <button class="btn btn-main" id="btnBukaKamera" onclick="bukaLiveScanner()" style="margin-top:20px; background:#e67e22;">📷 SCAN BARCODE</button>
-      
-      <div id="reader" style="display: none;"></div>
-      <button class="btn btn-danger" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:10px;">❌ Tutup Kamera</button>
+    <div id="petugasCard" class="card-container" style="display:none;">
+      <div class="card card-narrow">
+        <div class="card-title">📷 Penukaran Voucher Wisata</div>
+        <div class="input-group"><label>Nama Petugas & Unit</label><input type="text" id="namaPetugas" class="input-field" placeholder="Misal: Budi - Wahana Air"></div>
+        
+        <button class="btn btn-main" id="btnBukaKamera" onclick="bukaLiveScanner()" style="margin-top:20px; background:#e67e22;">📷 SCAN BARCODE</button>
+        
+        <div id="reader" style="display: none;"></div>
+        <button class="btn btn-danger" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:10px;">❌ Tutup Kamera</button>
 
-      <div class="divider"></div>
-      <div class="input-group"><label>Atau Ketik Kode Manual</label><input type="text" id="inputVoucherManual" class="input-field" placeholder="Contoh: 0926003-W1"></div>
-      <button class="btn btn-menu" style="justify-content:center;" onclick="prosesKlaimManual()">Proses Kode Manual</button>
-      <div id="msgPetugas" class="status-box"></div>
+        <div class="divider"></div>
+        <div class="input-group"><label>Atau Ketik Kode Manual</label><input type="text" id="inputVoucherManual" class="input-field" placeholder="Contoh: 0926003-W1"></div>
+        <button class="btn btn-menu" style="justify-content:center;" onclick="prosesKlaimManual()">Proses Kode Manual</button>
+        <div id="msgPetugas" class="status-box"></div>
+      </div>
     </div>
 
     <!-- =========================================
