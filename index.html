@@ -1203,8 +1203,7 @@
     }
 
     // ==========================================
-    // SCANNER NATIVE STYLE (ALA MYBCA / GOPAY)
-    // Langsung buka, tanpa UI tambahan, sangat cepat!
+    // SCANNER NATIVE STYLE ALA MYBCA (RESOLUSI HD + KOTAK FOKUS)
     // ==========================================
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
@@ -1214,34 +1213,42 @@
       document.getElementById('reader').style.display = 'block';
       document.getElementById('btnTutupKamera').style.display = 'block';
 
-      // Menggunakan Html5Qrcode murni (TANPA antarmuka tombol-tombol)
       if (!html5QrcodeScanner) { 
         html5QrcodeScanner = new Html5Qrcode("reader"); 
       }
 
-      // fps dinaikkan ke 20 agar secepat QRIS. Full screen tanpa kotak.
-      const scanConfig = { fps: 20, disableFlip: false }; 
+      // KUNCI PERBAIKAN: 
+      // 1. fps tinggi agar responsif
+      // 2. qrbox KOTAK (250x250) WAJIB ada untuk membuang background berisik di tiket Wahana
+      const scanConfig = { 
+        fps: 20, 
+        disableFlip: false,
+        qrbox: { width: 250, height: 250 }, 
+        formatsToSupport: [ Html5QrcodeSupportedFormats.QR_CODE ]
+      }; 
 
-      // Tembakan Pertama: Langsung minta kamera belakang (Sangat Cepat)
+      // 3. Paksa kamera menyala di Resolusi Tinggi (HD) agar QR kecil terbaca tajam
+      const cameraConfig = { 
+        facingMode: "environment",
+        width: { ideal: 1280 },
+        height: { ideal: 720 }
+      };
+
       html5QrcodeScanner.start(
-        { facingMode: "environment" }, 
+        cameraConfig, 
         scanConfig,
         (decodedText, decodedResult) => {
           tutupLiveScanner(); 
           konfirmasiKlaim(decodedText, petugas); 
         },
         (errorMessage) => { 
-          // Abaikan, mesin AI sedang membaca
+          // Abaikan error saat sistem sedang mencari QR
         }
       ).catch((err) => { 
-        // TEMBAKAN KEDUA (Triks Anti-Gagal): 
-        // Jika HP menolak cara pertama, kita cari daftar kameranya dan paksa nyala!
+        // Fallback Anti-Gagal jika HP menolak konfigurasi HD di atas
         Html5Qrcode.getCameras().then(devices => {
           if (devices && devices.length) {
-            // Ambil kamera terakhir (biasanya lensa utama paling belakang di HP Android)
             let cameraId = devices[devices.length - 1].id;
-            
-            // Cari spesifik jika ada label "back" atau "belakang"
             for(let i = 0; i < devices.length; i++) {
               if(devices[i].label.toLowerCase().includes('back') || devices[i].label.toLowerCase().includes('belakang')) {
                 cameraId = devices[i].id;
@@ -1249,9 +1256,8 @@
               }
             }
             
-            // Buka kamera secara spesifik (Anti-Gagal)
             html5QrcodeScanner.start(
-              cameraId, 
+              { deviceId: { exact: cameraId }, width: { ideal: 1280 }, height: { ideal: 720 } }, 
               scanConfig,
               (decodedText, decodedResult) => {
                 tutupLiveScanner(); 
