@@ -630,7 +630,8 @@
     <div class="nav-item" id="nav_home" onclick="showMenu('home')">
       <span class="nav-icon">⌂</span> Beranda
     </div>
-    <div class="floating-scan-btn" onclick="showMenu('petugas')" title="Scan Barcode">
+    <!-- TOMBOL SCANNER DENGAN ID BARU -->
+    <div class="floating-scan-btn" id="nav_scan" onclick="showMenu('petugas')" title="Scan Barcode">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
     </div>
     <div class="nav-item" id="nav_cek" onclick="showMenu('cek')">
@@ -845,17 +846,27 @@
       document.getElementById('mainContent').style.display = 'flex';
       document.getElementById('bottomNav').style.display = 'flex';
       
-      document.getElementById('btnMenuKasir').style.display = 'none'; document.getElementById('btnMenuPetugas').style.display = 'none'; document.getElementById('btnMenuLaporan').style.display = 'none'; 
+      document.getElementById('btnMenuKasir').style.display = 'none'; 
+      document.getElementById('btnMenuPetugas').style.display = 'none'; 
+      document.getElementById('btnMenuLaporan').style.display = 'none'; 
+      
+      // LOGIKA KEAMANAN: HILANGKAN TOMBOL SCAN SECARA DEFAULT
+      document.getElementById('nav_scan').style.display = 'none';
       
       let teksRole = "Petugas Lapangan";
       if (roleAktif === "manager") { 
         teksRole = "Executive Manager";
-        document.getElementById('btnMenuKasir').style.display = 'flex'; document.getElementById('btnMenuPetugas').style.display = 'flex'; document.getElementById('btnMenuLaporan').style.display = 'flex';
+        document.getElementById('btnMenuKasir').style.display = 'flex'; 
+        document.getElementById('btnMenuPetugas').style.display = 'flex'; 
+        document.getElementById('btnMenuLaporan').style.display = 'flex';
+        document.getElementById('nav_scan').style.display = 'flex'; // Munculkan scan untuk Manager
       } else if (roleAktif === "kasir") { 
         teksRole = "Akses Sales & Aktivasi"; 
         document.getElementById('btnMenuKasir').style.display = 'flex';
+        // Tombol nav_scan TETAP HILANG (display: none)
       } else if (roleAktif === "petugas") { 
         document.getElementById('btnMenuPetugas').style.display = 'flex'; 
+        document.getElementById('nav_scan').style.display = 'flex'; // Munculkan scan untuk Petugas Wahana
       }
       
       document.getElementById('teksSapaan').innerText = "Akses: " + teksRole;
@@ -880,6 +891,12 @@
     }
 
     function showMenu(menu) {
+      // PENGHALANG PAKSA JIKA ADA YANG MENCOBA AKSES MENU PETUGAS/SCAN (By URL, By Inspect Element)
+      if(menu === 'petugas' && roleAktif === 'kasir') {
+        Swal.fire({ title: 'Akses Ditolak!', text: 'Menu khusus petugas wahana. Sales tidak diizinkan mengakses scanner.', icon: 'error', confirmButtonColor: '#e11d48', customClass: { popup: 'swal-soft' }, heightAuto: false });
+        return;
+      }
+
       tutupLiveScanner();
       document.getElementById('homeCard').style.display = 'none'; document.getElementById('kasirCard').style.display = 'none';
       document.getElementById('petugasCard').style.display = 'none'; document.getElementById('laporanCard').style.display = 'none'; document.getElementById('cekCard').style.display = 'none';
@@ -985,9 +1002,7 @@
           }
           if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center;">Kosong.</td></tr>'; document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
 
-          // ==========================================
           // MENGELOMPOKKAN TABEL KLAIM BERDASARKAN UNIT WAHANA
-          // ==========================================
           var groupedKlaim = {};
           for(var j=0; j<data.listDetailKlaim.length; j++) { 
             var k = data.listDetailKlaim[j]; 
@@ -1002,7 +1017,6 @@
             hasKlaim = true;
             htmlKlaimContainer += '<h4 style="text-align:left; font-size:11px; color:#58b4ba; margin-top:14px; margin-bottom:4px; text-transform:uppercase;">UNIT: ' + unitName + '</h4>';
             htmlKlaimContainer += '<table>';
-            // Kolom "Wahana" Dihapus agar lebih lega (karena nama unit sudah jadi judul di atasnya)
             htmlKlaimContainer += '<thead><tr style="background:#f0f4f8; color:#193354;"><th style="text-align:center; width:15%;">Waktu Klaim</th><th style="text-align:center; width:12%;">ID Paspor</th><th style="text-align:left; width:22%;">Nama Pelanggan</th><th style="text-align:left; width:26%;">Rincian Benefit</th><th style="text-align:left; width:15%;">Petugas</th><th style="text-align:right; width:10%;">Nilai</th></tr></thead><tbody>';
             
             for(var i=0; i<groupedKlaim[unitName].length; i++) {
@@ -1123,6 +1137,42 @@
       document.getElementById('inputPaspor').value = ''; document.getElementById('namaCust').value = ''; document.getElementById('noHpCust').value = ''; if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; } document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none'; document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; compressedImageBase64 = ""; isAiValid = false; document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir');
     }
 
+    // ==========================================
+    // FUNGSI KONFIRMASI KLAIM TIKET BARU
+    // ==========================================
+    function konfirmasiKlaim(voucher, petugas) {
+      Swal.fire({
+        title: 'Konfirmasi Penukaran',
+        text: 'Anda yakin ingin menukarkan tiket ini?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Oke, Lanjutkan',
+        cancelButtonText: 'Batalkan',
+        confirmButtonColor: '#58b4ba',
+        cancelButtonColor: '#e11d48',
+        customClass: { popup: 'swal-soft' },
+        heightAuto: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+          showStatus('msgPetugas', 'Validasi server...');
+          callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(res) {
+            hideStatus('msgPetugas');
+            if(res.success) { 
+              popNotification('Tiket Valid', res.message, 'success'); 
+            } 
+            else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { 
+              popNotification('Tiket Terpakai', res.message, 'error'); 
+            } 
+            else { 
+              popNotification('Tidak Valid', res.message, 'warning'); 
+            }
+          });
+        } else {
+          showToast('info', 'Penukaran dibatalkan');
+        }
+      });
+    }
+
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
       if (!petugas) return showToast('warning', 'Identitas Petugas wajib diisi.');
@@ -1142,13 +1192,9 @@
           html5QrcodeScanner.start(
             cameraId, { fps: 10, qrbox: { width: 250, height: 250 } },
             (decodedText, decodedResult) => {
-              tutupLiveScanner(); showStatus('msgPetugas', 'Validasi server...');
-              callAPI('scanVoucher', { voucher: decodedText, petugas: petugas }, function(res) {
-                hideStatus('msgPetugas');
-                if(res.success) { popNotification('Tiket Valid', res.message, 'success'); } 
-                else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('Tiket Terpakai', res.message, 'error'); } 
-                else { popNotification('Tidak Valid', res.message, 'warning'); }
-              });
+              tutupLiveScanner(); 
+              // Panggil fungsi konfirmasi (bukan langsung claim)
+              konfirmasiKlaim(decodedText, petugas);
             },
             (errorMessage) => { }
           ).catch((err) => { showToast('error', 'Kamera diblokir perangkat.'); tutupLiveScanner(); });
@@ -1167,15 +1213,12 @@
     }
 
     function prosesKlaimManual() {
-      var petugas = document.getElementById('namaPetugas').value; var voucher = document.getElementById('inputVoucherManual').value;
+      var petugas = document.getElementById('namaPetugas').value; 
+      var voucher = document.getElementById('inputVoucherManual').value;
       if(!petugas || !voucher) return showToast('warning', 'Petugas & Kode wajib diisi.');
-      showStatus('msgPetugas', 'Validasi server...');
-      callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(res) {
-          hideStatus('msgPetugas');
-          if(res.success) { popNotification('Tiket Valid', res.message, 'success'); document.getElementById('inputVoucherManual').value = ''; } 
-          else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('Tiket Terpakai', res.message, 'error'); } 
-          else { popNotification('Tidak Valid', res.message, 'warning'); }
-      });
+      
+      document.getElementById('inputVoucherManual').value = ''; // Kosongkan form setelah ditekan
+      konfirmasiKlaim(voucher, petugas); // Panggil fungsi konfirmasi
     }
   </script>
 </body>
