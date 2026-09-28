@@ -1203,7 +1203,7 @@
     }
 
     // ==========================================
-    // SCANNER NATIVE STYLE ALA MYBCA (RESOLUSI HD + KOTAK FOKUS)
+    // SCANNER NATIVE STYLE (AMAN UNTUK SEMUA HP + KOTAK FOKUS)
     // ==========================================
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
@@ -1217,9 +1217,7 @@
         html5QrcodeScanner = new Html5Qrcode("reader"); 
       }
 
-      // KUNCI PERBAIKAN: 
-      // 1. fps tinggi agar responsif
-      // 2. qrbox KOTAK (250x250) WAJIB ada untuk membuang background berisik di tiket Wahana
+      // fps tinggi & area kotak fokus 250x250 untuk memotong background tiket Wahana
       const scanConfig = { 
         fps: 20, 
         disableFlip: false,
@@ -1227,25 +1225,19 @@
         formatsToSupport: [ Html5QrcodeSupportedFormats.QR_CODE ]
       }; 
 
-      // 3. Paksa kamera menyala di Resolusi Tinggi (HD) agar QR kecil terbaca tajam
-      const cameraConfig = { 
-        facingMode: "environment",
-        width: { ideal: 1280 },
-        height: { ideal: 720 }
-      };
-
+      // Percobaan 1: Buka kamera belakang dengan cara paling standar dan aman
       html5QrcodeScanner.start(
-        cameraConfig, 
+        { facingMode: "environment" }, 
         scanConfig,
         (decodedText, decodedResult) => {
           tutupLiveScanner(); 
           konfirmasiKlaim(decodedText, petugas); 
         },
         (errorMessage) => { 
-          // Abaikan error saat sistem sedang mencari QR
+          // Abaikan error saat mencari barcode
         }
       ).catch((err) => { 
-        // Fallback Anti-Gagal jika HP menolak konfigurasi HD di atas
+        // Percobaan 2: Jika sistem Androidnya rewel, cari ID kamera secara manual
         Html5Qrcode.getCameras().then(devices => {
           if (devices && devices.length) {
             let cameraId = devices[devices.length - 1].id;
@@ -1257,7 +1249,7 @@
             }
             
             html5QrcodeScanner.start(
-              { deviceId: { exact: cameraId }, width: { ideal: 1280 }, height: { ideal: 720 } }, 
+              cameraId, 
               scanConfig,
               (decodedText, decodedResult) => {
                 tutupLiveScanner(); 
@@ -1265,12 +1257,13 @@
               },
               (errorMessage) => {}
             ).catch(e => {
-              showToast('error', 'Kamera gagal dimuat perangkat.'); 
+              showToast('error', 'Kamera sedang digunakan aplikasi lain / bermasalah.'); 
               tutupLiveScanner();
             });
           }
-        }).catch(err => {
-          showToast('error', 'Browser memblokir Izin Kamera Anda.'); 
+        }).catch(err2 => {
+          // Murni karena ditolak di Setelan Browser
+          showToast('error', 'Akses Ditolak! Cek ikon gembok di URL lalu Izinkan Kamera.'); 
           tutupLiveScanner();
         });
       });
