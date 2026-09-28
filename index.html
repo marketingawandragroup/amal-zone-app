@@ -1203,7 +1203,7 @@
     }
 
     // ==========================================
-    // SCANNER NATIVE STYLE (AMAN UNTUK SEMUA HP + KOTAK FOKUS)
+    // SCANNER NATIVE STYLE - KOTAK DINAMIS (KEMBALI KE STANDAR AWAL)
     // ==========================================
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
@@ -1217,27 +1217,32 @@
         html5QrcodeScanner = new Html5Qrcode("reader"); 
       }
 
-      // fps tinggi & area kotak fokus 250x250 untuk memotong background tiket Wahana
+      // KUNCI PERBAIKAN: 
+      // Kotak pemindai (qrbox) dibuat DIBUAT OTOMATIS MENYESUAIKAN UKURAN LAYAR HP
+      // Ini persis seperti setelan bawaan aplikasi Anda sebelumnya yang lancar membaca tiket Wahana
       const scanConfig = { 
-        fps: 20, 
-        disableFlip: false,
-        qrbox: { width: 250, height: 250 }, 
-        formatsToSupport: [ Html5QrcodeSupportedFormats.QR_CODE ]
+        fps: 10, 
+        qrbox: function(viewfinderWidth, viewfinderHeight) {
+            let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+            // Ukuran kotak diset 70% dari lebar layar HP, sehingga pasti pas
+            let qrboxSize = Math.floor(minEdgeSize * 0.7);
+            return { width: qrboxSize, height: qrboxSize };
+        }
       }; 
 
-      // Percobaan 1: Buka kamera belakang dengan cara paling standar dan aman
+      // Buka kamera belakang dengan standar paling aman
       html5QrcodeScanner.start(
         { facingMode: "environment" }, 
         scanConfig,
         (decodedText, decodedResult) => {
           tutupLiveScanner(); 
-          konfirmasiKlaim(decodedText, petugas); 
+          konfirmasiKlaim(decodedText, petugas); // Pop-up Notifikasi jalan di sini
         },
         (errorMessage) => { 
-          // Abaikan error saat mencari barcode
+          // Biarkan kosong, abaikan error saat AI mencari kotak QR
         }
       ).catch((err) => { 
-        // Percobaan 2: Jika sistem Androidnya rewel, cari ID kamera secara manual
+        // Fallback Anti-Gagal (Untuk Xiaomi/Vivo/Oppo dll)
         Html5Qrcode.getCameras().then(devices => {
           if (devices && devices.length) {
             let cameraId = devices[devices.length - 1].id;
@@ -1247,7 +1252,6 @@
                 break;
               }
             }
-            
             html5QrcodeScanner.start(
               cameraId, 
               scanConfig,
@@ -1257,14 +1261,10 @@
               },
               (errorMessage) => {}
             ).catch(e => {
-              showToast('error', 'Kamera sedang digunakan aplikasi lain / bermasalah.'); 
+              showToast('error', 'Kamera gagal dimuat perangkat.'); 
               tutupLiveScanner();
             });
           }
-        }).catch(err2 => {
-          // Murni karena ditolak di Setelan Browser
-          showToast('error', 'Akses Ditolak! Cek ikon gembok di URL lalu Izinkan Kamera.'); 
-          tutupLiveScanner();
         });
       });
     }
