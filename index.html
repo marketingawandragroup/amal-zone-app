@@ -259,11 +259,21 @@
      DASHBOARD OPERASIONAL
      ========================================= -->
   <div id="mainContent">
-    <div class="app-header">
-      <img src="logo-amalzone.png" alt="Amal Zone" onerror="this.style.display='none'">
-      <div class="app-header-text">
-        <h1>AMAL ZONE</h1>
-        <p id="teksSapaan">Portal Operasional</p>
+    <div class="app-header" style="justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="logo-amalzone.png" alt="Amal Zone" onerror="this.style.display='none'">
+        <div class="app-header-text">
+          <h1>AMAL ZONE</h1>
+          <p id="teksSapaan">Portal Operasional</p>
+        </div>
+      </div>
+      
+      <!-- TOMBOL REFRESH MANUAL -->
+      <div onclick="window.location.reload()" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; transition: all 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" title="Muat Ulang Halaman">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
       </div>
     </div>
 
