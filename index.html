@@ -1203,8 +1203,8 @@
     }
 
     // ==========================================
-    // PERBAIKAN: KEMBALI KE HYBRID SCANNER (KOMPATIBEL SEMUA HP) 
-    // & AREA SCAN FULL SCREEN
+    // SCANNER NATIVE STYLE (ALA MYBCA / GOPAY)
+    // Langsung buka, tanpa UI tambahan, sangat cepat!
     // ==========================================
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
@@ -1214,44 +1214,70 @@
       document.getElementById('reader').style.display = 'block';
       document.getElementById('btnTutupKamera').style.display = 'block';
 
+      // Menggunakan Html5Qrcode murni (TANPA antarmuka tombol-tombol)
       if (!html5QrcodeScanner) { 
-        // Menggunakan kelas 'Html5QrcodeScanner' (Hybrid) yang paling aman untuk semua merk HP
-        html5QrcodeScanner = new Html5QrcodeScanner(
-          "reader", 
-          { 
-            fps: 15,
-            // qrbox sengaja tidak ditulis agar area scan menjadi FULL LAYAR
-            rememberLastUsedCamera: true
-          }, 
-          false // verbose
-        ); 
+        html5QrcodeScanner = new Html5Qrcode("reader"); 
       }
 
-      // Gunakan .render() bawaan Hybrid Scanner
-      html5QrcodeScanner.render(
+      // fps dinaikkan ke 20 agar secepat QRIS. Full screen tanpa kotak.
+      const scanConfig = { fps: 20, disableFlip: false }; 
+
+      // Tembakan Pertama: Langsung minta kamera belakang (Sangat Cepat)
+      html5QrcodeScanner.start(
+        { facingMode: "environment" }, 
+        scanConfig,
         (decodedText, decodedResult) => {
           tutupLiveScanner(); 
           konfirmasiKlaim(decodedText, petugas); 
         },
         (errorMessage) => { 
-          // Abaikan error saat sistem sedang mencari posisi barcode
+          // Abaikan, mesin AI sedang membaca
         }
-      );
+      ).catch((err) => { 
+        // TEMBAKAN KEDUA (Triks Anti-Gagal): 
+        // Jika HP menolak cara pertama, kita cari daftar kameranya dan paksa nyala!
+        Html5Qrcode.getCameras().then(devices => {
+          if (devices && devices.length) {
+            // Ambil kamera terakhir (biasanya lensa utama paling belakang di HP Android)
+            let cameraId = devices[devices.length - 1].id;
+            
+            // Cari spesifik jika ada label "back" atau "belakang"
+            for(let i = 0; i < devices.length; i++) {
+              if(devices[i].label.toLowerCase().includes('back') || devices[i].label.toLowerCase().includes('belakang')) {
+                cameraId = devices[i].id;
+                break;
+              }
+            }
+            
+            // Buka kamera secara spesifik (Anti-Gagal)
+            html5QrcodeScanner.start(
+              cameraId, 
+              scanConfig,
+              (decodedText, decodedResult) => {
+                tutupLiveScanner(); 
+                konfirmasiKlaim(decodedText, petugas); 
+              },
+              (errorMessage) => {}
+            ).catch(e => {
+              showToast('error', 'Kamera gagal dimuat perangkat.'); 
+              tutupLiveScanner();
+            });
+          }
+        }).catch(err => {
+          showToast('error', 'Browser memblokir Izin Kamera Anda.'); 
+          tutupLiveScanner();
+        });
+      });
     }
 
     function tutupLiveScanner() {
-      if (html5QrcodeScanner) {
-        html5QrcodeScanner.clear().then(() => {
+      if (html5QrcodeScanner && html5QrcodeScanner.isScanning) {
+        html5QrcodeScanner.stop().then(() => {
+          html5QrcodeScanner.clear(); 
           document.getElementById('reader').style.display = 'none'; 
           document.getElementById('btnTutupKamera').style.display = 'none'; 
           document.getElementById('btnBukaKamera').style.display = 'block';
-        }).catch(err => {
-          console.error(err);
-          // Fallback jika terjadi error saat menutup
-          document.getElementById('reader').style.display = 'none'; 
-          document.getElementById('btnTutupKamera').style.display = 'none'; 
-          document.getElementById('btnBukaKamera').style.display = 'block';
-        });
+        }).catch(err => console.error(err));
       } else {
         document.getElementById('reader').style.display = 'none'; 
         document.getElementById('btnTutupKamera').style.display = 'none'; 
