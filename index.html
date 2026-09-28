@@ -128,9 +128,34 @@
     .receipt-row strong { color: var(--navy-main); font-weight: 800; }
     .receipt-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; margin-top: 16px; color: var(--teal-main); }
 
-    .wallet-container { position: relative; background: linear-gradient(135deg, var(--navy-main), var(--navy-dark)); border-radius: 24px; padding: 24px; color: #ffffff; box-shadow: 0 15px 35px rgba(25, 51, 84, 0.2); margin-bottom: 24px; margin-top: 24px; z-index: 2; }
-    .wallet-flap-1 { position: absolute; top: -14px; left: 5%; width: 90%; height: 30px; background: #2a4c75; border-radius: 16px 16px 0 0; z-index: -1; }
-    .wallet-flap-2 { position: absolute; top: -26px; left: 10%; width: 80%; height: 30px; background: #cbd5e1; border-radius: 16px 16px 0 0; z-index: -2; }
+    .ticket-omzet {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-main), var(--navy-dark));
+      border-radius: 20px;
+      color: #ffffff;
+      box-shadow: 0 15px 35px rgba(25, 51, 84, 0.2);
+      margin: 20px 0 24px 0;
+      overflow: hidden;
+    }
+    .ticket-top {
+      padding: 24px 24px 20px 24px;
+    }
+    .ticket-bottom {
+      padding: 20px 24px 24px 24px;
+      position: relative;
+      border-top: 2px dashed rgba(255, 255, 255, 0.4);
+    }
+    .ticket-bottom::before, .ticket-bottom::after {
+      content: '';
+      position: absolute;
+      top: -12px;
+      width: 24px;
+      height: 24px;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+    .ticket-bottom::before { left: -12px; }
+    .ticket-bottom::after { right: -12px; }
 
     .status-box { padding: 14px; border-radius: 16px; font-size: 12px; font-weight: 700; text-align: center; margin-top: 8px; display: none; background: #e0f2fe; color: #0369a1; }
     .swal-soft { border-radius: 28px !important; padding: 1.5em !important; box-shadow: 0 15px 50px rgba(25, 51, 84, 0.15) !important; }
@@ -449,14 +474,22 @@
         <div id="contentLaporan" style="display:none;">
           <div class="grid-2-col">
             <div style="padding-top: 15px;">
-              <div class="wallet-container">
-                <div class="wallet-flap-2"></div><div class="wallet-flap-1"></div>
-                <div style="position:relative; z-index:5;">
+              <!-- TAMPILAN KARCIS OMZET -->
+              <div class="ticket-omzet">
+                <div class="ticket-top">
                   <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:rgba(255,255,255,0.7); letter-spacing:1px;">Total Omzet Penjualan</div>
                   <div id="statOmzet" style="font-size:32px; font-weight:800; margin-top:4px;">Rp0</div>
-                  <div style="display:flex; justify-content:space-between; margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.1); font-size:12px; font-weight:600;">
-                    <div>BCA: <span id="statOmzetBca" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
-                    <div>BSI: <span id="statOmzetBsi" style="color:var(--teal-main); font-weight:800;">Rp0</span></div>
+                </div>
+                <div class="ticket-bottom">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <div style="font-size:11px; color:rgba(255,255,255,0.7); margin-bottom:2px;">Masuk via BCA</div>
+                      <div id="statOmzetBca" style="color:var(--teal-main); font-weight:800; font-size:15px;">Rp0</div>
+                    </div>
+                    <div style="text-align:right;">
+                      <div style="font-size:11px; color:rgba(255,255,255,0.7); margin-bottom:2px;">Masuk via BSI</div>
+                      <div id="statOmzetBsi" style="color:var(--teal-main); font-weight:800; font-size:15px;">Rp0</div>
+                    </div>
                   </div>
                 </div>
               </div>
