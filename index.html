@@ -1203,7 +1203,8 @@
     }
 
     // ==========================================
-    // SCANNER LEBIH SENSITIF & AUTO-FOCUS
+    // PERBAIKAN: KEMBALI KE HYBRID SCANNER (KOMPATIBEL SEMUA HP) 
+    // & AREA SCAN FULL SCREEN
     // ==========================================
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
@@ -1214,34 +1215,43 @@
       document.getElementById('btnTutupKamera').style.display = 'block';
 
       if (!html5QrcodeScanner) { 
-        html5QrcodeScanner = new Html5Qrcode("reader"); 
+        // Menggunakan kelas 'Html5QrcodeScanner' (Hybrid) yang paling aman untuk semua merk HP
+        html5QrcodeScanner = new Html5QrcodeScanner(
+          "reader", 
+          { 
+            fps: 15,
+            // qrbox sengaja tidak ditulis agar area scan menjadi FULL LAYAR
+            rememberLastUsedCamera: true
+          }, 
+          false // verbose
+        ); 
       }
 
-      const cameraConfig = { facingMode: "environment" };
-      const scanConfig = { fps: 15 }; 
-
-      html5QrcodeScanner.start(
-        cameraConfig, 
-        scanConfig,
+      // Gunakan .render() bawaan Hybrid Scanner
+      html5QrcodeScanner.render(
         (decodedText, decodedResult) => {
           tutupLiveScanner(); 
           konfirmasiKlaim(decodedText, petugas); 
         },
-        (errorMessage) => { }
-      ).catch((err) => { 
-        showToast('error', 'Kamera gagal diakses atau diblokir perangkat.'); 
-        tutupLiveScanner(); 
-      });
+        (errorMessage) => { 
+          // Abaikan error saat sistem sedang mencari posisi barcode
+        }
+      );
     }
 
     function tutupLiveScanner() {
-      if (html5QrcodeScanner && html5QrcodeScanner.isScanning) {
-        html5QrcodeScanner.stop().then(() => {
-          html5QrcodeScanner.clear(); 
+      if (html5QrcodeScanner) {
+        html5QrcodeScanner.clear().then(() => {
           document.getElementById('reader').style.display = 'none'; 
           document.getElementById('btnTutupKamera').style.display = 'none'; 
           document.getElementById('btnBukaKamera').style.display = 'block';
-        }).catch(err => console.error(err));
+        }).catch(err => {
+          console.error(err);
+          // Fallback jika terjadi error saat menutup
+          document.getElementById('reader').style.display = 'none'; 
+          document.getElementById('btnTutupKamera').style.display = 'none'; 
+          document.getElementById('btnBukaKamera').style.display = 'block';
+        });
       } else {
         document.getElementById('reader').style.display = 'none'; 
         document.getElementById('btnTutupKamera').style.display = 'none'; 
