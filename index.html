@@ -198,6 +198,39 @@
       .nav-icon { display: none; } 
       .journey-container, .stat-grid { height: 100%; display: flex; flex-direction: column; justify-content: center; }
       .stat-grid { margin-bottom: 0; }
+      /* Styling Khusus Tampilan Desktop / Tablet */
+@media (min-width: 768px) {
+  #sliderScreen {
+    background-position: center;
+    background-size: cover;
+  }
+
+  .slide-content {
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    padding-top: 40px !important;
+  }
+
+  .slider-title {
+    font-size: 32px !important;
+    text-align: center !important;
+  }
+
+  .slider-desc-box {
+    max-width: 480px !important;
+    margin: 20px auto 0 auto !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+    backdrop-filter: blur(10px);
+  }
+
+  .slider-footer {
+    max-width: 480px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
     }
   </style>
 
