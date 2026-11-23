@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Wisata Amal Zone</title>
   <link rel="icon" type="image/png" href="logo-awandra.png">
-<link rel="apple-touch-icon" href="logo-awandra.png">
+  <link rel="apple-touch-icon" href="logo-awandra.png">
   <style>
     :root {
-  /* Diubah menjadi Hijau Gelap Premium (Base Card) */
-  --navy-main: #1e3323; 
-  /* Diubah menjadi Hijau Sangat Gelap (Background Utama) */
-  --navy-dark: #0d1b11; 
-  /* Diubah menjadi Hijau Lime / Neon (Tombol & Aksen) */
-  --teal-main: #8ce134; 
-  /* Warna teks sekunder agar menyatu dengan tema hijau */
-  --text-muted: #849c89; 
-}
+      /* Diubah menjadi Hijau Gelap Premium (Base Card) */
+      --navy-main: #1e3323; 
+      /* Diubah menjadi Hijau Sangat Gelap (Background Utama) */
+      --navy-dark: #0d1b11; 
+      /* Diubah menjadi Hijau Lime / Neon (Tombol & Aksen) */
+      --teal-main: #8ce134; 
+      /* Warna teks sekunder agar menyatu dengan tema hijau */
+      --text-muted: #849c89; 
+    }
     
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background: var(--bg-light); color: var(--text-main); min-height: 100vh; padding-bottom: 90px; overflow-x: hidden; } 
@@ -199,38 +199,13 @@
       .journey-container, .stat-grid { height: 100%; display: flex; flex-direction: column; justify-content: center; }
       .stat-grid { margin-bottom: 0; }
       /* Styling Khusus Tampilan Desktop / Tablet */
-@media (min-width: 768px) {
-  #sliderScreen {
-    background-position: center;
-    background-size: cover;
-  }
-
-  .slide-content {
-    max-width: 480px !important;
-    margin: 0 auto !important;
-    padding-top: 40px !important;
-  }
-
-  .slider-title {
-    font-size: 32px !important;
-    text-align: center !important;
-  }
-
-  .slider-desc-box {
-    max-width: 480px !important;
-    margin: 20px auto 0 auto !important;
-    font-size: 14px !important;
-    line-height: 1.6 !important;
-    text-align: center !important;
-    backdrop-filter: blur(10px);
-  }
-
-  .slider-footer {
-    max-width: 480px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-  }
-}
+      @media (min-width: 768px) {
+        #sliderScreen { background-position: center; background-size: cover; }
+        .slide-content { max-width: 480px !important; margin: 0 auto !important; padding-top: 40px !important; }
+        .slider-title { font-size: 32px !important; text-align: center !important; }
+        .slider-desc-box { max-width: 480px !important; margin: 20px auto 0 auto !important; font-size: 14px !important; line-height: 1.6 !important; text-align: center !important; backdrop-filter: blur(10px); }
+        .slider-footer { max-width: 480px !important; left: 50% !important; transform: translateX(-50%) !important; }
+      }
     }
   </style>
 
@@ -238,7 +213,6 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-  <!-- KUNCI PERBAIKAN: LIBRARY KAMERA VERSI STABIL (Bukan Unpkg Latest) -->
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 </head>
 <body>
@@ -409,8 +383,24 @@
               <div class="input-group"><label>Nomor HP Pelanggan</label><input type="number" id="noHpCust" class="input-field" placeholder="Contoh: 08123456789"></div>
             </div>
             <div>
-              <div class="input-group"><label>Channel Penjualan</label><select id="channelBeli" class="input-field"></select></div>
+              <!-- PEROMBAKAN UI AUTOCOMPLETE SALES -->
+              <div class="input-group" style="position: relative; z-index: 10;">
+                <label>Referral / Nama Sales</label>
+                <input type="text" id="inputPencarianSales" class="input-field" placeholder="Ketik nama / pilih Direct..." onkeyup="filterListSales()" onclick="filterListSales()" autocomplete="off">
+                
+                <!-- Wadah Dropdown Pintar -->
+                <div id="wadahDropdownSales" style="display:none; position:absolute; width:100%; max-height:200px; overflow-y:auto; background:#ffffff; border:2px solid var(--teal-main); border-radius:16px; top:75px; box-shadow: 0 10px 25px rgba(25, 51, 84, 0.15);"></div>
+                
+                <!-- Penyimpan Data Rahasia -->
+                <input type="hidden" id="kodeSalesTerpilih" value="">
+              </div>
+
               <div class="input-group" style="margin-bottom: 0;">
+                <label>Channel Penjualan (Otomatis)</label>
+                <select id="channelBeli" class="input-field" style="background:#e2e8f0; pointer-events:none;"></select>
+              </div>
+
+              <div class="input-group" style="margin-top: 16px; margin-bottom: 0;">
                 <label>Bank Tujuan Transfer</label>
                 <select id="bankTujuan" class="input-field" onchange="tampilInfoRekening()">
                   <option value="">Pilih Bank Transfer</option>
@@ -663,6 +653,69 @@
 
     let roleAktif = ""; let allowedChannels = []; let compressedImageBase64 = "";
     let allPasporAktifData = []; let isAiValid = false; let html5QrcodeScanner = null;
+    let databaseKaryawan = []; // Menyimpan data dari server
+
+    // ==========================================
+    // MESIN AUTOCOMPLETE NAMA SALES
+    // ==========================================
+    function tarikDataKaryawan() {
+      document.getElementById('inputPencarianSales').placeholder = "Memuat data karyawan...";
+      callAPI('getKaryawanAktif', {}, function(res) {
+        if(res.success) {
+          databaseKaryawan = res.data;
+          databaseKaryawan.unshift({ label: "Direct / Marketing", unit: "Direct" });
+          document.getElementById('inputPencarianSales').placeholder = "Ketik nama / pilih Direct...";
+        }
+      });
+    }
+
+    function filterListSales() {
+      var input = document.getElementById('inputPencarianSales').value.toLowerCase();
+      var wadah = document.getElementById('wadahDropdownSales');
+      wadah.innerHTML = '';
+      
+      if(databaseKaryawan.length === 0) {
+        wadah.innerHTML = '<div style="padding:12px; font-size:12px; color:var(--text-muted); text-align:center;">Data belum siap...</div>';
+        wadah.style.display = 'block'; return;
+      }
+
+      var filtered = databaseKaryawan.filter(function(k) { return k.label.toLowerCase().includes(input); });
+
+      for(var i=0; i < Math.min(filtered.length, 50); i++) {
+        var k = filtered[i];
+        var div = document.createElement('div');
+        div.style.padding = '12px 16px'; div.style.borderBottom = '1px solid #e2e8f0'; div.style.fontSize = '13px'; div.style.fontWeight = '700'; div.style.color = 'var(--navy-main)'; div.style.cursor = 'pointer';
+        div.innerHTML = k.label + ' <br><span style="font-size:10px; color:var(--text-muted); font-weight:600;">Unit: ' + k.unit + '</span>';
+        
+        div.onclick = (function(karyawan) {
+          return function() { pilihSales(karyawan); };
+        })(k);
+        
+        wadah.appendChild(div);
+      }
+      wadah.style.display = 'block';
+    }
+
+    function pilihSales(karyawan) {
+      document.getElementById('inputPencarianSales').value = karyawan.label;
+      document.getElementById('kodeSalesTerpilih').value = karyawan.label;
+      document.getElementById('wadahDropdownSales').style.display = 'none';
+      
+      var selectChannel = document.getElementById('channelBeli');
+      if (karyawan.label === "Direct / Marketing") {
+        selectChannel.style.pointerEvents = 'auto'; selectChannel.style.background = '#f8fafc'; selectChannel.value = '';
+      } else {
+        selectChannel.style.pointerEvents = 'none'; selectChannel.style.background = '#e2e8f0';
+        // Pengecualian Amal Zone -> Canvassing
+        if (karyawan.unit.toLowerCase().includes("amal zone")) { selectChannel.value = "Canvassing"; } 
+        else { selectChannel.value = karyawan.unit; }
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      if(e.target.id !== 'inputPencarianSales') document.getElementById('wadahDropdownSales').style.display = 'none';
+    });
+
 
     function cekPin() {
       var pin = pinBuffer;
@@ -712,7 +765,12 @@
       }
       
       document.getElementById('teksSapaan').innerText = "Akses: " + teksRole;
-      if(roleAktif === "kasir" || roleAktif === "manager") setupDropdownChannel(); 
+      
+      if(roleAktif === "kasir" || roleAktif === "manager") {
+        setupDropdownChannel(); 
+        tarikDataKaryawan(); // Sedot data karyawan saat login
+      }
+      
       showMenu(menuAwal);
     }
 
@@ -899,18 +957,29 @@
         }; img.src = e.target.result;
       }; reader.readAsDataURL(file);
     }
+    
     function prosesAktivasi() {
-      var id = document.getElementById('inputPaspor').value; var nama = document.getElementById('namaCust').value; var hp = document.getElementById('noHpCust').value; var channel = document.getElementById('channelBeli').value; var bank = document.getElementById('bankTujuan').value;
-      if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Lengkapi seluruh data transaksi.'); if(!compressedImageBase64) return showToast('warning', 'Lampirkan foto bukti transfer.');
-      if (isAiValid) { eksekusiAktivasi(id, nama, hp, channel, bank); } else {
+      var id = document.getElementById('inputPaspor').value; 
+      var nama = document.getElementById('namaCust').value; 
+      var hp = document.getElementById('noHpCust').value; 
+      var channel = document.getElementById('channelBeli').value; 
+      var bank = document.getElementById('bankTujuan').value;
+      var sales = document.getElementById('kodeSalesTerpilih').value; // Ambil kode sales
+
+      if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Lengkapi seluruh data transaksi.'); 
+      if(!sales) return showToast('warning', 'Pilih Nama Sales / Referral terlebih dahulu.');
+      if(!compressedImageBase64) return showToast('warning', 'Lampirkan foto bukti transfer.');
+      
+      if (isAiValid) { eksekusiAktivasi(id, nama, hp, channel, bank, sales); } else {
         Swal.fire({
           title: 'Otorisasi Manual', text: 'Sistem meragukan bukti transfer. Masukkan PIN Otorisasi untuk memaksa aktivasi:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Lanjutkan', cancelButtonText: 'Batal', confirmButtonColor: '#58b4ba', customClass: { popup: 'swal-soft' }, heightAuto: false
-        }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank); } else { showToast('error', 'PIN Tidak Valid. Ditolak.'); } } });
+        }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank, sales); } else { showToast('error', 'PIN Tidak Valid. Ditolak.'); } } });
       }
     }
-    function eksekusiAktivasi(id, nama, hp, channel, bank) {
+
+    function eksekusiAktivasi(id, nama, hp, channel, bank, sales) {
       showStatus('msgKasir', 'Menghubungkan ke server...');
-      callAPI('activatePassport', { id: id, nama: nama, hp: hp, channel: channel, bank: bank, compressedImageBase64: compressedImageBase64 }, function(res) {
+      callAPI('activatePassport', { id: id, nama: nama, hp: hp, channel: channel, bank: bank, sales: sales, compressedImageBase64: compressedImageBase64 }, function(res) {
           hideStatus('msgKasir');
           if(res.success) {
             document.getElementById('formKasirArea').style.display = 'none'; document.getElementById('notaArea').style.display = 'block';
@@ -919,14 +988,22 @@
           } else { popNotification('Aktivasi Ditolak', res.message, 'error'); }
       });
     }
+
     function unduhNotaPDF() {
       var element = document.getElementById('notaKertas'); var idPaspor = document.getElementById('notaId').innerText;
       var opt = { margin: 0.3, filename: 'Nota_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
       html2pdf().set(opt).from(element).save();
     }
+    
     function resetKasir() {
       document.getElementById('inputPaspor').value = ''; document.getElementById('namaCust').value = ''; document.getElementById('noHpCust').value = ''; 
-      if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; } document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none'; document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; compressedImageBase64 = ""; isAiValid = false; document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir');
+      if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; } document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none'; document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; 
+      
+      // Reset Input Autocomplete
+      document.getElementById('inputPencarianSales').value = ''; document.getElementById('kodeSalesTerpilih').value = ''; 
+      document.getElementById('channelBeli').style.pointerEvents = 'none'; document.getElementById('channelBeli').style.background = '#e2e8f0';
+
+      compressedImageBase64 = ""; isAiValid = false; document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir');
       const btnAktivasi = document.getElementById('btnAktifkanPaspor');
       if (btnAktivasi) { btnAktivasi.disabled = false; btnAktivasi.innerText = "Aktifkan Paspor"; btnAktivasi.style.background = "var(--teal-main)"; btnAktivasi.style.cursor = "pointer"; }
     }
