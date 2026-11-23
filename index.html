@@ -597,9 +597,18 @@
       </table>
     </div>
     <div style="margin-bottom:15px;">
-      <h3 style="font-size:12px; margin-bottom:6px; color:#193354;">B. RINCIAN TRANSFER MASUK</h3>
-      <table style="font-size:10px;">
-        <thead><tr style="background:#f0f4f8; color:#193354;"><th style="text-align:center; width:22%;">Waktu Pembelian</th><th style="text-align:center; width:12%;">ID Paspor</th><th style="text-align:left; width:24%;">Nama Pelanggan</th><th style="text-align:center; width:16%;">Channel</th><th style="text-align:center; width:10%;">Bank</th><th style="text-align:right; width:16%;">Nominal</th></tr></thead>
+      <h3 style="font-size:12px; margin-bottom:6px; color:#193354;">B. DATA PENJUALAN & KARYAWAN</h3>
+      <table style="font-size:10px; width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background:#f0f4f8; color:#193354; border-bottom: 1px solid #cbd5e1;">
+            <th style="text-align:center; padding: 6px 4px; width:18%;">Waktu</th>
+            <th style="text-align:center; padding: 6px 4px; width:14%;">ID Paspor</th>
+            <th style="text-align:left; padding: 6px 4px; width:24%;">Nama Pelanggan</th>
+            <th style="text-align:left; padding: 6px 4px; width:20%;">Nama Karyawan</th>
+            <th style="text-align:center; padding: 6px 4px; width:14%;">Channel</th>
+            <th style="text-align:center; padding: 6px 4px; width:10%;">Bank</th>
+          </tr>
+        </thead>
         <tbody id="printTbodyPenjualan"></tbody>
       </table>
     </div>
@@ -861,9 +870,23 @@
           document.getElementById('printOmzet').innerText = data.totalOmzetFormatted; document.getElementById('printOmzetBca').innerText = data.bcaOmzetFormatted + " (" + data.bcaCount + ")"; document.getElementById('printOmzetBsi').innerText = data.bsiOmzetFormatted + " (" + data.bsiCount + ")"; document.getElementById('printKlaim').innerText = data.totalKlaimFormatted;
           var dateStr = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); document.getElementById('printTanggal').innerText = "Tanggal Cetak: " + dateStr;
           var filterText = selectEl.options[selectEl.selectedIndex] ? selectEl.options[selectEl.selectedIndex].text : "Semua Bulan"; document.getElementById('printPeriodeBulan').innerText = "Periode Laporan: " + filterText;
+          
           var htmlPenjualan = '';
-          for(var i=0; i<data.listPenjualan.length; i++) { var item = data.listPenjualan[i]; htmlPenjualan += '<tr><td style="text-align:center;">' + (item.waktuPembelian || "-") + '</td><td style="text-align:center;">' + item.id + '</td><td>' + item.nama + '</td><td style="text-align:center;">' + item.channel + '</td><td style="text-align:center;">' + item.bank + '</td><td style="text-align:right;">Rp 377.000</td></tr>'; }
-          if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center;">Kosong.</td></tr>'; document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
+          for(var i=0; i<data.listPenjualan.length; i++) { 
+            var item = data.listPenjualan[i]; 
+            var namaKaryawan = item.sales ? item.sales : "-"; // Mengambil data sales dari server
+            
+            htmlPenjualan += '<tr style="border-bottom: 1px solid #e2e8f0;">' +
+              '<td style="text-align:center; padding: 4px;">' + (item.waktuPembelian || "-") + '</td>' +
+              '<td style="text-align:center; padding: 4px;"><strong style="color:#193354;">' + item.id + '</strong></td>' +
+              '<td style="padding: 4px;">' + item.nama + '</td>' +
+              '<td style="padding: 4px; font-weight:bold; color:#58b4ba;">' + namaKaryawan + '</td>' +
+              '<td style="text-align:center; padding: 4px;">' + item.channel + '</td>' +
+              '<td style="text-align:center; padding: 4px;">' + item.bank + '</td>' +
+              '</tr>'; 
+          }
+          if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center; padding: 10px;">Belum ada penjualan.</td></tr>'; 
+          document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
           
           var groupedKlaim = {};
           for(var j=0; j<data.listDetailKlaim.length; j++) { var k = data.listDetailKlaim[j]; if(!groupedKlaim[k.unit]) groupedKlaim[k.unit] = []; groupedKlaim[k.unit].push(k); }
