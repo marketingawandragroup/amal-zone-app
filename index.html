@@ -8,217 +8,246 @@
   <link rel="apple-touch-icon" href="logo-awandra.png">
   <style>
     :root {
-      /* Tema Dark Mode Premium ala Aplikasi Flight */
-      --navy-main: #142742; /* Latar Belakang Utama Card */
-      --navy-dark: #0f1c2d; /* Latar Belakang Dasar Body */
-      --navy-light: #1b3558; /* Highlight / Hover Card */
-      --teal-main: #a3e4f3; /* Aksen Cyan/Light Blue */
-      --teal-dark: #58b4ba; /* Hover/Darker Cyan */
-      --text-main: #ffffff; /* Teks Utama (Putih) */
-      --text-muted: #8ca3bc; /* Teks Sekunder (Abu/Biru Pudar) */
-      --text-inverse: #0f1c2d; /* Teks di dalam tombol Cyan */
-      --border-color: #24416a; /* Border Tipis antar elemen */
-      --bg-glass: rgba(30, 58, 95, 0.6); /* Efek Glassmorphism */
+      /* PENGATURAN TEMA GLASSMORPHISM */
+      --glass-bg: rgba(20, 30, 20, 0.35); /* Warna dasar kaca (agak gelap) */
+      --glass-border: rgba(255, 255, 255, 0.25); /* Garis tepi kaca */
+      --glass-blur: blur(16px); /* Ketebalan efek buram */
+      
+      /* PENGATURAN WARNA AKSEN (HIJAU ALAM) */
+      --green-light: #4ade80; /* Hijau terang gradient start */
+      --green-dark: #16a34a; /* Hijau tua gradient end */
+      --green-glow: rgba(74, 222, 128, 0.4);
+      
+      /* PENGATURAN TEKS */
+      --text-main: #ffffff; 
+      --text-muted: rgba(255, 255, 255, 0.75); 
       
       --card-radius: 28px;
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background: var(--navy-dark); color: var(--text-main); min-height: 100vh; padding-bottom: 90px; overflow-x: hidden; } 
+    
+    /* BACKGROUND UTAMA FULL SCREEN */
+    body { 
+      /* Ganti URL ini jika ingin mengubah gambar background utama */
+      background: url('slide1.jpg') center/cover fixed no-repeat; 
+      color: var(--text-main); 
+      min-height: 100vh; 
+      padding-bottom: 90px; 
+      overflow-x: hidden; 
+    }
+    
+    /* Overlay penggelap agar tulisan selalu terbaca meskipun background terang */
+    body::before {
+      content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.55); z-index: -1;
+    }
 
-    /* ONBOARDING SLIDER SCREEN */
+    /* =========================================
+       ONBOARDING SLIDER SCREEN
+       ========================================= */
     #sliderScreen {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 2000; background: var(--navy-dark); display: flex; flex-direction: column;
+      z-index: 2000; background: #000000; display: flex; flex-direction: column;
       justify-content: space-between; overflow: hidden;
     }
     .slide-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.6s ease-in-out; opacity: 0; pointer-events: none; }
     .slide-wrapper.active { opacity: 1; pointer-events: auto; }
     .slide-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 0; }
-    .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(15,28,45,0.7) 0%, rgba(15,28,45,0.4) 40%, rgba(15,28,45,0.95) 100%); z-index: 1; }
+    .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.85) 100%); z-index: 1; }
     .slide-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding: 40px 24px 220px 24px; text-align: left; color: #ffffff; }
     .slider-header-logo { text-align: center; margin-top: 10px; margin-bottom: 24px; }
     .slider-header-logo img { height: 100px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5)); }
     .slider-body-text { margin-top: 10px; }
-    .slider-title { font-size: 26px; font-weight: 800; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.8); margin-bottom: 16px; color: var(--text-main); }
-    .slider-desc-box { background: var(--bg-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border-color); padding: 16px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; line-height: 1.5; color: var(--text-muted); }
-    .slider-footer { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 10; padding: 0 24px 30px 24px; background: linear-gradient(0deg, rgba(15,28,45,1) 0%, rgba(15,28,45,0) 100%); }
+    .slider-title { font-size: 26px; font-weight: 800; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.8); margin-bottom: 16px; }
+    .slider-desc-box { background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); padding: 16px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; line-height: 1.5; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+    .slider-footer { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 10; padding: 0 24px 30px 24px; background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%); }
     .dots-container { display: flex; gap: 8px; align-items: center; margin-bottom: 20px; padding-left: 4px; }
-    .dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--text-muted); background: transparent; cursor: pointer; transition: all 0.3s; }
-    .dot.active { background: var(--teal-main); border-color: var(--teal-main); box-shadow: 0 0 10px rgba(163,228,243,0.6); }
-    .btn-get-started { width: 100%; padding: 18px; border-radius: 50px; font-size: 16px; font-weight: 800; border: none; cursor: pointer; text-align: center; color: var(--text-inverse); background: var(--teal-main); box-shadow: 0 10px 25px rgba(163,228,243,0.3); transition: all 0.2s ease; letter-spacing: 0.5px; }
+    .dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); background: transparent; cursor: pointer; transition: all 0.3s; }
+    .dot.active { background: var(--green-light); border-color: var(--green-light); box-shadow: 0 0 12px var(--green-glow); }
+    .btn-get-started { width: 100%; padding: 18px; border-radius: 50px; font-size: 16px; font-weight: 800; border: none; cursor: pointer; text-align: center; color: #064e3b; background: linear-gradient(135deg, var(--green-light), var(--green-dark)); box-shadow: 0 10px 25px var(--green-glow); transition: all 0.2s ease; letter-spacing: 0.5px; }
     .btn-get-started:active { transform: scale(0.97); opacity: 0.9; }
-    .slider-copyright { text-align: center; color: var(--text-muted); font-size: 11px; font-weight: 700; margin-top: 16px; letter-spacing: 0.5px; }
+    .slider-copyright { text-align: center; color: rgba(255, 255, 255, 0.6); font-size: 11px; font-weight: 700; margin-top: 16px; letter-spacing: 0.5px; }
 
-    /* PIN KEYPAD SCREEN */
-    #loginCard { width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; background: var(--navy-dark); position: relative; overflow: hidden; }
-    .login-header-bg { position: absolute; top: 0; left: 0; width: 100%; height: 260px; background: linear-gradient(180deg, var(--navy-light) 0%, var(--navy-dark) 100%); border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; z-index: 0; opacity: 0.5; }
+    /* =========================================
+       PIN KEYPAD SCREEN
+       ========================================= */
+    #loginCard { width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
     .login-header { position: relative; z-index: 1; padding: 35px 24px 20px 24px; color: #ffffff; display: flex; align-items: center; justify-content: space-between; }
     .login-logo-group { display: flex; align-items: center; gap: 12px; }
-    .login-logo-group img { height: 40px; object-fit: contain; }
-    .login-header-text h2 { font-size: 13px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: var(--teal-main); }
-    .login-header-text p { font-size: 10px; color: var(--text-muted); font-weight: 600; }
-    .login-center-area { position: relative; z-index: 1; width: 100%; max-width: 420px; margin: 0 auto; padding: 10px 20px 20px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-    .passport-brand-logo { text-align: center; margin-bottom: 20px; }
-    .passport-brand-logo img { height: 110px; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
-    .pin-card { background: var(--navy-main); border-radius: 32px; padding: 28px 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0, 0.4); border: 1px solid var(--border-color); }
-    .pin-card-title { font-size: 18px; font-weight: 800; color: var(--text-main); letter-spacing: 0.5px; margin-bottom: 4px; }
-    .pin-card-sub { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 24px; }
+    .login-logo-group img { height: 45px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+    .login-header-text h2 { font-size: 15px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
+    .login-header-text p { font-size: 10px; color: rgba(255,255,255,0.8); font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.6);}
+    .login-center-area { position: relative; z-index: 1; width: 100%; max-width: 400px; margin: 0 auto; padding: 30px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    
+    .pin-card { background: transparent; padding: 20px 10px; text-align: center; margin-bottom: 20px; }
+    .pin-card-title { font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px; margin-bottom: 6px; text-shadow: 0 2px 6px rgba(0,0,0,0.5); }
+    .pin-card-sub { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 28px; }
     .pin-dots-wrapper { display: flex; justify-content: center; gap: 18px; }
-    .pin-dot-circle { width: 28px; height: 28px; border-radius: 50%; background: var(--text-muted); transition: all 0.2s ease; opacity: 0.3; transform: scale(0.85); }
-    .pin-dot-circle.active { opacity: 1; transform: scale(1); background: var(--teal-main); box-shadow: 0 4px 12px rgba(163,228,243, 0.4); }
-    .keypad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 320px; margin: 28px auto 10px auto; }
-    .keypad-btn { background: var(--navy-light); border: 1px solid var(--border-color); font-size: 28px; font-weight: 800; color: var(--text-main); height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s ease; user-select: none; box-shadow: 0 4px 12px rgba(0,0,0, 0.2); }
-    .keypad-btn:active { background: var(--teal-main); color: var(--text-inverse); border-color: var(--teal-main); transform: scale(0.92); }
-    .keypad-btn.btn-action { font-size: 20px; color: var(--teal-main); background: rgba(163,228,243,0.1); }
+    .pin-dot-circle { width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); background: transparent; transition: all 0.2s ease; transform: scale(0.85); }
+    .pin-dot-circle.active { background: #ffffff; border-color: #ffffff; transform: scale(1); box-shadow: 0 0 15px rgba(255,255,255, 0.8); }
+    
+    .keypad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; max-width: 280px; margin: 0 auto; }
+    .keypad-btn { 
+      background: rgba(255,255,255,0.08); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); 
+      border: 1px solid var(--glass-border); font-size: 26px; font-weight: 800; color: #ffffff; 
+      height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+      cursor: pointer; transition: all 0.15s ease; user-select: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+    }
+    .keypad-btn:active { background: rgba(255,255,255,0.25); transform: scale(0.92); }
+    .keypad-btn.btn-action { font-size: 20px; color: var(--green-light); background: transparent; border: none; box-shadow: none; }
 
-    /* DASHBOARD */
-    .top-bg { position: absolute; top: 0; left: 0; width: 100%; height: 280px; background: linear-gradient(180deg, var(--navy-light) 0%, var(--navy-dark) 100%); z-index: -1; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; opacity: 0.3; }
+
+    /* =========================================
+       DASHBOARD OPERASIONAL (GLASSMORPHISM)
+       ========================================= */
     .app-header { padding: 30px 24px 0 24px; color: #ffffff; display: flex; align-items: center; justify-content: flex-start; gap: 12px; max-width: 500px; margin: 0 auto; }
-    .app-header img { height: 45px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
-    .app-header-text h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 2px; color: var(--teal-main); }
+    .app-header img { height: 45px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
+    .app-header-text h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.6);}
     .app-header-text p { font-size: 11px; color: var(--text-muted); font-weight: 600; }
     
-    .refresh-btn { background: var(--bg-glass); backdrop-filter: blur(5px); border: 1px solid var(--border-color); border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-main); transition: all 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-    .refresh-btn:active { transform: scale(0.9); }
+    /* Tombol Refresh Header */
+    .refresh-btn { background: rgba(255,255,255,0.1); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; transition: all 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .refresh-btn:active { transform: scale(0.9); background: rgba(255,255,255,0.25); }
 
     .card-container { width: 100%; padding: 0 16px; margin-top: 30px; display: flex; justify-content: center; }
-    .card { background: var(--navy-main); width: 100%; max-width: 420px; border-radius: var(--card-radius); padding: 28px 24px; box-shadow: 0 12px 35px rgba(0,0,0, 0.4); border: 1px solid var(--border-color); animation: fadeSlideUp 0.4s ease-out; }
-    .card-title { font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 20px; text-align: center; }
+    
+    /* WADAH KACA UTAMA */
+    .card { 
+      background: var(--glass-bg); 
+      backdrop-filter: var(--glass-blur); 
+      -webkit-backdrop-filter: var(--glass-blur); 
+      border: 1px solid var(--glass-border); 
+      width: 100%; max-width: 420px; border-radius: var(--card-radius); 
+      padding: 28px 24px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); 
+      animation: fadeSlideUp 0.4s ease-out; 
+    }
+    
+    .card-title { font-size: 18px; font-weight: 800; color: #ffffff; margin-bottom: 20px; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
     /* TOMBOL UMUM */
     .btn { width: 100%; padding: 16px; border-radius: 50px; font-size: 14px; font-weight: 800; border: none; cursor: pointer; text-align: center; margin-bottom: 12px; transition: all 0.2s ease; letter-spacing: 0.5px; }
     .btn:active { transform: scale(0.97); }
-    .btn-main { background: var(--teal-main); color: var(--text-inverse); box-shadow: 0 6px 16px rgba(163,228,243, 0.2); }
     
-    /* Tombol Menu (Menu Utama) */
-    .btn-menu { background: var(--bg-glass); color: var(--text-main); border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; backdrop-filter: blur(4px); }
-    .btn-menu:after { content: "→"; font-size: 18px; line-height: 0; color: var(--teal-main); font-weight: bold; }
-    .btn-menu:hover { background: var(--navy-light); border-color: var(--teal-main); }
+    /* TOMBOL HIJAU ALAM (ACTION UTAMA) */
+    .btn-main { background: linear-gradient(135deg, var(--green-light), var(--green-dark)); color: #022c22; box-shadow: 0 6px 20px var(--green-glow); }
     
-    /* Tombol Danger */
-    .btn-danger { background: rgba(225, 29, 72, 0.15); color: #fb7185; border: 1px solid rgba(225, 29, 72, 0.3); }
-    .btn-danger:hover { background: rgba(225, 29, 72, 0.3); }
+    /* TOMBOL MENU KACA */
+    .btn-menu { background: rgba(255,255,255,0.08); color: #ffffff; border: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; transition: background 0.3s; }
+    .btn-menu:after { content: "›"; font-size: 22px; line-height: 0; color: var(--green-light); }
+    .btn-menu:hover { background: rgba(255,255,255,0.15); }
     
-    /* INPUT FORM */
+    /* TOMBOL MERAH KACA */
+    .btn-danger { background: rgba(225, 29, 72, 0.25); color: #fda4af; border: 1px solid rgba(225, 29, 72, 0.4); }
+    .btn-danger:hover { background: rgba(225, 29, 72, 0.4); }
+    
+    /* FORM INPUT KACA */
     .input-group { margin-bottom: 16px; text-align: left; }
-    .input-group label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.5px;}
-    .input-field { width: 100%; padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); font-size: 14px; background: var(--navy-dark); font-weight: 600; transition: all 0.3s; color: var(--text-main); }
-    .input-field::placeholder { color: rgba(140, 163, 188, 0.5); }
-    .input-field:focus { outline: none; border-color: var(--teal-main); box-shadow: 0 0 0 2px rgba(163,228,243,0.2); background: var(--navy-main); }
-    select.input-field { appearance: auto; padding-left: 16px; color: var(--text-main); }
-    select.input-field option { background: var(--navy-main); color: var(--text-main); }
+    .input-group label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;}
+    .input-field { width: 100%; padding: 16px; border-radius: 16px; border: 1px solid var(--glass-border); font-size: 14px; background: rgba(0,0,0,0.3); font-weight: 600; transition: all 0.3s; color: #ffffff; }
+    .input-field::placeholder { color: rgba(255,255,255,0.4); }
+    .input-field:focus { outline: none; border-color: var(--green-light); background: rgba(0,0,0,0.5); box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2); }
+    select.input-field { appearance: auto; padding-left: 16px;}
+    select.input-field option { background: #064e3b; color: #ffffff; }
 
-    /* TAMPILAN PASPOR (PENCARIAN) */
-    .passport-card-3d { width: 100%; height: 180px; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0, 0.5); margin-bottom: 24px; background: var(--navy-dark); border: 1px solid var(--border-color); animation: passportSlideOut 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .passport-card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.8; }
-    .passport-card-content { position: relative; z-index: 1; padding: 20px; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(0deg, rgba(15,28,45,0.9) 0%, rgba(15,28,45,0) 70%); color: #ffffff; }
-    .passport-owner-name { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-    .passport-id-code { font-size: 12px; font-family: monospace; letter-spacing: 2px; color: var(--teal-main); margin-top: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);}
+    /* ELEMEN VISUAL LAINNYA DI DALAM KACA */
+    .passport-card-3d { width: 100%; height: 180px; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); margin-bottom: 24px; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); animation: passportSlideOut 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .passport-card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.7;}
+    .passport-card-content { position: relative; z-index: 1; padding: 20px; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 60%); color: #ffffff; }
+    .passport-owner-name { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 6px rgba(0,0,0,0.8); }
+    .passport-id-code { font-size: 12px; font-family: monospace; letter-spacing: 2px; color: var(--green-light); margin-top: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);}
 
-    /* TIMELINE (RIWAYAT) */
     .journey-container { margin-top: 10px; padding-left: 8px; margin-bottom: 24px; }
     .journey-item { position: relative; padding-left: 32px; padding-bottom: 24px; }
     .journey-item:last-child { padding-bottom: 0; }
-    .journey-dot { position: absolute; left: 0; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--teal-main); border: 3px solid var(--navy-main); box-shadow: 0 0 0 2px var(--teal-main); z-index: 2; }
-    .journey-line { position: absolute; left: 6px; top: 16px; bottom: -2px; width: 2px; border-left: 2px dashed var(--border-color); z-index: 1; }
+    .journey-dot { position: absolute; left: 0; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--green-light); border: 3px solid rgba(0,0,0,0.5); box-shadow: 0 0 0 2px var(--green-light); z-index: 2; }
+    .journey-line { position: absolute; left: 6px; top: 16px; bottom: -2px; width: 2px; border-left: 2px dashed rgba(255,255,255,0.3); z-index: 1; }
     .journey-item:last-child .journey-line { display: none; }
-    .journey-title { font-size: 14px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
+    .journey-title { font-size: 14px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
     .journey-desc { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-    .journey-time { font-size: 11px; color: var(--teal-main); font-weight: 700; margin-top: 6px; display: inline-block; background: rgba(163,228,243,0.1); padding: 4px 8px; border-radius: 6px;}
+    .journey-time { font-size: 11px; color: var(--green-light); font-weight: 700; margin-top: 6px; display: inline-block; background: rgba(74, 222, 128, 0.15); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(74, 222, 128, 0.2);}
 
-    /* TICKET CHIP (SISA WAHANA) */
-    .ticket-chip { display: flex; justify-content: space-between; align-items: center; background: var(--navy-dark); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 16px; margin-bottom: 8px; }
-    .ticket-chip strong { color: var(--text-main); font-size: 13px; }
-    .ticket-chip span { color: var(--text-inverse); font-size: 11px; font-weight: 800; background: var(--teal-main); padding: 4px 10px; border-radius: 50px; }
+    .ticket-chip { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 12px 16px; border-radius: 12px; margin-bottom: 8px; }
+    .ticket-chip strong { color: #ffffff; font-size: 13px; }
+    .ticket-chip span { color: #022c22; font-size: 11px; font-weight: 800; background: var(--green-light); padding: 4px 10px; border-radius: 50px; }
 
-    .divider { height: 1px; background: var(--border-color); margin: 20px 0; }
+    .divider { height: 1px; background: rgba(255,255,255,0.15); margin: 20px 0; }
     
-    /* STAT BOX (LAPORAN) */
     .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-    .stat-box { background: var(--navy-dark); border-radius: 20px; padding: 16px; text-align: center; border: 1px solid var(--border-color); }
-    .stat-number { font-size: 22px; font-weight: 800; color: var(--text-main); }
+    .stat-box { background: rgba(0,0,0,0.25); border-radius: 20px; padding: 16px; text-align: center; border: 1px solid var(--glass-border); }
+    .stat-number { font-size: 22px; font-weight: 800; color: #ffffff; }
     .stat-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 6px;}
     
-    /* TABEL LAPORAN */
     .report-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; text-align: left; }
-    .report-table th { background: var(--navy-dark); padding: 12px; font-weight: 700; color: var(--text-muted); border-bottom: 2px solid var(--border-color); }
-    .report-table td { padding: 12px; border-bottom: 1px solid var(--border-color); color: var(--text-main); font-weight: 600; }
-    .badge-used { background: rgba(225, 29, 72, 0.15); color: #fb7185; padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: 700;}
-    .badge-ready { background: rgba(163,228,243,0.15); color: var(--teal-main); padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: 700;}
+    .report-table th { background: rgba(0,0,0,0.4); padding: 12px; font-weight: 700; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.3); }
+    .report-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); color: #ffffff; font-weight: 600; }
+    .badge-used { background: rgba(225, 29, 72, 0.3); color: #fda4af; padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: 700;}
+    .badge-ready { background: rgba(74, 222, 128, 0.25); color: var(--green-light); padding: 4px 8px; border-radius: 8px; font-size: 10px; font-weight: 700;}
 
-    /* RECEIPT BOX */
-    .receipt-box { border: 2px dashed var(--border-color); padding: 24px; border-radius: 24px; background: var(--navy-dark); margin-bottom: 16px; }
+    .receipt-box { border: 2px dashed rgba(255,255,255,0.4); padding: 24px; border-radius: 24px; background: rgba(0,0,0,0.25); margin-bottom: 16px; }
     .receipt-logo { text-align: center; margin-bottom: 16px; }
     .receipt-logo img { height: 65px; object-fit: contain; }
-    .receipt-header { text-align: center; font-weight: 800; color: var(--text-main); font-size: 16px; margin-bottom: 4px; }
+    .receipt-header { text-align: center; font-weight: 800; color: #ffffff; font-size: 16px; margin-bottom: 4px; }
     .receipt-sub { text-align: center; font-size: 11px; color: var(--text-muted); margin-bottom: 20px; }
-    .receipt-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 10px; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; color: var(--text-muted); font-weight: 600;}
-    .receipt-row strong { color: var(--text-main); font-weight: 800; }
-    .receipt-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; margin-top: 16px; color: var(--teal-main); }
+    .receipt-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 10px; color: var(--text-muted); font-weight: 600;}
+    .receipt-row strong { color: #ffffff; font-weight: 800; }
+    .receipt-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; margin-top: 16px; color: var(--green-light); }
 
-    /* TICKET OMZET */
     .ticket-omzet {
       position: relative;
-      background: var(--navy-light);
+      background: rgba(0,0,0,0.4);
       border-radius: 20px;
       color: #ffffff;
-      box-shadow: 0 10px 25px rgba(0,0,0, 0.3);
+      box-shadow: 0 15px 35px rgba(0,0,0, 0.3);
       margin: 20px 0 24px 0;
       overflow: hidden;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--glass-border);
     }
     .ticket-top { padding: 24px 24px 20px 24px; }
-    .ticket-bottom {
-      padding: 20px 24px 24px 24px;
-      position: relative;
-      border-top: 2px dashed var(--border-color);
-      background: var(--navy-dark);
-    }
+    .ticket-bottom { padding: 20px 24px 24px 24px; position: relative; border-top: 2px dashed rgba(255, 255, 255, 0.3); }
     .ticket-bottom::before, .ticket-bottom::after {
-      content: ''; position: absolute; top: -12px; width: 24px; height: 24px; background: var(--navy-main); border-radius: 50%; border: 1px solid var(--border-color);
+      content: ''; position: absolute; top: -12px; width: 24px; height: 24px; background: rgba(20,30,20, 0.8); border-radius: 50%;
     }
-    .ticket-bottom::before { left: -12px; border-right-color: transparent; border-top-color: transparent; border-bottom-color: transparent; transform: rotate(45deg);}
-    .ticket-bottom::after { right: -12px; border-left-color: transparent; border-top-color: transparent; border-bottom-color: transparent; transform: rotate(-45deg);}
+    .ticket-bottom::before { left: -12px; }
+    .ticket-bottom::after { right: -12px; }
 
-    .status-box { padding: 14px; border-radius: 16px; font-size: 12px; font-weight: 700; text-align: center; margin-top: 8px; display: none; background: rgba(163,228,243,0.1); color: var(--teal-main); border: 1px solid rgba(163,228,243,0.3); }
+    .status-box { padding: 14px; border-radius: 16px; font-size: 12px; font-weight: 700; text-align: center; margin-top: 8px; display: none; background: rgba(14, 165, 233, 0.2); color: #7dd3fc; border: 1px solid rgba(14, 165, 233, 0.4); }
     
-    /* SWEETALERT OVERRIDES UNTUK DARK MODE */
-    .swal-soft { border-radius: 24px !important; padding: 1.5em !important; box-shadow: 0 15px 50px rgba(0,0,0, 0.5) !important; background: var(--navy-main) !important; color: var(--text-main) !important; border: 1px solid var(--border-color) !important; }
-    .swal2-popup { font-size: 12px !important; padding: 16px !important; width: 85% !important; max-width: 320px !important; border-radius: 20px !important; }
-    .swal2-title { font-size: 16px !important; padding: 4px 0 !important; color: var(--text-main) !important; }
-    .swal2-html-container { color: var(--text-muted) !important; }
-    .swal2-input { background: var(--navy-dark) !important; border: 1px solid var(--border-color) !important; color: var(--text-main) !important; }
-    .swal2-confirm { border-radius: 50px !important; padding: 12px 24px !important; }
+    /* ALERT POPUP GLASSMORPHISM */
+    .swal-soft { border-radius: 28px !important; padding: 1.5em !important; box-shadow: 0 15px 50px rgba(0,0,0, 0.5) !important; background: rgba(20, 30, 20, 0.85) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border: 1px solid rgba(255,255,255,0.2) !important; color: #fff !important; }
+    .swal2-popup { font-size: 12px !important; padding: 10px !important; width: 85% !important; max-width: 300px !important; }
+    .swal2-title { font-size: 16px !important; color: #ffffff !important; }
+    .swal2-html-container { color: rgba(255,255,255,0.8) !important; }
+    .swal2-input { background: rgba(0,0,0,0.4) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.3) !important; }
 
     @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes passportSlideOut { 0% { opacity: 0; transform: translateY(40px) scale(0.92) rotateX(-10deg); } 60% { transform: translateY(-8px) scale(1.02) rotateX(0deg); } 100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); } }
     
     #buktiUpload { display: none; }
     #mainContent { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: flex-start; }
-    #reader { border-radius: 24px; overflow: hidden; margin-top: 10px; border: 2px solid var(--border-color); box-shadow: 0 10px 25px rgba(0,0,0, 0.4); }
+    #reader { border-radius: 24px; overflow: hidden; margin-top: 10px; border: 3px solid var(--green-light); box-shadow: 0 10px 25px rgba(0,0,0, 0.5); }
     #reader video { width: 100% !important; object-fit: contain !important; }
 
-    /* BOTTOM NAVIGATION */
-    .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(20, 39, 66, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; align-items: center; padding: 12px 8px 20px 8px; box-shadow: 0 -10px 30px rgba(0,0,0, 0.3); border-top-left-radius: 30px; border-top-right-radius: 30px; z-index: 1000; }
-    .nav-item { flex: 1; text-align: center; font-size: 11px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: all 0.25s ease; display:flex; flex-direction:column; align-items:center; gap:4px; }
-    .nav-item.active { color: var(--teal-main); }
+    /* MENU BAWAH (BOTTOM NAV) KACA */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(10, 20, 10, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-around; align-items: center; padding: 12px 8px 20px 8px; box-shadow: 0 -10px 40px rgba(0,0,0, 0.5); border-top: 1px solid rgba(255,255,255,0.15); border-top-left-radius: 30px; border-top-right-radius: 30px; z-index: 1000; }
+    .nav-item { flex: 1; text-align: center; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.55); cursor: pointer; transition: all 0.25s ease; display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .nav-item.active { color: var(--green-light); }
     .nav-icon { font-size: 18px; opacity: 0.7; }
-    .nav-item.active .nav-icon { opacity: 1; }
-    .floating-scan-btn { width: 56px; height: 56px; background: var(--teal-main); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--text-inverse); box-shadow: 0 10px 25px rgba(163,228,243, 0.3); margin-top: -28px; cursor: pointer; border: 4px solid var(--navy-dark); transition: all 0.2s ease; }
+    .nav-item.active .nav-icon { opacity: 1; color: var(--green-light); }
+    
+    .floating-scan-btn { width: 56px; height: 56px; background: linear-gradient(135deg, var(--green-light), var(--green-dark)); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #022c22; box-shadow: 0 10px 25px rgba(0,0,0, 0.6); margin-top: -28px; cursor: pointer; border: 3px solid rgba(255,255,255,0.4); transition: all 0.2s ease; }
     .floating-scan-btn:active { transform: scale(0.92); }
     .grid-2-col { display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
 
     @media (min-width: 768px) {
-      body { padding: 40px; padding-top: 100px; background: #0a111a; } 
-      .top-bg { height: 320px; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+      body { padding: 40px; padding-top: 100px; } 
       .app-header { max-width: 900px; padding: 0 20px; margin-top: 30px; margin-bottom: 40px; } 
       .card-container { margin-top: 0; }
-      .card { max-width: 900px; padding: 40px; border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0, 0.5); margin-bottom: 30px; }
+      .card { max-width: 900px; padding: 40px; border-radius: 40px; }
       .card.card-narrow { max-width: 480px; margin: 0 auto; } 
       .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; margin-bottom: 24px; }
       .grid-2-col > div { margin-bottom: 0 !important; }
-      .bottom-nav { top: 24px; bottom: auto; left: 50%; transform: translateX(-50%); width: 100%; max-width: 600px; border-radius: 50px; padding: 10px 24px; box-shadow: 0 15px 40px rgba(0,0,0, 0.4); border: 1px solid var(--border-color); }
+      .bottom-nav { top: 24px; bottom: auto; left: 50%; transform: translateX(-50%); width: 100%; max-width: 600px; border-radius: 50px; padding: 10px 24px; border: 1px solid rgba(255,255,255,0.2); }
       .floating-scan-btn { margin-top: -4px; width: 48px; height: 48px; border-width: 2px; }
       .nav-item { font-size: 12px; flex-direction: row; justify-content: center; gap: 8px;}
       .nav-icon { display: none; } 
@@ -231,7 +260,6 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 </head>
 <body>
 
@@ -243,7 +271,7 @@
       <div class="slide-content">
         <div class="slider-header-logo"><img src="logo-paspor-putih.png" alt="Tourism Passport" onerror="this.style.display='none'"></div>
         <div class="slider-body-text">
-          <div class="slider-title">One Passport,<br>Multiple Experience</div>
+          <div class="slider-title">One Passport, Multiple Experience</div>
           <div class="slider-desc-box">Jelaskan manfaat dan keuntungan paspor agar tamu memahami nilai yang mereka dapatkan.</div>
         </div>
       </div>
@@ -254,7 +282,7 @@
       <div class="slide-content">
         <div class="slider-header-logo"><img src="logo-paspor-putih.png" alt="Tourism Passport" onerror="this.style.display='none'"></div>
         <div class="slider-body-text">
-          <div class="slider-title">Discover The<br>Amal Zone</div>
+          <div class="slider-title">One Passport, Multiple Experience</div>
           <div class="slider-desc-box">Jangan hanya melayani claim, tetapi bantu tamu merasakan pengalaman terbaik selama berada di Amal Zone.</div>
         </div>
       </div>
@@ -264,28 +292,26 @@
         <div class="dot active" onclick="switchSlide(0)"></div>
         <div class="dot" onclick="switchSlide(1)"></div>
       </div>
-      <button class="btn-get-started" onclick="finishOnboarding()">Get Started →</button>
-      <div class="slider-copyright">Marketing Awandra Group 2026</div>
+      <button class="btn-get-started" onclick="finishOnboarding()">Get Started</button>
+      <div class="slider-copyright">Marketing Awandra Group<br>2026</div>
     </div>
   </div>
 
-  <!-- PIN KEYPAD SCREEN -->
+  <!-- PIN KEYPAD SCREEN KACA -->
   <div id="loginCard">
-    <div class="login-header-bg"></div>
     <div class="login-header">
       <div class="login-logo-group">
         <img src="logo-amalzone.png" alt="Amal Zone" onerror="this.style.display='none'">
         <div class="login-header-text">
           <h2>WISATA AMAL ZONE</h2>
-          <p>Sistem Integrasi Paspor Wisata</p>
+          <p>Sistem Integrasi Paspor Wisata Amal Zone</p>
         </div>
       </div>
     </div>
     <div class="login-center-area">
-      <div class="passport-brand-logo"><img src="logo-paspor-putih.png" alt="Tourism Passport" onerror="this.style.display='none'"></div>
       <div class="pin-card">
-        <div class="pin-card-title">Security Access</div>
-        <div class="pin-card-sub">Enter your PIN to continue</div>
+        <div class="pin-card-title">AKSES KEAMANAN</div>
+        <div class="pin-card-sub">Masukan PIN anda</div>
         <div class="pin-dots-wrapper">
           <div class="pin-dot-circle" id="dot0"></div><div class="pin-dot-circle" id="dot1"></div><div class="pin-dot-circle" id="dot2"></div><div class="pin-dot-circle" id="dot3"></div>
         </div>
@@ -299,8 +325,6 @@
     </div>
   </div>
 
-  <div class="top-bg"></div>
-
   <!-- DASHBOARD OPERASIONAL -->
   <div id="mainContent">
     <div class="app-header" style="justify-content: space-between;">
@@ -311,21 +335,25 @@
           <p id="teksSapaan">Portal Operasional</p>
         </div>
       </div>
+      
       <div class="refresh-btn" onclick="window.location.reload()" title="Muat Ulang Halaman">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
       </div>
     </div>
 
     <!-- MENU BERANDA -->
     <div id="homeCard" class="card-container" style="display:none;">
       <div class="card card-narrow">
-        <div class="card-title" id="homeTitle">Main Menu</div>
+        <div class="card-title" id="homeTitle">Menu Transaksi</div>
         <div id="wrapperMenuUtama">
           <button class="btn btn-menu" id="btnMenuKasir" onclick="showMenu('kasir')" style="display:none;">Sales & Aktivasi</button>
           <button class="btn btn-menu" id="btnMenuPetugas" onclick="showMenu('petugas')" style="display:none;">Penukaran Wahana</button>
           <button class="btn btn-menu" id="btnMenuLaporan" onclick="showMenu('laporan')" style="display:none;">Laporan Executive</button>
           <div class="divider"></div>
-          <button class="btn btn-danger" onclick="logout()">Logout</button>
+          <button class="btn btn-danger" onclick="logout()">Keluar (Logout)</button>
         </div>
       </div>
     </div>
@@ -333,14 +361,14 @@
     <!-- MENU CEK PASPOR -->
     <div id="cekCard" class="card-container" style="display:none;">
       <div class="card">
-        <div class="card-title">Passport Details</div>
+        <div class="card-title">Pencarian Data Paspor</div>
         <div class="input-group" style="max-width:400px; margin: 0 auto 16px auto;">
-          <label style="text-align:center;">ID Passport Number</label>
-          <input type="text" id="inputCekPaspor" class="input-field" placeholder="Example: 0926001" style="text-align:center;">
+          <label style="text-align:center;">Nomor ID Paspor</label>
+          <input type="text" id="inputCekPaspor" class="input-field" placeholder="Contoh: 0926001" style="text-align:center;">
         </div>
-        <button class="btn btn-main" style="max-width:400px; margin: 0 auto 20px auto; display:block;" onclick="prosesCekData()">Search History →</button>
+        <button class="btn btn-main" style="max-width:400px; margin: 0 auto 20px auto; display:block;" onclick="prosesCekData()">Cari Riwayat</button>
         
-        <div id="loadingCek" style="display:none; text-align:center; font-size:13px; padding:12px; color:var(--text-muted); font-weight:600;">Searching journey...</div>
+        <div id="loadingCek" style="display:none; text-align:center; font-size:13px; padding:12px; color:var(--text-muted); font-weight:600;">Mencari jejak perjalanan...</div>
         
         <div id="hasilCek" style="display:none; margin-top:20px;">
           <div class="passport-card-3d">
@@ -352,28 +380,28 @@
           </div>
           <div class="grid-2-col">
             <div>
-              <div style="font-size:12px; font-weight:800; color:var(--text-main); margin-bottom:12px; letter-spacing:0.5px;">CLAIM HISTORY:</div>
+              <div style="font-size:12px; font-weight:800; color:#ffffff; margin-bottom:12px; letter-spacing:0.5px;">RIWAYAT PERJALANAN (KLAIM):</div>
               <div class="journey-container" id="timelineKlaim"></div>
             </div>
             <div>
-              <div style="font-size:12px; font-weight:800; color:var(--teal-main); margin-bottom:12px; letter-spacing:0.5px;">AVAILABLE TICKETS:</div>
+              <div style="font-size:12px; font-weight:800; color:var(--green-light); margin-bottom:12px; letter-spacing:0.5px;">SISA TIKET WAHANA (READY):</div>
               <div id="tabelSisa" style="margin-bottom:24px;"></div>
             </div>
           </div>
           <div class="divider"></div>
           <div class="receipt-box" id="notaKertasCek" style="max-width:450px; margin: 0 auto 20px auto;">
             <div class="receipt-logo"><img src="logo-paspor-putih.png" alt="Paspor" onerror="this.style.display='none'"></div>
-            <div class="receipt-header">PASSPORT RECEIPT</div>
-            <div class="receipt-sub">AMAL ZONE</div>
-            <div class="receipt-row"><span>ID Passport</span><strong id="notaIdCek"></strong></div>
-            <div class="receipt-row"><span>Customer Name</span><strong id="notaNamaCek"></strong></div>
-            <div class="receipt-row"><span>Transaction Time</span><strong id="notaTanggalCek"></strong></div>
-            <div class="receipt-row"><span>Channel</span><strong id="notaChannelCek"></strong></div>
-            <div class="receipt-row"><span>Bank</span><strong id="notaBankCek"></strong></div>
-            <div class="receipt-total"><span>Total Paid</span><strong>Rp377.000</strong></div>
-            <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Paid - System Copy</div>
+            <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
+            <div class="receipt-sub">WISATA AMAL ZONE</div>
+            <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaIdCek"></strong></div>
+            <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNamaCek"></strong></div>
+            <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggalCek"></strong></div>
+            <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannelCek"></strong></div>
+            <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBankCek"></strong></div>
+            <div class="receipt-total"><span>Total Dibayar</span><strong>Rp377.000</strong></div>
+            <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Lunas - Salinan Sistem</div>
           </div>
-          <button class="btn btn-menu" style="max-width:450px; margin: 0 auto; justify-content:center; display:flex;" onclick="unduhNotaPDFCek()">Download PDF Copy</button>
+          <button class="btn btn-menu" style="max-width:450px; margin: 0 auto; justify-content:center; display:flex;" onclick="unduhNotaPDFCek()">Unduh Salinan PDF</button>
         </div>
       </div>
     </div>
@@ -381,69 +409,68 @@
     <!-- MENU SALES & AKTIVASI -->
     <div id="kasirCard" class="card-container" style="display:none;">
       <div class="card">
-        <div class="card-title">Activate Passport</div>
+        <div class="card-title">Sales & Aktivasi Paspor</div>
         <div id="formKasirArea">
           <div class="grid-2-col">
             <div>
-              <div class="input-group"><label>Passport ID</label><input type="text" id="inputPaspor" class="input-field" placeholder="Example: 0926001"></div>
-              <div class="input-group"><label>Customer Name</label><input type="text" id="namaCust" class="input-field" placeholder="Type customer name"></div>
-              <div class="input-group"><label>Phone Number</label><input type="number" id="noHpCust" class="input-field" placeholder="Example: 08123456789"></div>
+              <div class="input-group"><label>Nomor ID Paspor</label><input type="text" id="inputPaspor" class="input-field" placeholder="Contoh: 0926001"></div>
+              <div class="input-group"><label>Nama Pelanggan</label><input type="text" id="namaCust" class="input-field" placeholder="Ketik nama pelanggan"></div>
+              <div class="input-group"><label>Nomor HP Pelanggan</label><input type="number" id="noHpCust" class="input-field" placeholder="Contoh: 08123456789"></div>
             </div>
             <div>
-              <!-- AUTOCOMPLETE SALES -->
               <div class="input-group" style="position: relative; z-index: 10;">
-                <label>Sales / Referral (Optional)</label>
-                <input type="text" id="inputPencarianSales" class="input-field" placeholder="Type name or select Direct..." onkeyup="filterListSales()" onclick="filterListSales()" autocomplete="off">
-                <div id="wadahDropdownSales" style="display:none; position:absolute; width:100%; max-height:200px; overflow-y:auto; background:var(--navy-light); border:1px solid var(--border-color); border-radius:16px; top:75px; box-shadow: 0 10px 25px rgba(0,0,0, 0.5);"></div>
+                <label>Referral / Nama Sales</label>
+                <input type="text" id="inputPencarianSales" class="input-field" placeholder="Ketik nama / pilih Direct..." onkeyup="filterListSales()" onclick="filterListSales()" autocomplete="off">
+                <div id="wadahDropdownSales" style="display:none; position:absolute; width:100%; max-height:200px; overflow-y:auto; background:rgba(15,25,15,0.95); backdrop-filter:blur(16px); border:1px solid var(--glass-border); border-radius:16px; top:75px; box-shadow: 0 10px 25px rgba(0,0,0, 0.5);"></div>
                 <input type="hidden" id="kodeSalesTerpilih" value="">
               </div>
 
               <div class="input-group" style="margin-bottom: 0;">
-                <label>Sales Channel (Auto)</label>
-                <select id="channelBeli" class="input-field" style="background:var(--navy-dark); opacity:0.7; pointer-events:none;"></select>
+                <label>Channel Penjualan (Otomatis)</label>
+                <select id="channelBeli" class="input-field" style="background:rgba(0,0,0,0.5); pointer-events:none;"></select>
               </div>
 
               <div class="input-group" style="margin-top: 16px; margin-bottom: 0;">
-                <label>Transfer Destination</label>
+                <label>Bank Tujuan Transfer</label>
                 <select id="bankTujuan" class="input-field" onchange="tampilInfoRekening()">
-                  <option value="">Select Bank</option>
+                  <option value="">Pilih Bank Transfer</option>
                   <option value="BCA">BCA - 1711499666</option>
                   <option value="BSI">BSI - 1577733337</option>
                 </select>
               </div>
               <div id="infoRekeningBox" class="status-info status-box"></div>
               <div class="input-group" style="margin-top: 20px; margin-bottom:0;">
-                <label>Proof of Payment</label>
-                <label for="buktiUpload" class="btn btn-menu" style="justify-content:center; margin-bottom:0;" id="labelUploadBtn">Attach Transfer Photo</label>
+                <label>Bukti Pembayaran</label>
+                <label for="buktiUpload" class="btn btn-menu" style="justify-content:center; margin-bottom:0;" id="labelUploadBtn">Lampirkan Foto Transfer</label>
                 <input type="file" id="buktiUpload" accept="image/*" onchange="previewBukti(event)">
               </div>
               <div id="buktiPreviewName" style="font-size:12px; text-align:center; margin-top:12px; line-height:1.5; font-weight:600;"></div>
             </div>
           </div>
-          <button id="btnAktifkanPaspor" class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:20px;">Activate Now →</button>
+          <button id="btnAktifkanPaspor" class="btn btn-main" onclick="prosesAktivasi()" style="margin-top:20px; transition: all 0.3s ease;">Aktifkan Paspor</button>
           
           <div class="divider"></div>
-          <div style="font-size:12px; font-weight:800; color:var(--text-main); margin-bottom:12px;">Recent Activations:</div>
+          <div style="font-size:12px; font-weight:800; color:#ffffff; margin-bottom:12px;">Aktivasi Sales Terakhir:</div>
           <div id="widgetKasirTerbaru" style="font-size:13px; max-height:160px; overflow-y:auto; padding:0 4px;">
-            <div style="text-align:center; color:var(--text-muted); font-weight:600;">Loading data...</div>
+            <div style="text-align:center; color:var(--text-muted); font-weight:600;">Memuat data...</div>
           </div>
         </div>
 
         <div id="notaArea" style="display:none;">
           <div class="receipt-box" id="notaKertas" style="max-width:450px; margin: 0 auto 20px auto;">
             <div class="receipt-logo"><img src="logo-paspor-putih.png" alt="Paspor" onerror="this.style.display='none'"></div>
-            <div class="receipt-header">PASSPORT RECEIPT</div>
-            <div class="receipt-sub">AMAL ZONE</div>
-            <div class="receipt-row"><span>ID Passport</span><strong id="notaId"></strong></div>
-            <div class="receipt-row"><span>Customer Name</span><strong id="notaNama"></strong></div>
-            <div class="receipt-row"><span>Transaction Time</span><strong id="notaTanggal"></strong></div>
-            <div class="receipt-row"><span>Channel</span><strong id="notaChannel"></strong></div>
-            <div class="receipt-row"><span>Bank</span><strong id="notaBank"></strong></div>
-            <div class="receipt-total"><span>Total Paid</span><strong id="notaTotal">Rp377.000</strong></div>
-            <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Paid - Passport Active</div>
+            <div class="receipt-header">BUKTI PEMBELIAN PASPOR</div>
+            <div class="receipt-sub">WISATA AMAL ZONE</div>
+            <div class="receipt-row"><span>No. ID Paspor</span><strong id="notaId"></strong></div>
+            <div class="receipt-row"><span>Nama Pelanggan</span><strong id="notaNama"></strong></div>
+            <div class="receipt-row"><span>Waktu Transaksi</span><strong id="notaTanggal"></strong></div>
+            <div class="receipt-row"><span>Channel Pembelian</span><strong id="notaChannel"></strong></div>
+            <div class="receipt-row"><span>Bank Transfer</span><strong id="notaBank"></strong></div>
+            <div class="receipt-total"><span>Total Dibayar</span><strong id="notaTotal">Rp377.000</strong></div>
+            <div style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:20px; font-weight:700;">Lunas - Paspor Aktif</div>
           </div>
-          <button class="btn btn-main" style="max-width:450px; margin: 0 auto 12px auto; display:block;" onclick="unduhNotaPDF()">Download Receipt</button>
-          <button class="btn btn-menu" style="max-width:450px; margin: 0 auto; display:flex; justify-content:center;" onclick="resetKasir()">New Transaction</button>
+          <button class="btn btn-main" style="max-width:450px; margin: 0 auto 12px auto; display:block;" onclick="unduhNotaPDF()">Unduh Nota PDF</button>
+          <button class="btn btn-menu" style="max-width:450px; margin: 0 auto; display:flex; justify-content:center;" onclick="resetKasir()">Transaksi Baru</button>
         </div>
         <div id="msgKasir" class="status-box"></div>
       </div>
@@ -452,17 +479,17 @@
     <!-- MENU PETUGAS (LIVE SCANNER) -->
     <div id="petugasCard" class="card-container" style="display:none;">
       <div class="card card-narrow">
-        <div class="card-title">📷 Ticket Scanner</div>
-        <div class="input-group"><label>Officer Name & Unit</label><input type="text" id="namaPetugas" class="input-field" placeholder="Example: Budi - Wahana Air"></div>
+        <div class="card-title">📷 Penukaran Voucher Wisata</div>
+        <div class="input-group"><label>Nama Petugas & Unit</label><input type="text" id="namaPetugas" class="input-field" placeholder="Misal: Budi - Wahana Air"></div>
         
-        <button class="btn btn-main" id="btnBukaKamera" onclick="bukaLiveScanner()" style="margin-top:20px;">📷 Scan Barcode</button>
+        <button class="btn btn-main" id="btnBukaKamera" onclick="bukaLiveScanner()" style="margin-top:20px; background: linear-gradient(135deg, #fbbf24, #d97706); box-shadow: 0 6px 20px rgba(217, 119, 6, 0.4);">📷 SCAN BARCODE</button>
         
         <div id="reader" style="display: none;"></div>
-        <button class="btn btn-danger" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:10px;">❌ Close Camera</button>
+        <button class="btn btn-danger" id="btnTutupKamera" onclick="tutupLiveScanner()" style="display:none; margin-top:10px;">❌ Tutup Kamera</button>
 
         <div class="divider"></div>
-        <div class="input-group"><label>Or Enter Code Manually</label><input type="text" id="inputVoucherManual" class="input-field" placeholder="Example: 0926003-W1"></div>
-        <button class="btn btn-menu" style="justify-content:center;" onclick="prosesKlaimManual()">Process Code</button>
+        <div class="input-group"><label>Atau Ketik Kode Manual</label><input type="text" id="inputVoucherManual" class="input-field" placeholder="Contoh: 0926003-W1"></div>
+        <button class="btn btn-menu" style="justify-content:center;" onclick="prosesKlaimManual()">Proses Kode Manual</button>
         <div id="msgPetugas" class="status-box"></div>
       </div>
     </div>
@@ -470,48 +497,48 @@
     <!-- KONFIRMASI KLAIM -->
     <div id="konfirmasiCard" class="card-container" style="display:none;">
       <div class="card card-narrow" style="text-align:center;">
-        <div class="card-title">Confirm Ticket</div>
+        <div class="card-title">Detail Konfirmasi</div>
         
-        <div style="font-size:12px; color:var(--text-muted); font-weight:700; margin-bottom:8px; text-transform:uppercase;">Detected Ticket Code:</div>
+        <div style="font-size:12px; color:var(--text-muted); font-weight:700; margin-bottom:8px; text-transform:uppercase;">Kode Tiket Terdeteksi:</div>
         
-        <div id="teksKodeVoucher" style="font-size:26px; font-weight:900; color:var(--teal-main); letter-spacing:2px; margin-bottom:24px; padding:20px; background:var(--navy-dark); border:1px solid var(--border-color); border-radius:20px;">
+        <div id="teksKodeVoucher" style="font-size:26px; font-weight:900; color:#ffffff; letter-spacing:2px; margin-bottom:24px; padding:20px; background:rgba(0,0,0,0.3); border:2px dashed var(--green-light); border-radius:20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
           -
         </div>
         
-        <button class="btn btn-main" id="btnProsesKlaim" style="margin-bottom:12px; font-size:16px; padding:18px;">✅ Claim Ticket Now</button>
-        <button class="btn btn-danger" onclick="batalKlaim()">❌ Cancel & Rescan</button>
+        <button class="btn btn-main" id="btnProsesKlaim" style="margin-bottom:12px; font-size:16px; padding:18px;">✅ Proses Klaim Tiket</button>
+        <button class="btn btn-danger" onclick="batalKlaim()">❌ Batal & Scan Ulang</button>
       </div>
     </div>
 
     <!-- MENU LAPORAN MANAGER -->
     <div id="laporanCard" class="card-container" style="display:none;">
       <div class="card">
-        <div class="card-title">Executive Report</div>
+        <div class="card-title">Laporan Executive</div>
         <div class="input-group" style="max-width:400px; margin: 0 auto 20px auto;">
-          <label style="text-align:center;">Report Period</label>
+          <label style="text-align:center;">Periode Laporan</label>
           <select id="filterBulan" class="input-field" onchange="loadDashboardData()" style="font-weight:800; text-align:center; padding-left:0;">
-            <option value="ALL">All Months</option>
+            <option value="ALL">Semua Bulan</option>
           </select>
         </div>
-        <div id="loadingLaporan" style="text-align:center; padding:12px; font-size:13px; color:var(--text-muted); font-weight:600;">Fetching data...</div>
+        <div id="loadingLaporan" style="text-align:center; padding:12px; font-size:13px; color:var(--text-muted); font-weight:600;">Mengambil rekapitulasi data...</div>
         
         <div id="contentLaporan" style="display:none;">
           <div class="grid-2-col">
             <div style="padding-top: 15px;">
               <div class="ticket-omzet">
                 <div class="ticket-top">
-                  <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--text-muted); letter-spacing:1px;">Total Sales Revenue</div>
+                  <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:rgba(255,255,255,0.7); letter-spacing:1px;">Total Omzet Penjualan</div>
                   <div id="statOmzet" style="font-size:32px; font-weight:800; margin-top:4px;">Rp0</div>
                 </div>
                 <div class="ticket-bottom">
                   <div style="display:flex; justify-content:space-between; align-items:center;">
                     <div>
-                      <div style="font-size:11px; color:var(--text-muted); margin-bottom:2px;">Via BCA</div>
-                      <div id="statOmzetBca" style="color:var(--teal-main); font-weight:800; font-size:15px;">Rp0</div>
+                      <div style="font-size:11px; color:rgba(255,255,255,0.7); margin-bottom:2px;">Masuk via BCA</div>
+                      <div id="statOmzetBca" style="color:var(--green-light); font-weight:800; font-size:15px;">Rp0</div>
                     </div>
                     <div style="text-align:right;">
-                      <div style="font-size:11px; color:var(--text-muted); margin-bottom:2px;">Via BSI</div>
-                      <div id="statOmzetBsi" style="color:var(--teal-main); font-weight:800; font-size:15px;">Rp0</div>
+                      <div style="font-size:11px; color:rgba(255,255,255,0.7); margin-bottom:2px;">Masuk via BSI</div>
+                      <div id="statOmzetBsi" style="color:var(--green-light); font-weight:800; font-size:15px;">Rp0</div>
                     </div>
                   </div>
                 </div>
@@ -520,42 +547,42 @@
             <div>
               <div class="stat-grid" style="height:100%;">
                 <div class="stat-box" style="display:flex; flex-direction:column; justify-content:center;">
-                  <div class="stat-number" id="statPasporAktif" style="color:var(--teal-main); font-size:28px;">0</div>
-                  <div class="stat-label">Passports Sold</div>
+                  <div class="stat-number" id="statPasporAktif" style="color:var(--green-light); font-size:28px;">0</div>
+                  <div class="stat-label">Paspor Terjual</div>
                 </div>
                 <div class="stat-box" style="display:flex; flex-direction:column; justify-content:center;">
                   <div class="stat-number" id="statTiketUsed" style="font-size:28px;">0</div>
-                  <div class="stat-label">Tickets Used</div>
+                  <div class="stat-label">Tiket Terpakai</div>
                 </div>
               </div>
             </div>
           </div>
           <div style="text-align:center; font-size:12px; font-weight:700; color:var(--text-muted); margin: 8px 0 24px 0;">
-            Estimated Benefit Distributed: <span id="statKlaim" style="color:var(--text-main); font-weight:800; font-size:16px;">Rp0</span>
+            Estimasi Nilai Benefit Terdestribusi: <span id="statKlaim" style="color:#ffffff; font-weight:800; font-size:16px;">Rp0</span>
           </div>
           <div class="divider"></div>
           <div class="input-group">
-            <label>Active Passports List</label>
-            <input type="text" id="searchPasporAktif" class="input-field" placeholder="Search ID, Name..." onkeyup="filterTabelPasporAktif()">
+            <label>Daftar Paspor Aktif</label>
+            <input type="text" id="searchPasporAktif" class="input-field" placeholder="Cari ID, Nama, Channel..." onkeyup="filterTabelPasporAktif()">
           </div>
-          <div style="max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 20px; margin-bottom:24px;">
+          <div style="max-height: 300px; overflow-y: auto; border: 1px solid var(--glass-border); border-radius: 20px; margin-bottom:24px;">
             <table class="report-table" id="tabelPasporAktif">
-              <thead><tr style="position:sticky; top:0; background:var(--navy-dark); z-index:1;"><th>Passport</th><th>Channel</th><th>Status</th></tr></thead>
+              <thead><tr style="position:sticky; top:0; background:rgba(0,0,0,0.8); z-index:1;"><th>Paspor</th><th>Channel</th><th>Status</th></tr></thead>
               <tbody id="tbodyPasporAktif"></tbody>
             </table>
           </div>
           <div class="grid-2-col">
             <div>
-              <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:12px; text-transform:uppercase;">Channel Performance</label>
-              <table class="report-table" style="margin-bottom:16px;"><thead><tr><th>Channel</th><th>Sales</th></tr></thead><tbody id="tbodyChannel"></tbody></table>
+              <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:12px; text-transform:uppercase;">Kinerja Channel</label>
+              <table class="report-table" style="margin-bottom:16px;"><thead><tr><th>Channel</th><th>Penjualan</th></tr></thead><tbody id="tbodyChannel"></tbody></table>
             </div>
             <div>
-              <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:12px; text-transform:uppercase;">Unit Traffic</label>
-              <table class="report-table"><thead><tr><th>Unit</th><th>Used</th><th>Value</th></tr></thead><tbody id="tbodyUnit"></tbody></table>
+              <label style="display:block; text-align:left; font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:12px; text-transform:uppercase;">Trafik Wahana</label>
+              <table class="report-table"><thead><tr><th>Unit</th><th>Terpakai</th><th>Klaim</th></tr></thead><tbody id="tbodyUnit"></tbody></table>
             </div>
           </div>
           <div class="divider"></div>
-          <button class="btn btn-main" style="max-width:400px; margin:0 auto; display:block;" onclick="mintaPinDownloadAwandra()">Download PDF Report</button>
+          <button class="btn btn-main" style="max-width:400px; margin:0 auto; display:block;" onclick="mintaPinDownloadAwandra()">Unduh Laporan PDF</button>
         </div>
       </div>
     </div>
@@ -564,20 +591,20 @@
   <!-- BOTTOM NAVIGATION -->
   <div id="bottomNav" class="bottom-nav" style="display:none;">
     <div class="nav-item" id="nav_home" onclick="showMenu('home')">
-      <span class="nav-icon">⌂</span> Home
+      <span class="nav-icon">⌂</span> Beranda
     </div>
     <div class="floating-scan-btn" id="nav_scan" onclick="showMenu('petugas')" title="Scan Barcode">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--navy-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
     </div>
     <div class="nav-item" id="nav_cek" onclick="showMenu('cek')">
-      <span class="nav-icon">⚲</span> Search
+      <span class="nav-icon">⚲</span> Pencarian
     </div>
     <div class="nav-item" id="nav_logout" onclick="logout()">
-      <span class="nav-icon" style="color:#fb7185;">⎋</span> Exit
+      <span class="nav-icon" style="color:#f43f5e;">⎋</span> Keluar
     </div>
   </div>
 
-  <!-- TEMPLATE LAPORAN PDF (Tetap desain putih bersih untuk dicetak) -->
+  <!-- TEMPLATE LAPORAN PDF (Area Print TIDAK Kena Tema Glass/Gelap) -->
   <div id="printArea" style="display: none; background: white; color: black;">
     <div style="text-align:center; margin-bottom:15px;">
       <h2 style="margin:0; font-size:18px; font-weight:800; color:#193354;">LAPORAN AUDIT FINANCE & OPERASIONAL</h2>
@@ -630,7 +657,7 @@
       .then(response => response.json())
       .then(data => onSuccess(data))
       .catch(error => {
-        Swal.fire({ title: 'Connection Failed', text: 'Unable to reach the server.', icon: 'error', customClass: { popup: 'swal-soft' }, confirmButtonColor: '#8ae2e6' });
+        Swal.fire({ title: 'Koneksi Gagal', text: 'Sistem tidak terhubung ke jaringan.', icon: 'error', customClass: { popup: 'swal-soft' }, confirmButtonColor: '#16a34a' });
         hideStatus('msgKasir'); hideStatus('msgPetugas');
         document.getElementById('loadingCek').style.display = 'none'; document.getElementById('loadingLaporan').style.display = 'none';
       });
@@ -665,12 +692,12 @@
     let databaseKaryawan = []; 
 
     function tarikDataKaryawan() {
-      document.getElementById('inputPencarianSales').placeholder = "Loading sales data...";
+      document.getElementById('inputPencarianSales').placeholder = "Memuat data karyawan...";
       callAPI('getKaryawanAktif', {}, function(res) {
         if(res.success) {
           databaseKaryawan = res.data;
           databaseKaryawan.unshift({ label: "Direct / Marketing", unit: "Direct" });
-          document.getElementById('inputPencarianSales').placeholder = "Type name or select Direct...";
+          document.getElementById('inputPencarianSales').placeholder = "Ketik nama / pilih Direct...";
         }
       });
     }
@@ -681,7 +708,7 @@
       wadah.innerHTML = '';
       
       if(databaseKaryawan.length === 0) {
-        wadah.innerHTML = '<div style="padding:12px; font-size:12px; color:var(--text-muted); text-align:center;">Data not ready...</div>';
+        wadah.innerHTML = '<div style="padding:12px; font-size:12px; color:var(--text-muted); text-align:center;">Data belum siap...</div>';
         wadah.style.display = 'block'; return;
       }
 
@@ -690,11 +717,8 @@
       for(var i=0; i < Math.min(filtered.length, 50); i++) {
         var k = filtered[i];
         var div = document.createElement('div');
-        div.style.padding = '12px 16px'; div.style.borderBottom = '1px solid var(--border-color)'; div.style.fontSize = '13px'; div.style.fontWeight = '700'; div.style.color = 'var(--text-main)'; div.style.cursor = 'pointer';
+        div.style.padding = '12px 16px'; div.style.borderBottom = '1px solid rgba(255,255,255,0.2)'; div.style.fontSize = '13px'; div.style.fontWeight = '700'; div.style.color = '#ffffff'; div.style.cursor = 'pointer';
         div.innerHTML = k.label + ' <br><span style="font-size:10px; color:var(--text-muted); font-weight:600;">Unit: ' + k.unit + '</span>';
-        
-        div.onmouseover = function() { this.style.background = 'var(--navy-main)'; };
-        div.onmouseout = function() { this.style.background = 'transparent'; };
         
         div.onclick = (function(karyawan) {
           return function() { pilihSales(karyawan); };
@@ -712,9 +736,9 @@
       
       var selectChannel = document.getElementById('channelBeli');
       if (karyawan.label === "Direct / Marketing") {
-        selectChannel.style.pointerEvents = 'auto'; selectChannel.style.background = 'var(--navy-dark)'; selectChannel.style.opacity = '1'; selectChannel.value = '';
+        selectChannel.style.pointerEvents = 'auto'; selectChannel.style.background = 'rgba(0,0,0,0.3)'; selectChannel.value = '';
       } else {
-        selectChannel.style.pointerEvents = 'none'; selectChannel.style.background = 'var(--navy-dark)'; selectChannel.style.opacity = '0.7';
+        selectChannel.style.pointerEvents = 'none'; selectChannel.style.background = 'rgba(0,0,0,0.6)';
         if (karyawan.unit.toLowerCase().includes("amal zone")) { selectChannel.value = "Canvassing"; } 
         else { selectChannel.value = karyawan.unit; }
       }
@@ -722,8 +746,8 @@
 
     document.addEventListener('click', function(e) {
       if(e.target.id !== 'inputPencarianSales') {
-          var wadah = document.getElementById('wadahDropdownSales');
-          if(wadah) wadah.style.display = 'none';
+         const dropdown = document.getElementById('wadahDropdownSales');
+         if(dropdown) dropdown.style.display = 'none';
       }
     });
 
@@ -735,19 +759,19 @@
       else if (pin === PIN_KASIR_AL) { roleAktif = "kasir"; allowedChannels = ["Alila"]; loginSukses('home'); } 
       else if (pin === PIN_KASIR_MH) { roleAktif = "kasir"; allowedChannels = ["Murraya Hill"]; loginSukses('home'); } 
       else if (pin === PIN_PETUGAS) { roleAktif = "petugas"; allowedChannels = []; loginSukses('home'); } 
-      else { showToast('error', 'Access Denied'); resetPinBuffer(); }
+      else { showToast('error', 'PIN Akses Ditolak'); resetPinBuffer(); }
     }
 
     function setupDropdownChannel() {
       var select = document.getElementById("channelBeli"); select.innerHTML = ''; 
-      if (allowedChannels.length > 1) { select.innerHTML = '<option value="">Select Channel</option>'; for(var i = 0; i < allowedChannels.length; i++) { select.innerHTML += '<option value="' + allowedChannels[i] + '">' + allowedChannels[i] + '</option>'; } select.disabled = false;
+      if (allowedChannels.length > 1) { select.innerHTML = '<option value="">Pilih Channel</option>'; for(var i = 0; i < allowedChannels.length; i++) { select.innerHTML += '<option value="' + allowedChannels[i] + '">' + allowedChannels[i] + '</option>'; } select.disabled = false;
       } else if (allowedChannels.length === 1) { select.innerHTML = '<option value="' + allowedChannels[0] + '">' + allowedChannels[0] + '</option>'; select.value = allowedChannels[0]; select.disabled = true; }
     }
 
     function tampilInfoRekening() {
       var bank = document.getElementById("bankTujuan").value; var box = document.getElementById("infoRekeningBox");
-      if (bank === "BCA") { box.innerHTML = "Account BCA: <b style='color:var(--teal-main); font-size:14px;'>1711499666</b><br>a/n KARYA GUNA SEMESTA CV"; box.style.display = "block"; } 
-      else if (bank === "BSI") { box.innerHTML = "Account BSI: <b style='color:var(--teal-main); font-size:14px;'>1577733337</b><br>a/n CV KARYA GUNA SEMESTA"; box.style.display = "block"; } 
+      if (bank === "BCA") { box.innerHTML = "Rekening BCA: <b style='color:var(--green-light); font-size:14px;'>1711499666</b><br>a/n KARYA GUNA SEMESTA CV"; box.style.display = "block"; } 
+      else if (bank === "BSI") { box.innerHTML = "Rekening BSI: <b style='color:var(--green-light); font-size:14px;'>1577733337</b><br>a/n CV KARYA GUNA SEMESTA"; box.style.display = "block"; } 
       else { box.style.display = "none"; }
     }
 
@@ -761,7 +785,7 @@
       document.getElementById('btnMenuLaporan').style.display = 'none'; 
       document.getElementById('nav_scan').style.display = 'none';
       
-      let teksRole = "Field Officer";
+      let teksRole = "Petugas Lapangan";
       if (roleAktif === "manager") { 
         teksRole = "Executive Manager";
         document.getElementById('btnMenuKasir').style.display = 'flex'; 
@@ -769,12 +793,12 @@
         document.getElementById('btnMenuLaporan').style.display = 'flex';
         document.getElementById('nav_scan').style.display = 'flex'; 
       } else if (roleAktif === "kasir") { 
-        teksRole = "Sales Access"; document.getElementById('btnMenuKasir').style.display = 'flex';
+        teksRole = "Akses Sales & Aktivasi"; document.getElementById('btnMenuKasir').style.display = 'flex';
       } else if (roleAktif === "petugas") { 
         document.getElementById('btnMenuPetugas').style.display = 'flex'; document.getElementById('nav_scan').style.display = 'flex'; 
       }
       
-      document.getElementById('teksSapaan').innerText = "Access: " + teksRole;
+      document.getElementById('teksSapaan').innerText = "Akses: " + teksRole;
       
       if(roleAktif === "kasir" || roleAktif === "manager") {
         setupDropdownChannel(); 
@@ -784,7 +808,7 @@
       showMenu(menuAwal);
     }
 
-    function logout() { roleAktif = ""; allowedChannels = []; resetPinBuffer(); document.getElementById('mainContent').style.display = 'none'; document.getElementById('bottomNav').style.display = 'none'; document.getElementById('loginCard').style.display = 'flex'; showToast('info', 'Logged out successfully.'); }
+    function logout() { roleAktif = ""; allowedChannels = []; resetPinBuffer(); document.getElementById('mainContent').style.display = 'none'; document.getElementById('bottomNav').style.display = 'none'; document.getElementById('loginCard').style.display = 'flex'; showToast('info', 'Anda berhasil keluar.'); }
 
     function updateNavState(menu) {
       document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -795,7 +819,7 @@
     }
 
     function showMenu(menu) {
-      if(menu === 'petugas' && roleAktif === 'kasir') { Swal.fire({ title: 'Access Denied!', text: 'Only allowed for field officers.', icon: 'error', confirmButtonColor: '#e11d48', customClass: { popup: 'swal-soft' }, heightAuto: false }); return; }
+      if(menu === 'petugas' && roleAktif === 'kasir') { Swal.fire({ title: 'Akses Ditolak!', text: 'Menu khusus petugas wahana. Sales tidak diizinkan mengakses scanner.', icon: 'error', confirmButtonColor: '#e11d48', customClass: { popup: 'swal-soft' }, heightAuto: false }); return; }
       tutupLiveScanner();
       document.getElementById('homeCard').style.display = 'none'; document.getElementById('kasirCard').style.display = 'none';
       document.getElementById('petugasCard').style.display = 'none'; document.getElementById('laporanCard').style.display = 'none'; document.getElementById('cekCard').style.display = 'none';
@@ -815,37 +839,37 @@
     function showStatus(elementId, text) { var el = document.getElementById(elementId); el.innerHTML = text; el.style.display = 'block'; }
     function hideStatus(elementId) { document.getElementById(elementId).style.display = 'none'; }
     function showToast(icon, message) { Swal.fire({ toast: true, position: 'top', icon: icon, title: message, showConfirmButton: false, timer: 2500, customClass: { popup: 'swal-soft' } }); }
-    function popNotification(title, text, icon) { Swal.fire({ title: title, text: text, icon: icon, position: 'top', confirmButtonText: 'Close', confirmButtonColor: '#8ae2e6', heightAuto: false, customClass: { popup: 'swal-soft' } }); }
+    function popNotification(title, text, icon) { Swal.fire({ title: title, text: text, icon: icon, position: 'top', confirmButtonText: 'Tutup', confirmButtonColor: '#16a34a', heightAuto: false, customClass: { popup: 'swal-soft' } }); }
 
     function prosesCekData() {
       var id = document.getElementById('inputCekPaspor').value;
-      if(!id) return showToast('warning', 'Enter Passport ID.');
+      if(!id) return showToast('warning', 'Masukkan ID Paspor.');
       document.getElementById('loadingCek').style.display = 'block'; document.getElementById('hasilCek').style.display = 'none';
       callAPI('checkPassportData', { id: id }, function(res) {
           document.getElementById('loadingCek').style.display = 'none';
-          if(!res.success) { popNotification('Not Found', res.message, 'warning'); } else {
+          if(!res.success) { popNotification('Tidak Ditemukan', res.message, 'warning'); } else {
             document.getElementById('hasilCek').style.display = 'block'; 
             document.getElementById('namaPemilikCek').innerText = res.customerName; document.getElementById('notaIdCekLabel').innerText = id;
             var htmlKlaim = '';
-            if(res.listKlaim.length === 0) { htmlKlaim = '<div style="text-align:center; color:var(--text-muted); font-size:12px; margin:24px 0; background:var(--navy-dark); padding:16px; border:1px solid var(--border-color); border-radius:16px;">No travel history yet.</div>'; } 
+            if(res.listKlaim.length === 0) { htmlKlaim = '<div style="text-align:center; color:var(--text-muted); font-size:12px; margin:24px 0; background:rgba(0,0,0,0.3); padding:16px; border: 1px solid var(--glass-border); border-radius:16px;">Belum ada riwayat perjalanan wisata.</div>'; } 
             else { 
-              htmlKlaim += '<div class="journey-item"><div class="journey-dot"></div><div class="journey-line"></div><div class="journey-title">Passport Activated</div><div class="journey-desc">Channel: ' + res.channelBeli + '</div></div>';
-              for(var i=0; i<res.listKlaim.length; i++) { var item = res.listKlaim[i]; htmlKlaim += '<div class="journey-item"><div class="journey-dot"></div><div class="journey-line"></div><div class="journey-title">' + item.unit + '</div><div class="journey-desc">' + item.benefit + '</div><div class="journey-time">' + item.waktu + ' • Officer: ' + item.petugas + '</div></div>'; } 
-              htmlKlaim += '<div class="journey-item"><div class="journey-dot" style="background:#15803d; border-color:#15803d; box-shadow: 0 0 0 3px rgba(21,128,61,0.2);"></div><div class="journey-title" style="color:#22c55e;">Current Position</div></div>';
+              htmlKlaim += '<div class="journey-item"><div class="journey-dot" style="background:#ffffff;"></div><div class="journey-line"></div><div class="journey-title">Aktivasi Paspor</div><div class="journey-desc">Channel: ' + res.channelBeli + '</div></div>';
+              for(var i=0; i<res.listKlaim.length; i++) { var item = res.listKlaim[i]; htmlKlaim += '<div class="journey-item"><div class="journey-dot"></div><div class="journey-line"></div><div class="journey-title">' + item.unit + '</div><div class="journey-desc">' + item.benefit + '</div><div class="journey-time">' + item.waktu + ' • Petugas: ' + item.petugas + '</div></div>'; } 
+              htmlKlaim += '<div class="journey-item"><div class="journey-dot" style="background:var(--green-light); box-shadow: 0 0 0 3px rgba(74, 222, 128,0.2);"></div><div class="journey-title" style="color:var(--green-light);">Posisi Saat Ini</div></div>';
             }
             document.getElementById('timelineKlaim').innerHTML = htmlKlaim;
             var htmlSisa = '';
-            if(res.listSisa.length === 0) { htmlSisa = '<div style="text-align:center; color:#fb7185; font-size:12px; margin:10px 0; font-weight:700;">All tickets have been used.</div>'; } 
+            if(res.listSisa.length === 0) { htmlSisa = '<div style="text-align:center; color:#fca5a5; font-size:12px; margin:10px 0; font-weight:700;">Semua tiket telah habis digunakan.</div>'; } 
             else { for(var j=0; j<res.listSisa.length; j++) { var itemSisa = res.listSisa[j]; htmlSisa += '<div class="ticket-chip"><div><strong>' + itemSisa.unit + '</strong><br><small style="color:var(--text-muted); font-size:11px;">' + itemSisa.benefit + '</small></div><span>READY</span></div>'; } }
             document.getElementById('tabelSisa').innerHTML = htmlSisa;
             document.getElementById('notaIdCek').innerText = id; document.getElementById('notaNamaCek').innerText = res.customerName; document.getElementById('notaChannelCek').innerText = res.channelBeli;
-            document.getElementById('notaTanggalCek').innerText = res.waktuBeli || res.tanggalBeli || "System Record"; document.getElementById('notaBankCek').innerText = res.bankBeli || res.bank || "-";
+            document.getElementById('notaTanggalCek').innerText = res.waktuBeli || res.tanggalBeli || "Sesuai Riwayat Sistem"; document.getElementById('notaBankCek').innerText = res.bankBeli || res.bank || "-";
           }
       });
     }
     function unduhNotaPDFCek() {
       var element = document.getElementById('notaKertasCek'); var idPaspor = document.getElementById('notaIdCek').innerText;
-      var opt = { margin: 0.3, filename: 'Copy_Receipt_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
+      var opt = { margin: 0.3, filename: 'Salinan_Nota_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
       html2pdf().set(opt).from(element).save();
     }
 
@@ -854,25 +878,26 @@
       document.getElementById('loadingLaporan').style.display = 'block'; document.getElementById('contentLaporan').style.display = 'none';
       callAPI('getDashboardData', { selBulan: selBulan }, function(data) {
           document.getElementById('loadingLaporan').style.display = 'none'; document.getElementById('contentLaporan').style.display = 'block';
-          var selectEl = document.getElementById("filterBulan"); var currentVal = data.selectedMonth; selectEl.innerHTML = '<option value="ALL">All Months</option>';
+          var selectEl = document.getElementById("filterBulan"); var currentVal = data.selectedMonth; selectEl.innerHTML = '<option value="ALL">Semua Bulan</option>';
           if (data.availableMonths) { for (var key in data.availableMonths) { var opt = document.createElement("option"); opt.value = key; opt.innerText = data.availableMonths[key]; if (key === currentVal) opt.selected = true; selectEl.appendChild(opt); } }
           document.getElementById('statOmzet').innerText = data.totalOmzetFormatted; document.getElementById('statOmzetBca').innerText = data.bcaOmzetFormatted; document.getElementById('statOmzetBsi').innerText = data.bsiOmzetFormatted;
           document.getElementById('statKlaim').innerText = data.totalKlaimFormatted; document.getElementById('statPasporAktif').innerText = data.countPasporAktif; document.getElementById('statTiketUsed').innerText = data.countUsed;
           var htmlChannel = ''; for (var c in data.channelStats) { htmlChannel += '<tr><td>' + c + '</td><td style="text-align:right;">' + data.channelStats[c] + '</td></tr>'; }
-          if(htmlChannel === '') htmlChannel = '<tr><td colspan="2" style="text-align:center;">No sales yet</td></tr>'; document.getElementById('tbodyChannel').innerHTML = htmlChannel;
+          if(htmlChannel === '') htmlChannel = '<tr><td colspan="2" style="text-align:center;">Belum ada penjualan</td></tr>'; document.getElementById('tbodyChannel').innerHTML = htmlChannel;
           var htmlUnit = '';
-          for (var u in data.unitStats) { var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); htmlUnit += '<tr><td>' + u + '</td><td>' + data.unitStats[u].used + '</td><td style="color:var(--teal-main);">' + nilaiKlaimRupiah + '</td></tr>'; }
+          for (var u in data.unitStats) { var nilaiKlaimRupiah = "Rp" + data.unitStats[u].nilaiKlaim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); htmlUnit += '<tr><td>' + u + '</td><td>' + data.unitStats[u].used + '</td><td style="color:var(--green-light);">' + nilaiKlaimRupiah + '</td></tr>'; }
           document.getElementById('tbodyUnit').innerHTML = htmlUnit;
           allPasporAktifData = data.listPasporAktif || []; renderTabelPasporAktif(allPasporAktifData); renderWidgetKasirTerbaru(allPasporAktifData);
           document.getElementById('printOmzet').innerText = data.totalOmzetFormatted; document.getElementById('printOmzetBca').innerText = data.bcaOmzetFormatted + " (" + data.bcaCount + ")"; document.getElementById('printOmzetBsi').innerText = data.bsiOmzetFormatted + " (" + data.bsiCount + ")"; document.getElementById('printKlaim').innerText = data.totalKlaimFormatted;
-          var dateStr = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); document.getElementById('printTanggal').innerText = "Printed: " + dateStr;
-          var filterText = selectEl.options[selectEl.selectedIndex] ? selectEl.options[selectEl.selectedIndex].text : "All Months"; document.getElementById('printPeriodeBulan').innerText = "Report Period: " + filterText;
+          var dateStr = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); document.getElementById('printTanggal').innerText = "Tanggal Cetak: " + dateStr;
+          var filterText = selectEl.options[selectEl.selectedIndex] ? selectEl.options[selectEl.selectedIndex].text : "Semua Bulan"; document.getElementById('printPeriodeBulan').innerText = "Periode Laporan: " + filterText;
           
           var htmlPenjualan = '';
           for(var i=0; i<data.listPenjualan.length; i++) { 
             var item = data.listPenjualan[i]; 
-            var namaKaryawan = item.sales ? item.sales : "-";
-            htmlPenjualan += '<tr>' +
+            var namaKaryawan = item.sales ? item.sales : "-"; 
+            
+            htmlPenjualan += '<tr style="border-bottom: 1px solid #e2e8f0;">' +
               '<td style="text-align:center; padding: 4px; border: 1px solid #ccc;">' + (item.waktuPembelian || "-") + '</td>' +
               '<td style="text-align:center; padding: 4px; border: 1px solid #ccc;"><strong style="color:#193354;">' + item.id + '</strong></td>' +
               '<td style="padding: 4px; border: 1px solid #ccc;">' + item.nama + '</td>' +
@@ -881,7 +906,7 @@
               '<td style="text-align:center; padding: 4px; border: 1px solid #ccc;">' + item.bank + '</td>' +
               '</tr>'; 
           }
-          if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center; padding: 10px; border: 1px solid #ccc;">No sales yet.</td></tr>'; 
+          if(htmlPenjualan === '') htmlPenjualan = '<tr><td colspan="6" style="text-align:center; padding: 10px; border: 1px solid #ccc;">Belum ada penjualan.</td></tr>'; 
           document.getElementById('printTbodyPenjualan').innerHTML = htmlPenjualan;
           
           var groupedKlaim = {};
@@ -898,18 +923,18 @@
             }
             htmlKlaimContainer += '</tbody></table>';
           }
-          if(!hasKlaim) { htmlKlaimContainer += '<div style="text-align:center; padding:10px; font-size:10px; color:#7f8c8d;">No tickets claimed.</div>'; }
+          if(!hasKlaim) { htmlKlaimContainer += '<div style="text-align:center; padding:10px; font-size:10px; color:#7f8c8d;">Belum ada tiket yang diklaim.</div>'; }
           document.getElementById('printKlaimContainer').innerHTML = htmlKlaimContainer;
       });
     }
 
     function renderTabelPasporAktif(list) {
       var html = '';
-      if (!list || list.length === 0) { html = '<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding:10px;">No data</td></tr>'; } else {
+      if (!list || list.length === 0) { html = '<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding:10px;">Tidak ada data</td></tr>'; } else {
         for (var i = 0; i < list.length; i++) {
           var item = list[i]; var badgeStatus = '';
-          if (item.readyCount > 0) { badgeStatus = '<span class="badge-ready">' + item.readyCount + '/' + item.totalTiket + '</span>'; } else { badgeStatus = '<span class="badge-used">Used</span>'; }
-          html += '<tr onclick="langsungCekPaspor(\'' + item.rawId + '\')" style="cursor:pointer;"><td><strong style="color:var(--text-main);">' + item.id + '</strong><br><span style="font-size:10px; color:var(--text-muted);">' + item.nama + '</span></td><td>' + item.channel + '</td><td>' + badgeStatus + '</td></tr>';
+          if (item.readyCount > 0) { badgeStatus = '<span class="badge-ready">' + item.readyCount + '/' + item.totalTiket + '</span>'; } else { badgeStatus = '<span class="badge-used">Habis</span>'; }
+          html += '<tr onclick="langsungCekPaspor(\'' + item.rawId + '\')" style="cursor:pointer;"><td><strong style="color:#ffffff;">' + item.id + '</strong><br><span style="font-size:10px; color:var(--text-muted);">' + item.nama + '</span></td><td>' + item.channel + '</td><td>' + badgeStatus + '</td></tr>';
         }
       } document.getElementById('tbodyPasporAktif').innerHTML = html;
     }
@@ -920,28 +945,28 @@
     }
     function renderWidgetKasirTerbaru(list) {
       var el = document.getElementById('widgetKasirTerbaru'); if (!el) return;
-      if (!list || list.length === 0) { el.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:10px; background:var(--navy-dark); border-radius:12px; border:1px solid var(--border-color);">No activations yet</div>'; return; }
+      if (!list || list.length === 0) { el.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:10px; background:rgba(0,0,0,0.3); border:1px solid var(--glass-border); border-radius:12px;">Belum ada aktivasi</div>'; return; }
       var recent = list.slice().reverse().slice(0, 5); var html = '';
       for (var i = 0; i < recent.length; i++) {
-        var item = recent[i]; html += '<div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding:12px 0; cursor:pointer;" onclick="langsungCekPaspor(\'' + item.rawId + '\')"><div><b style="color:var(--text-main); font-size:14px;">' + item.id + '</b> - ' + item.nama + ' <br><span style="font-size:11px; color:var(--text-muted); font-weight:600;">' + item.channel + ' | ' + item.bank + '</span></div><div style="color:var(--teal-main); font-size:18px;">→</div></div>';
+        var item = recent[i]; html += '<div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.15); padding:12px 0; cursor:pointer;" onclick="langsungCekPaspor(\'' + item.rawId + '\')"><div><b style="color:#ffffff; font-size:14px;">' + item.id + '</b> - ' + item.nama + ' <br><span style="font-size:11px; color:var(--text-muted); font-weight:600;">' + item.channel + ' | ' + item.bank + '</span></div><div style="color:var(--green-light); font-size:18px;">›</div></div>';
       } el.innerHTML = html;
     }
     function langsungCekPaspor(idPaspor) { showMenu('cek'); document.getElementById('inputCekPaspor').value = idPaspor; prosesCekData(); }
 
     function mintaPinDownloadAwandra() {
       Swal.fire({
-        title: 'Security Verification', text: 'Enter Report PIN:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Download PDF', cancelButtonText: 'Cancel', confirmButtonColor: '#8ae2e6', customClass: { popup: 'swal-soft' }, heightAuto: false
-      }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_DOWNLOAD_FINANCE) { unduhLaporanAwandra(); } else { showToast('error', 'Invalid PIN.'); } } });
+        title: 'Verifikasi Keamanan', text: 'Masukkan PIN Otorisasi Laporan:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Unduh PDF', cancelButtonText: 'Batal', confirmButtonColor: '#16a34a', customClass: { popup: 'swal-soft' }, heightAuto: false
+      }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_DOWNLOAD_FINANCE) { unduhLaporanAwandra(); } else { showToast('error', 'PIN Tidak Valid.'); } } });
     }
     function unduhLaporanAwandra() {
-      showToast('info', 'Generating PDF...'); var printContent = document.getElementById('printArea').innerHTML;
+      showToast('info', 'Membuat PDF di Server...'); var printContent = document.getElementById('printArea').innerHTML;
       callAPI('generateReportPdf', { printContent: printContent }, function(res) {
         if (res.success) {
           var byteCharacters = atob(res.base64); var byteNumbers = new Array(byteCharacters.length);
           for (var i = 0; i < byteCharacters.length; i++) { byteNumbers[i] = byteCharacters.charCodeAt(i); }
           var byteArray = new Uint8Array(byteNumbers); var blob = new Blob([byteArray], { type: 'application/pdf' }); var blobUrl = URL.createObjectURL(blob);
-          var link = document.createElement('a'); link.href = blobUrl; link.download = res.filename; document.body.appendChild(link); link.click(); document.body.removeChild(link); setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 1000); showToast('success', 'PDF Downloaded');
-        } else { popNotification('PDF Generation Failed', res.message, 'error'); }
+          var link = document.createElement('a'); link.href = blobUrl; link.download = res.filename; document.body.appendChild(link); link.click(); document.body.removeChild(link); setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 1000); showToast('success', 'PDF Berhasil Diunduh');
+        } else { popNotification('Gagal Membuat PDF', res.message, 'error'); }
       });
     }
 
@@ -949,21 +974,21 @@
       const file = event.target.files[0]; 
       const btnAktivasi = document.getElementById('btnAktifkanPaspor');
       if (!file) { compressedImageBase64 = ""; isAiValid = false; document.getElementById('buktiPreviewName').innerText = ""; return; }
-      if (btnAktivasi) { btnAktivasi.disabled = true; btnAktivasi.innerText = "⏳ AI Scanning..."; btnAktivasi.style.background = "#475569"; btnAktivasi.style.cursor = "not-allowed"; }
-      showStatus('msgKasir', 'Scanning receipt...'); 
+      if (btnAktivasi) { btnAktivasi.disabled = true; btnAktivasi.innerText = "⏳ Memeriksa AI..."; btnAktivasi.style.background = "#94a3b8"; btnAktivasi.style.cursor = "not-allowed"; }
+      showStatus('msgKasir', 'Sistem memindai bukti transfer...'); 
       
       Tesseract.recognize(file, 'ind', { logger: m => {} } ).then(({ data: { text } }) => {
         var teksHurufBesar = text.toUpperCase().replace(/\s+/g, ' '); var aiPesan = "";
         var cekNominal = teksHurufBesar.includes('377') || teksHurufBesar.includes('375'); 
         var cekNamaRekening = teksHurufBesar.includes('KARYA GUNA SEMESTA') || teksHurufBesar.includes('GUNA SEMESTA KARYA');
         
-        if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:var(--teal-main); font-size:11px; font-weight:800;'>Valid Document Detected</span>"; } 
-        else { isAiValid = false; aiPesan = "<br><span style='color:#fb7185; font-size:11px; font-weight:800;'>Document Criteria Mismatch</span>"; }
-        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--text-main); font-weight:800;'>Photo Ready</span>" + aiPesan; hideStatus('msgKasir');
-        if (btnAktivasi) { btnAktivasi.disabled = false; if (isAiValid) { btnAktivasi.innerText = "Activate Now →"; btnAktivasi.style.background = "var(--teal-main)"; } else { btnAktivasi.innerText = "Force Activate (Manual)"; btnAktivasi.style.background = "#e11d48"; } btnAktivasi.style.cursor = "pointer"; }
+        if (cekNominal && cekNamaRekening) { isAiValid = true; aiPesan = "<br><span style='color:var(--green-light); font-size:11px; font-weight:800;'>Dokumen Valid Terdeteksi</span>"; } 
+        else { isAiValid = false; aiPesan = "<br><span style='color:#fca5a5; font-size:11px; font-weight:800;'>Dokumen Tidak Sesuai Kriteria</span>"; }
+        document.getElementById('buktiPreviewName').innerHTML = "<span style='color:#ffffff; font-weight:800;'>Foto Siap Diupload</span>" + aiPesan; hideStatus('msgKasir');
+        if (btnAktivasi) { btnAktivasi.disabled = false; if (isAiValid) { btnAktivasi.innerText = "Aktifkan Paspor"; btnAktivasi.style.background = "linear-gradient(135deg, var(--green-light), var(--green-dark))"; } else { btnAktivasi.innerText = "Aktifkan (Manual)"; btnAktivasi.style.background = "rgba(225, 29, 72, 0.5)"; } btnAktivasi.style.cursor = "pointer"; }
       }).catch(err => {
-        isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:var(--text-main); font-weight:800;'>Photo Ready</span><br><span style='color:#fb7185; font-size:11px; font-weight:800;'>AI Validation Failed</span>"; hideStatus('msgKasir');
-        if (btnAktivasi) { btnAktivasi.disabled = false; btnAktivasi.innerText = "Force Activate (Manual)"; btnAktivasi.style.background = "#e11d48"; btnAktivasi.style.cursor = "pointer"; }
+        isAiValid = false; document.getElementById('buktiPreviewName').innerHTML = "<span style='color:#ffffff; font-weight:800;'>Foto Siap</span><br><span style='color:#fca5a5; font-size:11px; font-weight:800;'>Gagal memvalidasi secara AI</span>"; hideStatus('msgKasir');
+        if (btnAktivasi) { btnAktivasi.disabled = false; btnAktivasi.innerText = "Aktifkan (Manual)"; btnAktivasi.style.background = "rgba(225, 29, 72, 0.5)"; btnAktivasi.style.cursor = "pointer"; }
       });
       const reader = new FileReader();
       reader.onload = function(e) { 
@@ -982,35 +1007,34 @@
       var hp = document.getElementById('noHpCust').value; 
       var channel = document.getElementById('channelBeli').value; 
       var bank = document.getElementById('bankTujuan').value;
-      
-      // Hapus pengecekan sales = kosong (Bisa dilewati)
-      var sales = document.getElementById('kodeSalesTerpilih').value || ""; 
+      var sales = document.getElementById('kodeSalesTerpilih').value; 
 
-      if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Please complete all required fields.'); 
-      if(!compressedImageBase64) return showToast('warning', 'Please attach transfer photo.');
+      if(!id || !nama || !hp || !channel || !bank) return showToast('warning', 'Lengkapi seluruh data transaksi.'); 
+      if(!sales) return showToast('warning', 'Pilih Nama Sales / Referral terlebih dahulu.');
+      if(!compressedImageBase64) return showToast('warning', 'Lampirkan foto bukti transfer.');
       
       if (isAiValid) { eksekusiAktivasi(id, nama, hp, channel, bank, sales); } else {
         Swal.fire({
-          title: 'Manual Override', text: 'Document validation failed. Enter Override PIN:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Proceed', cancelButtonText: 'Cancel', confirmButtonColor: '#8ae2e6', customClass: { popup: 'swal-soft' }, heightAuto: false
-        }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank, sales); } else { showToast('error', 'Invalid PIN. Denied.'); } } });
+          title: 'Otorisasi Manual', text: 'Sistem meragukan bukti transfer. Masukkan PIN Otorisasi untuk memaksa aktivasi:', input: 'password', inputAttributes: { maxlength: 4, autocapitalize: 'off', autocorrect: 'off', inputmode: 'numeric', style: 'text-align: center; letter-spacing: 5px; font-size: 18px;' }, showCancelButton: true, confirmButtonText: 'Lanjutkan', cancelButtonText: 'Batal', confirmButtonColor: '#16a34a', customClass: { popup: 'swal-soft' }, heightAuto: false
+        }).then((result) => { if (result.isConfirmed) { if (result.value === PIN_OVERRIDE_KASIR) { eksekusiAktivasi(id, nama, hp, channel, bank, sales); } else { showToast('error', 'PIN Tidak Valid. Ditolak.'); } } });
       }
     }
 
     function eksekusiAktivasi(id, nama, hp, channel, bank, sales) {
-      showStatus('msgKasir', 'Connecting to server...');
+      showStatus('msgKasir', 'Menghubungkan ke server...');
       callAPI('activatePassport', { id: id, nama: nama, hp: hp, channel: channel, bank: bank, sales: sales, compressedImageBase64: compressedImageBase64 }, function(res) {
           hideStatus('msgKasir');
           if(res.success) {
             document.getElementById('formKasirArea').style.display = 'none'; document.getElementById('notaArea').style.display = 'block';
             document.getElementById('notaId').innerText = res.receipt.id; document.getElementById('notaNama').innerText = res.receipt.nama; document.getElementById('notaTanggal').innerText = res.receipt.tanggal; document.getElementById('notaChannel').innerText = res.receipt.channel; document.getElementById('notaBank').innerText = res.receipt.bank; 
-            document.getElementById('notaTotal').innerText = "Rp377.000"; showToast('success', 'Activation Successful'); loadDashboardData(); 
-          } else { popNotification('Activation Denied', res.message, 'error'); }
+            document.getElementById('notaTotal').innerText = "Rp377.000"; showToast('success', 'Aktivasi Berhasil'); loadDashboardData(); 
+          } else { popNotification('Aktivasi Ditolak', res.message, 'error'); }
       });
     }
 
     function unduhNotaPDF() {
       var element = document.getElementById('notaKertas'); var idPaspor = document.getElementById('notaId').innerText;
-      var opt = { margin: 0.3, filename: 'Receipt_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
+      var opt = { margin: 0.3, filename: 'Nota_' + idPaspor + '.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, scrollY: 0, useCORS: true }, jsPDF: { unit: 'in', format: 'a5', orientation: 'portrait' } };
       html2pdf().set(opt).from(element).save();
     }
     
@@ -1019,19 +1043,19 @@
       if(allowedChannels.length > 1) { document.getElementById('channelBeli').value = ''; } document.getElementById('bankTujuan').value = ''; document.getElementById('infoRekeningBox').style.display = 'none'; document.getElementById('buktiUpload').value = ''; document.getElementById('buktiPreviewName').innerHTML = ''; 
       
       document.getElementById('inputPencarianSales').value = ''; document.getElementById('kodeSalesTerpilih').value = ''; 
-      document.getElementById('channelBeli').style.pointerEvents = 'none'; document.getElementById('channelBeli').style.background = 'var(--navy-dark)'; document.getElementById('channelBeli').style.opacity = '0.7';
+      document.getElementById('channelBeli').style.pointerEvents = 'none'; document.getElementById('channelBeli').style.background = 'rgba(0,0,0,0.5)';
 
       compressedImageBase64 = ""; isAiValid = false; document.getElementById('formKasirArea').style.display = 'block'; document.getElementById('notaArea').style.display = 'none'; hideStatus('msgKasir');
       const btnAktivasi = document.getElementById('btnAktifkanPaspor');
-      if (btnAktivasi) { btnAktivasi.disabled = false; btnAktivasi.innerText = "Activate Now →"; btnAktivasi.style.background = "var(--teal-main)"; btnAktivasi.style.cursor = "pointer"; }
+      if (btnAktivasi) { btnAktivasi.disabled = false; btnAktivasi.innerText = "Aktifkan Paspor"; btnAktivasi.style.background = "linear-gradient(135deg, var(--green-light), var(--green-dark))"; btnAktivasi.style.cursor = "pointer"; }
     }
-
+    
     let liveStream = null;
     let scanAnimationFrame = null;
 
     function bukaLiveScanner() {
       const petugas = document.getElementById('namaPetugas').value; 
-      if (!petugas) return showToast('warning', 'Officer ID required.');
+      if (!petugas) return showToast('warning', 'Identitas Petugas wajib diisi.');
       
       document.getElementById('btnBukaKamera').style.display = 'none';
       document.getElementById('reader').style.display = 'block';
@@ -1055,9 +1079,7 @@
         );
         
         let constraints = { video: { facingMode: "environment" } };
-        if (backCamera) {
-           constraints = { video: { deviceId: { exact: backCamera.deviceId } } };
-        }
+        if (backCamera) { constraints = { video: { deviceId: { exact: backCamera.deviceId } } }; }
 
         navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
           liveStream = stream;
@@ -1066,7 +1088,7 @@
           video.play();
           scanAnimationFrame = requestAnimationFrame(tick);
         }).catch(err => {
-          showToast('error', 'Camera access denied.');
+          showToast('error', 'Akses kamera ditolak sistem.');
           tutupLiveScanner();
         });
       });
@@ -1076,18 +1098,11 @@
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          
           let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
           
-          let code = jsQR(imageData.data, imageData.width, imageData.height, {
-            inversionAttempts: "attemptBoth"
-          });
+          let code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "attemptBoth" });
           
-          if (code && code.data) {
-             tutupLiveScanner();
-             bukaHalamanKonfirmasi(code.data, petugas);
-             return; 
-          }
+          if (code && code.data) { tutupLiveScanner(); bukaHalamanKonfirmasi(code.data, petugas); return; }
         }
         scanAnimationFrame = requestAnimationFrame(tick);
       }
@@ -1096,7 +1111,6 @@
     function tutupLiveScanner() {
       if (scanAnimationFrame) cancelAnimationFrame(scanAnimationFrame);
       if (liveStream) { liveStream.getTracks().forEach(track => track.stop()); liveStream = null; }
-      
       document.getElementById('reader').innerHTML = ''; 
       document.getElementById('reader').style.display = 'none'; 
       document.getElementById('btnTutupKamera').style.display = 'none'; 
@@ -1106,8 +1120,7 @@
     function prosesKlaimManual() {
       var petugas = document.getElementById('namaPetugas').value; 
       var voucher = document.getElementById('inputVoucherManual').value;
-      if(!petugas || !voucher) return showToast('warning', 'Officer & Code required.');
-      
+      if(!petugas || !voucher) return showToast('warning', 'Petugas & Kode wajib diisi.');
       document.getElementById('inputVoucherManual').value = ''; 
       bukaHalamanKonfirmasi(voucher, petugas);
     }
@@ -1115,12 +1128,8 @@
     function bukaHalamanKonfirmasi(voucher, petugas) {
       document.getElementById('petugasCard').style.display = 'none'; 
       document.getElementById('konfirmasiCard').style.display = 'flex'; 
-      
       document.getElementById('teksKodeVoucher').innerText = voucher;
-      
-      document.getElementById('btnProsesKlaim').onclick = function() {
-        eksekusiKlaimKeServer(voucher, petugas);
-      };
+      document.getElementById('btnProsesKlaim').onclick = function() { eksekusiKlaimKeServer(voucher, petugas); };
     }
 
     function batalKlaim() {
@@ -1130,27 +1139,14 @@
 
     function eksekusiKlaimKeServer(voucher, petugas) {
       const btn = document.getElementById('btnProsesKlaim');
-      btn.innerText = "⏳ Validating...";
-      btn.disabled = true;
-      btn.style.background = "#475569";
+      btn.innerText = "⏳ Memvalidasi..."; btn.disabled = true; btn.style.background = "rgba(255,255,255,0.2)";
 
       callAPI('scanVoucher', { voucher: voucher, petugas: petugas }, function(res) {
-        btn.innerText = "✅ Claim Ticket Now";
-        btn.disabled = false;
-        btn.style.background = "var(--teal-main)";
+        btn.innerText = "✅ Proses Klaim Tiket"; btn.disabled = false; btn.style.background = "linear-gradient(135deg, var(--green-light), var(--green-dark))";
 
-        if(res.success) { 
-          popNotification('VALID & SUCCESSFUL', res.message, 'success'); 
-          batalKlaim(); 
-        } 
-        else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { 
-          popNotification('TICKET ALREADY USED', res.message, 'error'); 
-          batalKlaim();
-        } 
-        else { 
-          popNotification('INVALID', res.message, 'warning'); 
-          batalKlaim();
-        }
+        if(res.success) { popNotification('TIKET VALID & BERHASIL', res.message, 'success'); batalKlaim(); } 
+        else if(res.message.includes("SUDAH DIGUNAKAN") || res.message.includes("Used")) { popNotification('TIKET SUDAH TERPAKAI', res.message, 'error'); batalKlaim(); } 
+        else { popNotification('TIDAK VALID', res.message, 'warning'); batalKlaim(); }
       });
     }
   </script>
